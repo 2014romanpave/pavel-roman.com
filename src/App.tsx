@@ -126,6 +126,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
 // --- КОНЕЦ ГЛИТЧ-ТЕГА ---
 
   const [lang, setLang] = useState<Language>('en');
+  const [isOpen, setIsOpen] = useState(false);
   const [activeModal, setActiveModal] = useState<ModalType>('none');
   const [previousModal, setPreviousModal] = useState<ModalType | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -160,7 +161,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
   }, [ctaPhrases.length]);
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-black font-sans selection:bg-white selection:text-black">
+    <div className="relative min-h-screen w-screen overflow-x-hidden bg-black font-sans selection:bg-white selection:text-black">
       {/* Global Header */}
       <header className="fixed top-0 left-0 w-full h-20 md:h-24 z-[9999] bg-black/75 backdrop-blur-lg border-b border-white/5 flex items-center justify-between px-4 md:px-8">
         <div 
@@ -286,9 +287,9 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
       </div>
 
       {/* UI Overlay */}
-      <div className="relative z-10 flex h-full w-full flex-col justify-center p-4 md:p-12 pt-20 md:pt-32 pointer-events-none pb-24 md:pb-32">
+      <main className="relative flex flex-col items-center justify-center min-h-screen w-full z-10 pointer-events-none">
         {/* Center Navigation */}
-        <nav className="flex flex-col items-center justify-center flex-grow pointer-events-auto">
+        <nav className="flex flex-col items-center justify-center pointer-events-auto">
           <ul className="flex flex-col items-center gap-2 md:gap-4">
             <NavItem 
               label={t('menu_1')} 
@@ -366,7 +367,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
             </li>
           </ul>
         </nav>
-      </div>
+      </main>
 
       {/* Overlays */}
       <AnimatePresence mode="wait">
@@ -771,14 +772,24 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
       </AnimatePresence>
 
       {/* Smart Dock */}
-      <nav 
+      <motion.nav 
         id="smart-dock" 
-        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max max-w-[104px] hover:max-w-[600px] group overflow-hidden shadow-2xl"
+        initial={false}
+        animate={isOpen ? "open" : "closed"}
+        variants={{
+          open: { maxWidth: '600px' },
+          closed: { maxWidth: '104px' }
+        }}
+        onMouseEnter={() => setIsOpen(true)}
+        onMouseLeave={() => setIsOpen(false)}
+        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto"
       >
         {/* Left: Rotating Logo */}
         <div 
           className="w-11 h-11 bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsOpen(!isOpen);
             setActiveModal('none');
             setSelectedProject(null);
           }}
@@ -792,7 +803,13 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         </div>
 
         {/* Center: Nav Links (Reveal on hover) */}
-        <div className="flex items-center gap-2 sm:gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 whitespace-nowrap pl-4 pr-1 sm:pr-2 z-10">
+        <motion.div 
+          variants={{
+            open: { opacity: 1, pointerEvents: 'auto' },
+            closed: { opacity: 0, pointerEvents: 'none' }
+          }}
+          className="flex items-center gap-2 sm:gap-4 transition-opacity duration-500 delay-100 whitespace-nowrap pl-4 pr-1 sm:pr-2 z-10"
+        >
           <button 
             onClick={() => {
               if (activeModal !== 'creative') setPreviousModal(activeModal);
@@ -847,17 +864,23 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           >
             {t('dock_audit')}
           </button>
-        </div>
+        </motion.div>
 
         {/* Right: Hamburger Icon (Hidden on hover) */}
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-opacity duration-300 pointer-events-none z-30">
+        <motion.div 
+          variants={{
+            open: { opacity: 0 },
+            closed: { opacity: 1 }
+          }}
+          className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center transition-opacity duration-300 pointer-events-none z-30"
+        >
           <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="22" height="1.5" fill="white"/>
             <rect y="6" width="16" height="1.5" fill="white"/>
             <rect y="12" width="22" height="1.5" fill="white"/>
           </svg>
-        </div>
-      </nav>
+        </motion.div>
+      </motion.nav>
     </div>
   );
 }

@@ -30,7 +30,7 @@ export function NavItem({
     >
       <div className="relative">
         <h1
-          className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight uppercase transition-all duration-500 group-hover:scale-105 tracking-tighter"
+          className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight uppercase transition-all duration-500 group-hover:scale-105 tracking-tighter text-center"
           data-i18n={i18nKey}
           data-target={target}
         >
@@ -43,7 +43,7 @@ export function NavItem({
           initial={{ opacity: 0, y: -5 }}
           animate={hoveredMenu === target ? { opacity: 0.5, y: 0 } : { opacity: 0, y: -5 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="text-[10px] md:text-xs font-medium tracking-[0.2em] text-zinc-500 uppercase mt-2 pointer-events-none"
+          className="text-[10px] md:text-xs font-medium tracking-[0.2em] text-zinc-500 uppercase mt-2 pointer-events-none text-center"
         >
           {description}
         </motion.p>

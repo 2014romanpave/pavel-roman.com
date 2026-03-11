@@ -6,7 +6,7 @@
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased overflow-hidden;
+    @apply bg-black text-white antialiased overflow-x-hidden;
   }
 }
 
@@ -64,7 +64,7 @@
 
 @layer base {
   body {
-    @apply bg-black text-white antialiased overflow-hidden;
+    @apply bg-black text-white antialiased overflow-x-hidden;
   }
 }
 
