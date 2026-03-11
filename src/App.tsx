@@ -377,8 +377,22 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-24 md:pt-32 flex flex-col overflow-y-auto custom-scrollbar"
+            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-28 md:pt-40 flex flex-col overflow-y-auto custom-scrollbar"
           >
+            {/* Mobile Close Button for Modal */}
+            <div 
+              onClick={() => {
+                setActiveModal(previousModal ? previousModal : 'none');
+                setPreviousModal(null);
+              }}
+              className="md:hidden fixed top-6 right-6 z-[100] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 cursor-pointer text-white"
+            >
+              <div className="relative w-4 h-4">
+                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current rotate-45"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current -rotate-45"></div>
+              </div>
+            </div>
+
             <div className="mt-12 md:mt-24 max-w-6xl mx-auto w-full pb-32">
               {activeModal === 'about' ? (
                 <>
@@ -559,8 +573,19 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   animate={{ x: 0 }}
                   exit={{ x: '100%' }}
                   transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                  className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-24 md:pt-32 overflow-y-auto custom-scrollbar"
+                  className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-28 md:pt-40 overflow-y-auto custom-scrollbar"
                 >
+                  {/* Mobile Close Button for Project Detail */}
+                  <div 
+                    onClick={() => setSelectedProject(null)}
+                    className="md:hidden fixed top-6 right-6 z-[100] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 cursor-pointer text-white"
+                  >
+                    <div className="relative w-4 h-4">
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current rotate-45"></div>
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current -rotate-45"></div>
+                    </div>
+                  </div>
+
                   <div className="mt-12 md:mt-24 max-w-5xl mx-auto w-full pb-32 space-y-16">
                     {selectedProject.category === 'creative' ? (
                       // Simple View
@@ -748,7 +773,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
       {/* Smart Dock */}
       <nav 
         id="smart-dock" 
-        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-[#111]/70 backdrop-blur-md border border-white/20 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max max-w-[104px] hover:max-w-[600px] group overflow-hidden shadow-2xl"
+        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max max-w-[104px] hover:max-w-[600px] group overflow-hidden shadow-2xl"
       >
         {/* Left: Rotating Logo */}
         <div 
@@ -774,7 +799,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('creative');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-white md:text-zinc-400 transition-colors"
             data-i18n="dock_works"
           >
             {t('dock_works')}
@@ -785,7 +810,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('store');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-white md:text-zinc-400 transition-colors"
             data-i18n="menu_store"
           >
             {t('menu_store')}
@@ -796,7 +821,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('about');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-white md:text-zinc-400 transition-colors"
             data-i18n="dock_about"
           >
             {t('dock_about')}
