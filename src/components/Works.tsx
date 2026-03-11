@@ -46,7 +46,7 @@ const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectCli
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-zinc-500 mt-4 md:mt-6 block"
+            className="text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] text-zinc-400 md:text-zinc-500 mt-4 md:mt-6 block"
           >
             {t('works_subtitle')}
           </motion.p>
@@ -59,7 +59,7 @@ const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectCli
               key={f.id}
               onClick={() => setFilter(f.id)}
               className={`relative pb-4 text-xs md:text-sm font-bold transition-colors duration-500 uppercase tracking-[0.2em] ${
-                filter === f.id ? 'text-white' : 'text-zinc-600 hover:text-zinc-300'
+                filter === f.id ? 'text-white' : 'text-zinc-400 md:text-zinc-600 hover:text-zinc-300'
               }`}
             >
               {f.label}
@@ -115,7 +115,7 @@ const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectCli
                 </h3>
                 <div className="flex items-center gap-3">
                   <span className="w-8 h-[1px] bg-zinc-700 group-hover:w-12 group-hover:bg-white transition-all duration-500" />
-                  <p className="text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] group-hover:text-zinc-300 transition-colors duration-500">
+                  <p className="text-zinc-400 md:text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] group-hover:text-zinc-300 transition-colors duration-500">
                     {t(project.descKey)}
                   </p>
                 </div>

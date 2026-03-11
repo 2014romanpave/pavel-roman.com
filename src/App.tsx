@@ -177,7 +177,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         {/* Project Title (Desktop/Tablet) */}
         {selectedProject && (
           <div className="hidden md:block absolute left-1/2 -translate-x-1/2 pointer-events-none">
-            <span className="text-[8px] md:text-[10px] font-bold tracking-[0.3em] text-zinc-500 uppercase block text-center mb-0.5">Project</span>
+            <span className="text-[8px] md:text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase block text-center mb-0.5">Project</span>
             <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase block text-center truncate max-w-[120px] md:max-w-none">
               {t(selectedProject.titleKey)}
             </span>
@@ -189,14 +189,14 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           <div className="text-sm flex gap-2 pointer-events-auto font-bold uppercase tracking-widest">
             <button 
               onClick={() => setLang('en')}
-              className={`transition-colors cursor-pointer ${lang === 'en' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+              className={`transition-colors cursor-pointer ${lang === 'en' ? 'text-white' : 'text-zinc-400 md:text-zinc-500 hover:text-zinc-300'}`}
             >
               EN
             </button>
             <span className="text-white/20">/</span>
             <button 
               onClick={() => setLang('ua')}
-              className={`transition-colors cursor-pointer ${lang === 'ua' ? 'text-white' : 'text-zinc-500 hover:text-zinc-300'}`}
+              className={`transition-colors cursor-pointer ${lang === 'ua' ? 'text-white' : 'text-zinc-400 md:text-zinc-500 hover:text-zinc-300'}`}
             >
               UA
             </button>
@@ -214,7 +214,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   setPreviousModal(null);
                 }
               }}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 cursor-pointer hover:scale-110 transition group"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 cursor-pointer hover:scale-110 transition group z-[100]"
             >
               <div className="relative w-4 h-4">
                 <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
@@ -226,7 +226,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
       </header>
 
       {/* Global Contact Info (Bottom Right) */}
-      <div className="fixed bottom-8 right-8 z-[9999] flex flex-col items-end text-right text-[10px] text-zinc-500 hidden md:flex pointer-events-auto font-medium tracking-widest uppercase">
+      <div className="fixed bottom-8 right-8 z-[9999] flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 hidden md:flex pointer-events-auto font-medium tracking-widest uppercase">
         <RotatingContact />
         <div className="mt-1">
           <GlitchCopyright />
@@ -350,7 +350,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                 initial={{ opacity: 0, y: -5 }}
                 animate={hoveredMenu === 'cta' ? { opacity: 0.5, y: 0 } : { opacity: 0, y: -5 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="text-[10px] md:text-xs font-medium tracking-[0.2em] text-zinc-500 uppercase mt-4 pointer-events-none"
+                className="text-[10px] md:text-xs font-medium tracking-[0.2em] text-zinc-400 md:text-zinc-500 uppercase mt-4 pointer-events-none"
               >
                 {t('menu_4_desc')}
               </motion.p>
@@ -358,7 +358,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
 
             {/* Mobile Contact Block */}
             <li className="mt-10 flex md:hidden flex-col items-center gap-1 pointer-events-auto text-center">
-              <div className="text-[10px] font-bold tracking-[0.3em] text-zinc-500">
+              <div className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500">
                 <RotatingContact />
               </div>
               <div className="mt-1">
@@ -378,7 +378,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-28 md:pt-40 flex flex-col overflow-y-auto custom-scrollbar"
+            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-20 md:pt-40 flex flex-col overflow-y-auto custom-scrollbar"
           >
             {/* Mobile Close Button for Modal */}
             <div 
@@ -574,7 +574,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   animate={{ x: 0 }}
                   exit={{ x: '100%' }}
                   transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                  className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-28 md:pt-40 overflow-y-auto custom-scrollbar"
+                  className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-20 md:pt-40 overflow-y-auto custom-scrollbar"
                 >
                   {/* Mobile Close Button for Project Detail */}
                   <div 
@@ -617,7 +617,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                           <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter">
                             {t(selectedProject.titleKey as string)}
                           </h2>
-                          <div className="flex items-center gap-4 text-zinc-500 text-sm font-medium uppercase tracking-widest">
+                          <div className="flex items-center gap-4 text-zinc-400 md:text-zinc-500 text-sm font-medium uppercase tracking-widest">
                             <span>{selectedProject.client || 'Personal Project'}</span>
                             <span className="w-1 h-1 bg-zinc-800 rounded-full" />
                             <span>{selectedProject.year || '2024'}</span>
@@ -648,7 +648,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                               <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none">
                                 {t(selectedProject.titleKey as string)}
                               </h2>
-                              <div className="flex items-center gap-4 text-zinc-500 text-sm font-medium uppercase tracking-widest">
+                              <div className="flex items-center gap-4 text-zinc-400 md:text-zinc-500 text-sm font-medium uppercase tracking-widest">
                                 <span>{selectedProject.client || 'Personal Project'}</span>
                                 <span className="w-1 h-1 bg-zinc-800 rounded-full" />
                                 <span>{selectedProject.year || '2024'}</span>
@@ -673,7 +673,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                           <div className="space-y-12">
                             {selectedProject.task && (
                               <div className="space-y-4">
-                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-500 uppercase">
+                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase">
                                   The Task
                                 </h3>
                                 <p className="text-lg md:text-xl text-zinc-300 leading-relaxed">
@@ -684,7 +684,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                             
                             {selectedProject.role && (
                               <div className="space-y-4">
-                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-500 uppercase">
+                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase">
                                   My Role
                                 </h3>
                                 <p className="text-lg md:text-xl text-zinc-300 leading-relaxed">
@@ -698,7 +698,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                           <div className="space-y-12">
                             {selectedProject.solution && (
                               <div className="space-y-4">
-                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-500 uppercase">
+                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase">
                                   The Solution
                                 </h3>
                                 <ul className="space-y-4">
@@ -714,7 +714,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
 
                             {selectedProject.outcome && (
                               <div className="space-y-4">
-                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-500 uppercase">
+                                <h3 className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase">
                                   The Outcome
                                 </h3>
                                 <p className="text-lg md:text-xl text-zinc-300 leading-relaxed">
@@ -786,7 +786,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
       >
         {/* Left: Rotating Logo */}
         <div 
-          className="w-11 h-11 bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
+          className="w-11 h-11 bg-zinc-800 rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(!isOpen);
@@ -796,7 +796,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         >
           <svg viewBox="0 0 100 100" className="w-full h-full scale-110">
             <path id="circlePath" d="M 50, 50 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0" fill="none" />
-            <text fontSize="12" fontWeight="900" fill="black" letterSpacing="1">
+            <text fontSize="12" fontWeight="900" fill="white" letterSpacing="1">
               <textPath href="#circlePath" startOffset="0%">PAVEL ROMAN 2026 • PAVEL ROMAN 2026 • </textPath>
             </text>
           </svg>

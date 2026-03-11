@@ -26,7 +26,7 @@ export default function Store({ lang, onSelectCourse }: { lang: Language; onSele
         <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6">
           {storeTitle}
         </h2>
-        <p className="text-zinc-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
+        <p className="text-zinc-400 md:text-zinc-500 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
           {storeDesc}
         </p>
       </motion.div>
@@ -69,7 +69,7 @@ export default function Store({ lang, onSelectCourse }: { lang: Language; onSele
                   </h3>
                   <span className="text-xl font-light tracking-widest text-zinc-400">{course.price}</span>
                 </div>
-                <p className="text-zinc-500 text-sm md:text-base leading-relaxed font-light tracking-wide max-w-md">
+                <p className="text-zinc-400 md:text-zinc-500 text-sm md:text-base leading-relaxed font-light tracking-wide max-w-md">
                   {ct.description}
                 </p>
                 

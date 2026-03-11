@@ -65,7 +65,7 @@ const MyWayFeed: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-zinc-500 text-xs md:text-sm font-bold uppercase tracking-[0.2em] flex items-center gap-3"
+          className="text-zinc-400 md:text-zinc-500 text-xs md:text-sm font-bold uppercase tracking-[0.2em] flex items-center gap-3"
         >
           <span>VISUAL ARCHIVE</span><span className="w-1 h-1 bg-zinc-800 rounded-full" /><span>МІЙ СЛІД</span>
         </motion.p>

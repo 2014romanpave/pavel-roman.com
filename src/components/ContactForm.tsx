@@ -97,7 +97,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ lang, t }) => {
         />
 
         <div className="flex flex-col gap-2">
-          <label className="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">{t('form_name')}</label>
+          <label className="text-[10px] font-bold tracking-widest text-zinc-400 md:text-zinc-500 uppercase">{t('form_name')}</label>
           <input 
             name="name"
             type="text" 
@@ -107,7 +107,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ lang, t }) => {
         </div>
         
         <div className="flex flex-col gap-2">
-          <label className="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">{t('form_contact')}</label>
+          <label className="text-[10px] font-bold tracking-widest text-zinc-400 md:text-zinc-500 uppercase">{t('form_contact')}</label>
           <input 
             name="contact"
             type="text" 
@@ -117,7 +117,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ lang, t }) => {
         </div>
         
         <div className="flex flex-col gap-2">
-          <label className="text-[10px] font-bold tracking-widest text-zinc-500 uppercase">{t('form_message')}</label>
+          <label className="text-[10px] font-bold tracking-widest text-zinc-400 md:text-zinc-500 uppercase">{t('form_message')}</label>
           <textarea 
             name="message"
             required
