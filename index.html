@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Pavel Roman | Independent Visual Practice</title>
+    <meta name="title" content="Pavel Roman | Independent Visual Practice" />
+    <meta name="description" content="Digital products and creatives that drive business impact. UI/UX Design, Ad Creatives, and Web Development by Pavel Roman." />
+    <meta name="keywords" content="UI/UX design, Art Director, Web Development, Ad Creatives, Pavel Roman, Digital Product Design, Branding" />
+    <meta name="author" content="Pavel Roman" />
+    <meta name="theme-color" content="#000000" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pavelroman.com/" />
+    <meta property="og:title" content="Pavel Roman | Visual Archive" />
+    <meta property="og:description" content="Premium digital solutions, UI/UX design, and ad creatives designed to scale your business." />
+    <meta property="og:image" content="/og-image.jpg" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://pavelroman.com/" />
+    <meta property="twitter:title" content="Pavel Roman | Visual Archive" />
+    <meta property="twitter:description" content="Premium digital solutions, UI/UX design, and ad creatives designed to scale your business." />
+    <meta property="twitter:image" content="/og-image.jpg" />
+
+    <style>
+      body { background-color: #000; margin: 0; overflow: hidden; }
+      #root:empty ~ .archive-loader,
+      #root:not(:empty) + .archive-loader {
+        display: none;
+      }
+      .archive-loader {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: #000; display: flex; flex-direction: column;
+        justify-content: center; align-items: center; z-index: 999999;
+      }
+      .spinning-logo {
+        width: 64px; height: 64px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: flex; justify-content: center; align-items: center;
+        animation: logo-spin 8s linear infinite;
+        overflow: hidden;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      }
+      .spinning-logo svg {
+        width: 115%; height: 115%;
+      }
+      .scanline {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.015) 50%);
+        background-size: 100% 4px; pointer-events: none; z-index: 10;
+      }
+      .loader-fallback {
+        margin-top: 20px;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        opacity: 0.5;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes logo-spin { 100% { transform: rotate(360deg); } }
+      @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <style>
+        body { background-color: #000; margin: 0; overflow: hidden; }
+        .archive-loader {
+          position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+          background-color: #000; display: flex; flex-direction: column;
+          justify-content: center; align-items: center; z-index: 999999;
+        }
+        .spinning-logo {
+          width: 64px; height: 64px;
+          background-color: #fff;
+          border-radius: 50%;
+          display: flex; justify-content: center; align-items: center;
+          animation: logo-spin 8s linear infinite;
+          overflow: hidden;
+          box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+        .spinning-logo svg {
+          width: 115%; height: 115%;
+        }
+        .scanline {
+          position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+          background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.015) 50%);
+          background-size: 100% 4px; pointer-events: none; z-index: 10;
+        }
+        @keyframes logo-spin { 100% { transform: rotate(360deg); } }
+      </style>
+      <div class="archive-loader">
+        <div class="scanline"></div>
+        <div class="spinning-logo">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path id="circlePath" d="M 50, 50 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0" fill="none" />
+            <text font-size="12.5" font-weight="900" font-family="Arial, Helvetica, sans-serif" fill="black" letter-spacing="1">
+              <textPath href="#circlePath" startOffset="0%">PAVEL ROMAN 2026 • PAVEL ROMAN 2026 • </textPath>
+            </text>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
