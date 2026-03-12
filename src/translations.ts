@@ -79,7 +79,7 @@ export const translations: Record<Language, TranslationDict> = {
     work_2_desc: "Product Design & Design System",
     work_3_title: "CRYPTO DASH",
     work_3_desc: "UX/UI & Data Visualization",
-    work_4_title: "LUXE INTERIORS",
+    work_4_title: "WHY MINIMALISM CONVERTS BETTER",
     work_4_desc: "Editorial Web Design",
     work_5_title: "MINIMAL E-COM",
     work_5_desc: "Mobile First Experience",
