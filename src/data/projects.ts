@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
       '/img/cryptodash-1.webp'
     ]
   },
-  { id: '4', category: 'creative', titleKey: 'work_4_title', descKey: 'work_4_desc', image: '/img/luxe-interiors.webp', client: 'Luxe Interiors', year: '2024' },
+  { id: '4', category: 'creative', titleKey: 'work_4_title', descKey: 'work_4_desc', image: '/img/zero_fragrance.webp', client: 'Luxe Interiors', year: '2026' },
   { 
     id: '5', 
     category: 'creative', 
