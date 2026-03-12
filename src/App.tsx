@@ -189,14 +189,14 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           <div className="text-sm flex gap-2 pointer-events-auto font-bold uppercase tracking-widest">
             <button 
               onClick={() => setLang('en')}
-              className={`transition-colors cursor-pointer ${lang === 'en' ? 'text-white' : 'text-zinc-400 md:text-zinc-500 hover:text-zinc-300'}`}
+              className={`transition-colors cursor-pointer ${lang === 'en' ? 'text-white' : 'text-white/40 md:text-zinc-500 hover:text-zinc-300'}`}
             >
               EN
             </button>
             <span className="text-white/20">/</span>
             <button 
               onClick={() => setLang('ua')}
-              className={`transition-colors cursor-pointer ${lang === 'ua' ? 'text-white' : 'text-zinc-400 md:text-zinc-500 hover:text-zinc-300'}`}
+              className={`transition-colors cursor-pointer ${lang === 'ua' ? 'text-white' : 'text-white/40 md:text-zinc-500 hover:text-zinc-300'}`}
             >
               UA
             </button>
@@ -214,11 +214,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   setPreviousModal(null);
                 }
               }}
-              className="w-10 h-10 flex items-center justify-center rounded-full !bg-white/10 backdrop-blur-md border border-white/20 cursor-pointer hover:scale-110 transition group !z-[9999] !text-white"
+              className="w-10 h-10 flex items-center justify-center rounded-full !bg-white backdrop-blur-md border border-white/30 cursor-pointer hover:scale-110 transition group !z-[9999] !text-black"
             >
               <div className="relative w-4 h-4">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45 transition-transform group-hover:-rotate-135"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black rotate-45 transition-transform group-hover:rotate-135"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black -rotate-45 transition-transform group-hover:-rotate-135"></div>
               </div>
             </div>
           )}
@@ -386,11 +386,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                 setActiveModal(previousModal ? previousModal : 'none');
                 setPreviousModal(null);
               }}
-              className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-black border border-white/40 cursor-pointer !text-white"
+              className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-white border border-white/40 cursor-pointer !text-black"
             >
               <div className="relative w-4 h-4">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45"></div>
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black rotate-45"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black -rotate-45"></div>
               </div>
             </div>
 
@@ -579,11 +579,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   {/* Mobile Close Button for Project Detail */}
                   <div 
                     onClick={() => setSelectedProject(null)}
-                    className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-black border border-white/40 cursor-pointer !text-white"
+                    className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-white border border-white/40 cursor-pointer !text-black"
                   >
                     <div className="relative w-4 h-4">
-                      <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45"></div>
-                      <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45"></div>
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black rotate-45"></div>
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black -rotate-45"></div>
                     </div>
                   </div>
 
@@ -782,7 +782,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         }}
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
-        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-neutral-900/90 backdrop-blur-md border border-white/20 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto"
+        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-zinc-800/95 backdrop-blur-md border border-white/30 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto"
       >
         {/* Left: Rotating Logo */}
         <div 
