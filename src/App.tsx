@@ -399,7 +399,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                 <>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-7xl mx-auto">
                     {/* Left Column: Visuals */}
-                    <div className="text-5xl lg:text-[4vw] xl:text-[4.5vw] font-bold uppercase leading-[0.85] text-[#333] break-words tracking-tight">
+                    <div className="text-5xl lg:text-[4vw] xl:text-[3.5vw] font-bold uppercase leading-[0.85] text-[#333] break-words tracking-tight">
                       <img 
                         src="/img/avatar.webp" 
                         alt="Pavel Roman" 
