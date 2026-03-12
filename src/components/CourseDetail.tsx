@@ -121,7 +121,7 @@ export default function CourseDetail({
                 disabled={isSending}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className="w-full py-6 bg-white text-black rounded-2xl font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
+                className="w-full py-6 !bg-white !text-black rounded-2xl font-bold uppercase tracking-[0.2em] text-[10px] md:text-xs hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_20px_40px_rgba(255,255,255,0.1)]"
               >
                 {isSending ? '...' : (showForm ? t('purchase_send') : t('buy_telegram'))}
               </motion.button>

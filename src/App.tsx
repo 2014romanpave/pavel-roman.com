@@ -189,14 +189,14 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           <div className="text-sm flex gap-2 pointer-events-auto font-bold uppercase tracking-widest">
             <button 
               onClick={() => setLang('en')}
-              className={`transition-colors cursor-pointer ${lang === 'en' ? 'text-white' : 'text-white/40 md:text-zinc-500 hover:text-zinc-300'}`}
+              className={`transition-colors cursor-pointer ${lang === 'en' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
             >
               EN
             </button>
             <span className="text-white/20">/</span>
             <button 
               onClick={() => setLang('ua')}
-              className={`transition-colors cursor-pointer ${lang === 'ua' ? 'text-white' : 'text-white/40 md:text-zinc-500 hover:text-zinc-300'}`}
+              className={`transition-colors cursor-pointer ${lang === 'ua' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
             >
               UA
             </button>
@@ -214,9 +214,9 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   setPreviousModal(null);
                 }
               }}
-              className="w-10 h-10 flex items-center justify-center rounded-full !bg-white backdrop-blur-md border border-white/30 cursor-pointer hover:scale-110 transition group !z-[9999] !text-black"
+              className="w-10 h-10 flex items-center justify-center rounded-full !bg-white border border-white/30 cursor-pointer hover:scale-110 transition group !z-[9999] !text-black"
             >
-              <div className="relative w-4 h-4">
+              <div className="relative w-4 h-4 pointer-events-none">
                 <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black rotate-45 transition-transform group-hover:rotate-135"></div>
                 <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-black -rotate-45 transition-transform group-hover:-rotate-135"></div>
               </div>
@@ -469,7 +469,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                             setPreviousModal('about');
                             setActiveModal('audit');
                           }}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
+                          className="inline-flex items-center justify-center px-6 py-3 rounded-full !bg-white !text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
                         >
                           {lang === 'en' ? 'DISCUSS' : 'ОБГОВОРИТИ'}
                         </button>
@@ -493,7 +493,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                             setPreviousModal('about');
                             setActiveModal('audit');
                           }}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
+                          className="inline-flex items-center justify-center px-6 py-3 rounded-full !bg-white !text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
                         >
                           {lang === 'en' ? 'DISCUSS' : 'ОБГОВОРИТИ'}
                         </button>
@@ -509,7 +509,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                       <p className="text-sm text-zinc-400 leading-relaxed mb-8 flex-grow">
                         {lang === 'en'
                           ? 'Development of a comprehensive content plan, social media growth strategy, and setup of effective ad campaigns that bring real profit.'
-                          : 'Розробка комплексного контент-плану, стратегії розвитку в соціальних мережах та налаштування ефективних рекламних кампаній, які приносять реальний прибуток.'}
+                          : 'Розробка комплексного контент-плану, стратегії розвитку в соціальних мережах та налаштування эффективних рекламних кампаній, які приносять реальний прибуток.'}
                       </p>
                       <div className="mt-auto flex items-end justify-between w-full">
                         <button 
@@ -517,7 +517,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                             setPreviousModal('about');
                             setActiveModal('audit');
                           }}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
+                          className="inline-flex items-center justify-center px-6 py-3 rounded-full !bg-white !text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
                         >
                           {lang === 'en' ? 'DISCUSS' : 'ОБГОВОРИТИ'}
                         </button>
@@ -796,7 +796,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         >
           <svg viewBox="0 0 100 100" className="w-full h-full scale-110">
             <path id="circlePath" d="M 50, 50 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0" fill="none" />
-            <text fontSize="12" fontWeight="900" fill="black" letterSpacing="1">
+            <text fontSize="12" fontWeight="900" fill="#000000" letterSpacing="1">
               <textPath href="#circlePath" startOffset="0%">PAVEL ROMAN 2026 • PAVEL ROMAN 2026 • </textPath>
             </text>
           </svg>

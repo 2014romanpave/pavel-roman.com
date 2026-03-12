@@ -151,7 +151,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ lang, t }) => {
           <button 
             type="submit"
             disabled={countdown > 0}
-            className={`px-8 py-4 bg-white text-black text-xs font-bold tracking-widest transition-all uppercase rounded-full ${
+            className={`px-8 py-4 !bg-white !text-black text-xs font-bold tracking-widest transition-all uppercase rounded-full ${
               countdown > 0 
                 ? 'opacity-50 cursor-not-allowed' 
                 : 'hover:scale-105 active:scale-95 cursor-pointer'
