@@ -61,7 +61,7 @@ export default function CourseDetail({
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         onClick={onBack}
-        className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-zinc-500 hover:text-white transition-colors mb-12"
+        className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] !text-zinc-400 md:!text-zinc-500 hover:!text-white transition-colors mb-12"
       >
         <span>← {t('back')}</span>
       </motion.button>

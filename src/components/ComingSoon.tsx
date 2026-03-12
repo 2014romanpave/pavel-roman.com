@@ -76,7 +76,7 @@ export const ComingSoon: React.FC<ComingSoonProps> = ({ t, onBack }) => {
           <div className="pt-20">
             <button 
               onClick={onBack}
-              className="text-[10px] font-bold tracking-[0.4em] text-zinc-500 uppercase hover:text-white transition-colors border-b border-zinc-800 hover:border-white pb-2"
+              className="text-[10px] font-bold tracking-[0.4em] !text-zinc-400 md:!text-zinc-500 uppercase hover:!text-white transition-colors border-b border-zinc-800 hover:border-white pb-2"
             >
               {t('back_to_home')}
             </button>

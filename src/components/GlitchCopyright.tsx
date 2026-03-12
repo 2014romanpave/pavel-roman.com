@@ -42,7 +42,7 @@ export const GlitchCopyright: React.FC = () => {
     <div className="relative inline-block w-24 text-right select-none group overflow-visible">
       <motion.div
         animate={controls}
-        className="relative font-mono text-[10px] tracking-[0.2em] text-zinc-500/70 uppercase"
+        className="relative font-mono text-[10px] tracking-[0.2em] !text-zinc-400 md:!text-zinc-500/70 uppercase"
         style={{ textShadow: isGlitching ? '2px 0 #ff0000, -2px 0 #0000ff' : 'none' }}
       >
         <span className="relative z-10">{currentText}</span>

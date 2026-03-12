@@ -217,8 +217,8 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               className="w-10 h-10 flex items-center justify-center rounded-full !bg-white/10 backdrop-blur-md border border-white/20 cursor-pointer hover:scale-110 transition group !z-[9999] !text-white"
             >
               <div className="relative w-4 h-4">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
-                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white -rotate-45 transition-transform group-hover:-rotate-135"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45 transition-transform group-hover:-rotate-135"></div>
               </div>
             </div>
           )}
@@ -342,7 +342,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
             >
               <span 
                 id="dynamic-cta"
-                className={`relative cursor-pointer inline-block text-sm sm:text-base font-light text-white/70 border border-white/25 rounded-[50px] px-7 py-2.5 hover:border-white hover:text-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 transition-all duration-500 ease tracking-[1px] uppercase ${isFading ? 'opacity-0' : 'opacity-100'}`}
+                className={`relative cursor-pointer inline-block text-sm sm:text-base font-light !text-white border border-white/25 rounded-[50px] px-7 py-2.5 hover:border-white hover:text-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 transition-all duration-500 ease tracking-[1px] uppercase ${isFading ? 'opacity-0' : 'opacity-100'}`}
               >
                 {ctaPhrases[phraseIndex]}
               </span>
@@ -386,11 +386,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                 setActiveModal(previousModal ? previousModal : 'none');
                 setPreviousModal(null);
               }}
-              className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-neutral-800 backdrop-blur-md border border-white/10 cursor-pointer !text-white"
+              className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-black border border-white/40 cursor-pointer !text-white"
             >
               <div className="relative w-4 h-4">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current rotate-45"></div>
-                <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current -rotate-45"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45"></div>
+                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45"></div>
               </div>
             </div>
 
@@ -579,11 +579,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   {/* Mobile Close Button for Project Detail */}
                   <div 
                     onClick={() => setSelectedProject(null)}
-                    className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-neutral-800 backdrop-blur-md border border-white/10 cursor-pointer !text-white"
+                    className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-black border border-white/40 cursor-pointer !text-white"
                   >
                     <div className="relative w-4 h-4">
-                      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current rotate-45"></div>
-                      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current -rotate-45"></div>
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45"></div>
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45"></div>
                     </div>
                   </div>
 

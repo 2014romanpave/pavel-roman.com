@@ -30,7 +30,7 @@ export function NavItem({
     >
       <div className="relative">
         <h1
-          className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight uppercase transition-all duration-500 group-hover:scale-105 tracking-tighter"
+          className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight uppercase transition-all duration-500 group-hover:scale-105 tracking-tighter !text-white"
           data-i18n={i18nKey}
           data-target={target}
         >

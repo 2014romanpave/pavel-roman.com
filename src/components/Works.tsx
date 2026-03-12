@@ -59,7 +59,7 @@ const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectCli
               key={f.id}
               onClick={() => setFilter(f.id)}
               className={`relative pb-4 text-xs md:text-sm font-bold transition-colors duration-500 uppercase tracking-[0.2em] ${
-                filter === f.id ? 'text-white' : 'text-zinc-400 md:text-zinc-600 hover:text-zinc-300'
+                filter === f.id ? '!text-white' : '!text-zinc-400 md:!text-zinc-600 hover:!text-zinc-300'
               }`}
             >
               {f.label}

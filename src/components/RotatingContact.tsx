@@ -31,7 +31,7 @@ export function RotatingContact() {
             href={contacts[index].href} 
             target={contacts[index].href.startsWith('http') ? "_blank" : undefined}
             rel={contacts[index].href.startsWith('http') ? "noopener noreferrer" : undefined}
-            className="block hover:text-white transition-colors tracking-widest uppercase truncate"
+            className="block !text-zinc-400 md:!text-zinc-500 hover:!text-white transition-colors tracking-widest uppercase truncate"
           >
             {contacts[index].label}
           </a>
