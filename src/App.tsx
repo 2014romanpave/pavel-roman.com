@@ -214,7 +214,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   setPreviousModal(null);
                 }
               }}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 cursor-pointer hover:scale-110 transition group z-[100]"
+              className="w-10 h-10 flex items-center justify-center rounded-full !bg-white/10 backdrop-blur-md border border-white/20 cursor-pointer hover:scale-110 transition group !z-[9999] !text-white"
             >
               <div className="relative w-4 h-4">
                 <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
@@ -378,7 +378,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-20 md:pt-40 flex flex-col overflow-y-auto custom-scrollbar"
+            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-12 md:pt-40 flex flex-col overflow-y-auto custom-scrollbar"
           >
             {/* Mobile Close Button for Modal */}
             <div 
@@ -386,7 +386,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                 setActiveModal(previousModal ? previousModal : 'none');
                 setPreviousModal(null);
               }}
-              className="md:hidden fixed top-6 right-6 z-[100] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 cursor-pointer text-white"
+              className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-neutral-800 backdrop-blur-md border border-white/10 cursor-pointer !text-white"
             >
               <div className="relative w-4 h-4">
                 <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current rotate-45"></div>
@@ -574,12 +574,12 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
                   animate={{ x: 0 }}
                   exit={{ x: '100%' }}
                   transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-                  className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-20 md:pt-40 overflow-y-auto custom-scrollbar"
+                  className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-12 md:pt-40 overflow-y-auto custom-scrollbar"
                 >
                   {/* Mobile Close Button for Project Detail */}
                   <div 
                     onClick={() => setSelectedProject(null)}
-                    className="md:hidden fixed top-6 right-6 z-[100] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 cursor-pointer text-white"
+                    className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full !bg-neutral-800 backdrop-blur-md border border-white/10 cursor-pointer !text-white"
                   >
                     <div className="relative w-4 h-4">
                       <div className="absolute top-1/2 left-0 w-full h-0.5 bg-current rotate-45"></div>
@@ -782,11 +782,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         }}
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
-        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-neutral-900/90 backdrop-blur-md border border-white/10 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto"
+        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-neutral-900/90 backdrop-blur-md border border-white/20 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto"
       >
         {/* Left: Rotating Logo */}
         <div 
-          className="w-11 h-11 bg-zinc-800 rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
+          className="w-11 h-11 !bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(!isOpen);
@@ -796,7 +796,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         >
           <svg viewBox="0 0 100 100" className="w-full h-full scale-110">
             <path id="circlePath" d="M 50, 50 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0" fill="none" />
-            <text fontSize="12" fontWeight="900" fill="white" letterSpacing="1">
+            <text fontSize="12" fontWeight="900" fill="black" letterSpacing="1">
               <textPath href="#circlePath" startOffset="0%">PAVEL ROMAN 2026 • PAVEL ROMAN 2026 • </textPath>
             </text>
           </svg>
@@ -816,7 +816,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('creative');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-white md:text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white !text-white md:!text-zinc-400 transition-colors"
             data-i18n="dock_works"
           >
             {t('dock_works')}
@@ -827,7 +827,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('store');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-white md:text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white !text-white md:!text-zinc-400 transition-colors"
             data-i18n="menu_store"
           >
             {t('menu_store')}
@@ -838,7 +838,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('about');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-white md:text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white !text-white md:!text-zinc-400 transition-colors"
             data-i18n="dock_about"
           >
             {t('dock_about')}
@@ -849,7 +849,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('myway');
               setSelectedProject(null);
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white text-zinc-400 transition-colors"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:text-white !text-white md:!text-zinc-400 transition-colors"
           >
             {t('nav_works')}
           </button>
@@ -859,7 +859,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
               setActiveModal('audit');
               setSelectedProject(null);
             }} 
-            className="bg-white text-black px-3 py-1 sm:px-4 sm:py-1.5 rounded-full hover:bg-black hover:text-white hover:shadow-[0_0_30px_rgba(255,255,255,0.8)] hover:scale-110 active:scale-95 transition-all duration-500 font-bold text-[10px] sm:text-xs uppercase tracking-widest"
+            className="!bg-white !text-black px-3 py-1 sm:px-4 sm:py-1.5 rounded-full hover:bg-black hover:text-white hover:shadow-[0_0_30px_rgba(255,255,255,0.8)] hover:scale-110 active:scale-95 transition-all duration-500 font-bold text-[10px] sm:text-xs uppercase tracking-widest"
             data-i18n="dock_audit"
           >
             {t('dock_audit')}
