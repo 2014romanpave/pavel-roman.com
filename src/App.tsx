@@ -12,6 +12,7 @@ import { MultilingualQuote } from './components/MultilingualQuote';
 import { ContactForm } from './components/ContactForm';
 import { GlitchCopyright } from './components/GlitchCopyright';
 import ProjectDetail from './pages/ProjectDetail';
+import NotFound from './pages/NotFound';
 import { About } from './components/About';
 import { HomeNav } from './components/HomeNav';
 import { SectionWrapper } from './components/SectionWrapper';
@@ -30,8 +31,8 @@ type ModalType = 'none' | 'creative' | 'ux' | 'store' | 'store_detail' | 'about'
 const RotatingFooter = () => {
   const contacts = [
     { text: '2014ROMANPAVEL@GMAIL.COM', href: 'mailto:2014romanpavel@gmail.com' },
-    { text: 'TELEGRAM', href: 'https://t.me/PavelRoman' },
-    { text: 'WHATSAPP', href: 'https://wa.me/1234567890' }
+    { text: 'TELEGRAM', href: 'https://t.me/PavelRomanWeb' },
+    { text: 'WHATSAPP', href: 'https://wa.me/0663525760' }
   ];
   const [index, setIndex] = useState(0);
 
@@ -43,7 +44,7 @@ const RotatingFooter = () => {
   }, [contacts.length]);
 
   return (
-    <div className="h-4 overflow-hidden relative">
+    <div className="h-4 overflow-hidden relative z-50 pointer-events-auto">
       <AnimatePresence mode="wait">
         <motion.a
           key={index}
@@ -54,7 +55,7 @@ const RotatingFooter = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="block hover:text-white transition-all duration-500 whitespace-nowrap"
+          className="block py-2 md:py-0 hover:text-white transition-all duration-500 whitespace-nowrap"
         >
           {contacts[index].text}
         </motion.a>
@@ -249,7 +250,7 @@ export default function App() {
             <Route path="/creative" element={<SectionWrapper><Works lang={lang} initialFilter="creative" /></SectionWrapper>} />
             <Route path="/ux" element={<SectionWrapper><Works lang={lang} initialFilter="ux" /></SectionWrapper>} />
             <Route path="/work/:slug" element={<ProjectDetail lang={lang} />} />
-            <Route path="*" element={<HomeNav t={t} setHoveredMenu={setHoveredMenu} hoveredMenu={hoveredMenu} />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </AnimatePresence>
