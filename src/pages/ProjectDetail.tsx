@@ -96,7 +96,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang }) => {
             />
           </motion.div>
 
-          <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed max-w-3xl whitespace-pre-wrap">
+          <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed max-w-6xl whitespace-pre-wrap">
             {getProjectTranslation('content')}
           </p>
         </div>
