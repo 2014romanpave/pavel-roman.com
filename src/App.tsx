@@ -179,11 +179,11 @@ export default function App() {
       {/* Organic Ambient Background */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-black">
         {/* Grain Texture */}
-        <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay" 
+        <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay hidden md:block" 
              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
         </div>
 
-        <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${hoveredMenu ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out hidden md:block ${hoveredMenu ? 'opacity-100' : 'opacity-0'}`}>
           {/* Creative Glow */}
           <div className={`absolute inset-0 transition-opacity duration-[1000ms] ${hoveredMenu === 'bg-creative' ? 'opacity-100' : 'opacity-0'}`}>
              <motion.div
@@ -264,11 +264,11 @@ export default function App() {
         }}
         onMouseEnter={() => setIsOpen(true)}
         onMouseLeave={() => setIsOpen(false)}
-        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-white/10 backdrop-blur-xl border border-white/30 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto"
+        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-white/10 backdrop-blur-xl border border-white/30 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto transform-gpu will-change-transform"
       >
         {/* Left: Rotating Logo */}
         <div 
-          className="w-11 h-11 !bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
+          className="w-11 h-11 !bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer transform-gpu will-change-transform"
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(!isOpen);
