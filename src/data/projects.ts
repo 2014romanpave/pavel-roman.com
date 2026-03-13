@@ -38,15 +38,15 @@ export const PROJECTS: Project[] = [
     ]
   },
   { 
-    slug: 'minimal-ecom', 
+    slug: 'zero-fragrance', 
     category: 'creative', 
     image: '/img/zero_fragrance.webp',
     client: 'Minimal E-com',
     year: '2026',
     gallery: [
-      'https://picsum.photos/seed/creative1/1080/1350',
-      'https://picsum.photos/seed/creative2/1080/1350',
-      'https://picsum.photos/seed/creative3/1080/1350'
+      '/img/zero_fragrance.webp',
+      '/img/zero_fragrance.webp',
+      '/img/zero_fragrance.webp'
     ]
   },
 ];

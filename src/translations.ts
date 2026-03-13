@@ -127,11 +127,12 @@ export const translations: Record<Language, TranslationDict> = {
         ],
         outcome: "The campaign saw a 45% increase in engagement compared to the previous year and was featured in several design publications."
       },
-      'minimal-ecom': {
-        title: "MINIMAL E-COM",
-        preview: "Mobile First Experience",
-        content: "Minimalist e-commerce interface designed for high-end fashion brands. Focus on speed, clarity, and seamless checkout experience.\n\nEvery interaction was polished to provide a premium feel on mobile devices."
-      }
+     'zero-fragrance': {
+        title: 'ZERO FRAGRANCE',
+        shortDescription: 'An anti-perfume concept. Brutalist digital experience focusing on raw elements and pure sensory perception.',
+        description: '“You don\'t need another perfume.” This is the core philosophy behind ZERO. We designed an anti-interface that strips away traditional marketing noise. Instead of selling a scent, the digital experience immerses the user in the raw, elemental atmosphere of the ingredients.',
+        details: 'Every interaction is built around darkness, cinematic light beams, and floating particles, creating a tactile digital journey where the absence of scent speaks louder than the fragrance itself.'
+      },
     }
   },
   ua: {
