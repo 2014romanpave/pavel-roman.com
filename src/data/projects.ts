@@ -44,9 +44,9 @@ export const PROJECTS: Project[] = [
     client: 'ZERO CONCEPT',
     year: '2026',
     gallery: [
-      'zero_fragrance.webp',
-      'zero_fragrance_2.webp',
-      'zero_fragrance_3.webp'
+      '/img/zero_fragrance.webp',
+      '/img/zero_fragrance_2.webp',
+      '/img/zero_fragrance_3.webp'
     ]
   },
 ];
