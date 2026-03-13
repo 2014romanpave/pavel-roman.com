@@ -6,33 +6,42 @@ export const GlitchCopyright: React.FC = () => {
   const [isGlitching, setIsGlitching] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+    let timeoutId: any;
+
     const triggerGlitch = async () => {
+      if (!isMounted) return;
       setIsGlitching(true);
       
-      // Стиль Терминатора: резкий сбой -> ЗАВИСАНИЕ -> резкий возврат
-      await controls.start({
-        x: [0, -4, 5, -2, 0, 0, 2, -1, 0],
-        y: [0, 1, -1, 0, 0, 0, -1, 1, 0],
-        opacity: [1, 0.3, 1, 0.8, 1, 1, 0.4, 0.9, 1],
-        // Увеличили длительность до 1.2 секунд. 
-        // Массив times определяет, в какой момент происходит каждое движение.
-        // Зависание происходит между 0.2 (20%) и 0.85 (85%) времени анимации.
-        transition: { 
-            duration: 1.2, 
-            times: [0, 0.05, 0.1, 0.15, 0.2, 0.85, 0.9, 0.95, 1], 
-            ease: "linear" 
-        }
-      });
+      try {
+        await controls.start({
+          x: [0, -4, 5, -2, 0, 0, 2, -1, 0],
+          y: [0, 1, -1, 0, 0, 0, -1, 1, 0],
+          opacity: [1, 0.3, 1, 0.8, 1, 1, 0.4, 0.9, 1],
+          transition: { 
+              duration: 1.2, 
+              times: [0, 0.05, 0.1, 0.15, 0.2, 0.85, 0.9, 0.95, 1], 
+              ease: "linear" 
+          }
+        });
+      } catch (e) {
+        // Animation interrupted
+      }
 
+      if (!isMounted) return;
       setIsGlitching(false);
 
-      // Рандомная задержка (от 4 до 9 секунд), чтобы это было неожиданно
       const nextDelay = Math.random() * 5000 + 4000;
-      setTimeout(triggerGlitch, nextDelay);
+      timeoutId = setTimeout(triggerGlitch, nextDelay);
     };
 
-    const initialTimeout = setTimeout(triggerGlitch, 3000);
-    return () => clearTimeout(initialTimeout);
+    timeoutId = setTimeout(triggerGlitch, 3000);
+    
+    return () => {
+      isMounted = false;
+      clearTimeout(timeoutId);
+      controls.stop();
+    };
   }, [controls]);
 
   const currentText = isGlitching ? "© 2026" : "© MMXXVI";

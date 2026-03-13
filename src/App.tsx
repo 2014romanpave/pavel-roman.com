@@ -27,6 +27,42 @@ const GLOW_COLORS = {
 
 type ModalType = 'none' | 'creative' | 'ux' | 'store' | 'store_detail' | 'about' | 'audit' | 'myway';
 
+const RotatingFooter = () => {
+  const contacts = [
+    { text: '2014ROMANPAVEL@GMAIL.COM', href: 'mailto:2014romanpavel@gmail.com' },
+    { text: 'TELEGRAM', href: 'https://t.me/PavelRoman' },
+    { text: 'WHATSAPP', href: 'https://wa.me/1234567890' }
+  ];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % contacts.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [contacts.length]);
+
+  return (
+    <div className="h-4 overflow-hidden relative">
+      <AnimatePresence mode="wait">
+        <motion.a
+          key={index}
+          href={contacts[index].href}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -20, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="block hover:text-white transition-all duration-500 whitespace-nowrap"
+        >
+          {contacts[index].text}
+        </motion.a>
+      </AnimatePresence>
+    </div>
+  );
+};
+
 export default function App() {
 
   useEffect(() => {
@@ -85,7 +121,7 @@ export default function App() {
           <div className="hidden md:block absolute left-1/2 -translate-x-1/2 pointer-events-none">
             <span className="text-[8px] md:text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase block text-center mb-0.5">Project</span>
             <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase block text-center truncate max-w-[120px] md:max-w-none">
-              {t(`projects.${currentProject.slug}.title`)}
+              {translations[lang].projects[currentProject.slug].title}
             </span>
           </div>
         )}
@@ -113,7 +149,11 @@ export default function App() {
             <div 
               onClick={(e) => {
                 e.stopPropagation();
-                navigate('/');
+                if (window.history.length > 2) {
+                  navigate(-1);
+                } else {
+                  navigate('/');
+                }
               }}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/30 cursor-pointer hover:scale-110 transition group !z-[9999] !text-white"
             >
@@ -128,7 +168,7 @@ export default function App() {
 
       {/* Global Contact Info (Bottom Right) */}
       <div className="fixed bottom-8 right-8 z-[9999] flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 hidden md:flex pointer-events-auto font-medium tracking-widest uppercase">
-        <a href="mailto:2014romanpavel@gmail.com" className="hover:text-white transition-colors">2014romanpavel@gmail.com</a>
+        <RotatingFooter />
         <div className="mt-1">
           <GlitchCopyright />
         </div>

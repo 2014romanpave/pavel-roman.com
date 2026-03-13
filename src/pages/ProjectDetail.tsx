@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { PROJECTS } from '../data/projects';
 import { translations, type Language } from '../translations';
@@ -11,7 +11,16 @@ interface ProjectDetailProps {
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang }) => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const project = PROJECTS.find((p) => p.slug === slug);
+
+  const handleBack = () => {
+    if (window.history.length > 2) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
 
   const t = (key: string): string => {
     const dict = translations[lang] as any;
@@ -47,19 +56,24 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang }) => {
       className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-12 md:pt-40 overflow-y-auto custom-scrollbar"
     >
       {/* Back Button */}
-      <div 
-        onClick={() => navigate('/')}
+      <button 
+        onClick={handleBack}
         className="fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/40 cursor-pointer hover:scale-110 transition group !text-white"
       >
         <div className="relative w-4 h-4">
           <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
           <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45 transition-transform group-hover:-rotate-135"></div>
         </div>
-      </div>
+      </button>
 
       <div className="mt-12 md:mt-24 max-w-5xl mx-auto w-full pb-32 space-y-16">
         {/* Header */}
         <div className="space-y-8">
+          <div className="text-[10px] md:text-xs font-light tracking-[0.2em] text-zinc-500 uppercase mb-6">
+            <button onClick={() => navigate('/' + project.category)} className="hover:text-white transition-colors">Selected Works</button> 
+            <span className="mx-2 opacity-40">/</span> 
+            <span className="text-white">{getProjectTranslation('title')}</span>
+          </div>
           <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85]">
             {getProjectTranslation('title')}
           </h1>

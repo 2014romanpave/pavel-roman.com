@@ -49,16 +49,4 @@ export const PROJECTS: Project[] = [
       'https://picsum.photos/seed/creative3/1080/1350'
     ]
   },
-   { 
-    slug: 'minimal-eco', 
-    category: 'creative', 
-    image: '/img/minimal-ecom.webp',
-    client: 'Minimal E-com',
-    year: '2024',
-    gallery: [
-      'https://picsum.photos/seed/creative1/1080/1350',
-      'https://picsum.photos/seed/creative2/1080/1350',
-      'https://picsum.photos/seed/creative3/1080/1350'
-    ]
-  },
 ];
