@@ -129,8 +129,8 @@ export const translations: Record<Language, TranslationDict> = {
       },
      'zero-fragrance': {
         title: "ZERO FRAGRANCE",
-        preview: "Anti-perfume concept",
-        content: "“You don't need another perfume.” This is the core philosophy behind ZERO. We designed an anti-interface that strips away traditional marketing noise. Instead of selling a scent, the digital experience immerses the user in the raw, elemental atmosphere of the ingredients.\n\nEvery interaction is built around darkness, cinematic light beams, and floating particles, creating a tactile digital journey."
+        preview: "Anti-interface e-commerce",
+        content: "“You don't need another perfume.” ZERO is a radical shift in digital luxury. We stripped away traditional e-commerce noise to create an anti-interface — a purely sensory environment where the absence of aggressive marketing speaks louder than the product itself.\n\nInstead of selling a scent, we translated its raw ingredients into a tactile digital journey. Pitch-black aesthetics, cinematic lighting, and dynamic particle interactions force the user to feel the brand's philosophy before they even see the bottle."
       }
     }
   },
@@ -206,8 +206,8 @@ export const translations: Record<Language, TranslationDict> = {
       },
       'zero-fragrance': {
         title: "ZERO FRAGRANCE",
-        preview: "Анти-парфумерний концепт",
-        content: "«Вам не потрібен ще один парфум». Це головна філософія ZERO. Ми створили анти-інтерфейс, який позбувся традиційного маркетингового шуму. Замість того, щоб продавати аромат, цифровий досвід занурює користувача в сиру, елементарну атмосферу інгредієнтів.\n\nКожна взаємодія побудована навколо темряви, кінематографічних променів світла та летючих частинок, створюючи тактильну цифрову подорож."
+        preview: "Анти-інтерфейс e-commerce",
+        content: "«Вам не потрібен ще один парфум». ZERO — це радикальний зсув у цифровому люксі. Ми відкинули традиційний e-commerce шум, щоб створити анти-інтерфейс — суто сенсорне середовище, де відсутність агресивного маркетингу говорить гучніше за сам продукт.\n\nЗамість того, щоб продавати аромат, ми перетворили його сирі інгредієнти на тактильну цифрову подорож. Глибокий чорний колір, кінематографічне світло та динамічна взаємодія з частинками змушують користувача відчути філософію бренду ще до того, як він побачить сам флакон."
       }
     }
   }

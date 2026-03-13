@@ -41,7 +41,7 @@ export const PROJECTS: Project[] = [
     slug: 'zero-fragrance', 
     category: 'creative', 
     image: '/img/zero_fragrance.webp',
-    client: 'ZERO CONCEPT',
+    client: 'ZERO',
     year: '2026',
     gallery: [
       '/img/zero_fragrance.webp',
