@@ -30,7 +30,7 @@ type ModalType = 'none' | 'creative' | 'ux' | 'store' | 'store_detail' | 'about'
 
 const RotatingFooter = () => {
   const contacts = [
-    { text: '2014ROMANPAVEL@GMAIL.COM', href: 'mailto:2014romanpavel@gmail.com' },
+    { text: 'EMAIL', href: 'mailto:2014romanpavel@gmail.com' },
     { text: 'TELEGRAM', href: 'https://t.me/PavelRomanWeb' },
     { text: 'WHATSAPP', href: 'https://wa.me/0663525760' }
   ];
@@ -42,7 +42,7 @@ const RotatingFooter = () => {
   }, [contacts.length]);
 
   return (
-    <div className="h-6 relative z-[100] pointer-events-auto touch-manipulation block min-w-[180px]">
+    <div className="h-6 relative z-[100] w-full md:w-[250px] pointer-events-auto">
       <AnimatePresence mode="wait">
         <motion.a
           key={index}
@@ -53,7 +53,7 @@ const RotatingFooter = () => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -10, opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="absolute right-0 top-0 block p-6 -m-6 hover:text-white transition-all duration-500 whitespace-nowrap cursor-pointer"
+          className="absolute left-0 right-0 w-full text-center md:text-right top-0 py-4 md:py-0 hover:text-white transition-colors duration-500 whitespace-nowrap cursor-pointer pl-[0.1em]"
         >
           {contacts[index].text}
         </motion.a>
@@ -127,17 +127,17 @@ export default function App() {
 
         <div className="flex items-center gap-4 md:gap-8">
           {/* Global Language Switcher */}
-          <div className="text-sm flex gap-2 pointer-events-auto font-bold uppercase tracking-widest">
+          <div className="text-sm flex gap-2 pointer-events-auto font-bold uppercase tracking-widest z-[9999]">
             <button 
               onClick={() => setLang('en')}
-              className={`transition-colors cursor-pointer ${lang === 'en' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
+              className={`transition-colors cursor-pointer p-4 -m-4 pointer-events-auto ${lang === 'en' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
             >
               EN
             </button>
             <span className="text-white/20">/</span>
             <button 
               onClick={() => setLang('ua')}
-              className={`transition-colors cursor-pointer ${lang === 'ua' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
+              className={`transition-colors cursor-pointer p-4 -m-4 pointer-events-auto ${lang === 'ua' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
             >
               UA
             </button>
@@ -166,12 +166,25 @@ export default function App() {
       </header>
 
       {/* Global Contact Info (Bottom Right) */}
-      <div className="fixed bottom-8 right-8 z-[9999] flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 pointer-events-auto font-medium tracking-widest uppercase">
+      <div className="fixed bottom-8 right-8 z-[9999] hidden md:flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 pointer-events-auto font-medium tracking-widest uppercase">
         <RotatingFooter />
         <div className="mt-1">
           <GlitchCopyright />
         </div>
       </div>
+
+{/* Mobile-Only Home Contacts */}
+      {location.pathname === '/' && (
+        <div className="flex md:hidden flex-col items-center justify-center text-[10px] text-zinc-500 font-medium tracking-widest uppercase fixed bottom-[90px] left-0 w-full z-[9999] pointer-events-none">
+          <div className="w-full relative pointer-events-auto">
+            <RotatingFooter />
+          </div>
+         <div className="opacity-60 text-[9px] mt-4 w-full flex justify-center pointer-events-auto translate-x-[-16px]">
+            <GlitchCopyright />
+         </div>
+        </div>
+      )
+      }
 
       {/* Multilingual Rotating Quote (Bottom Left) */}
       <MultilingualQuote />
@@ -268,7 +281,7 @@ export default function App() {
       >
         {/* Left: Rotating Logo */}
         <div 
-          className="w-11 h-11 !bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer transform-gpu will-change-transform"
+          className="w-11 h-11 !bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(!isOpen);
@@ -295,7 +308,7 @@ export default function App() {
             onClick={() => {
               navigate('/creative');
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
             data-i18n="dock_works"
           >
             {t('dock_works')}
@@ -304,7 +317,7 @@ export default function App() {
             onClick={() => {
               navigate('/store');
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
             data-i18n="menu_store"
           >
             {t('menu_store')}
@@ -313,7 +326,7 @@ export default function App() {
             onClick={() => {
               navigate('/about');
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
             data-i18n="dock_about"
           >
             {t('dock_about')}
@@ -322,7 +335,7 @@ export default function App() {
             onClick={() => {
               navigate('/my-way');
             }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
+            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
           >
             {t('nav_works')}
           </button>

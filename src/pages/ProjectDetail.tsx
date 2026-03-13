@@ -55,17 +55,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang }) => {
       transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
       className="fixed inset-0 z-[70] bg-black text-white p-6 md:p-12 pt-12 md:pt-40 overflow-y-auto custom-scrollbar"
     >
-      {/* Back Button */}
-      <button 
-        onClick={handleBack}
-        className="fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/40 cursor-pointer hover:scale-110 transition group !text-white"
-      >
-        <div className="relative w-4 h-4">
-          <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
-          <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45 transition-transform group-hover:-rotate-135"></div>
-        </div>
-      </button>
-
       <div className="mt-12 md:mt-24 max-w-5xl mx-auto w-full pb-32 space-y-16">
         {/* Header */}
         <div className="space-y-8">
