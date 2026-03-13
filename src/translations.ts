@@ -127,10 +127,10 @@ export const translations: Record<Language, TranslationDict> = {
         ],
         outcome: "The campaign saw a 45% increase in engagement compared to the previous year and was featured in several design publications."
       },
-      'minimal-ecom': {
-        title: "MINIMAL E-COM",
-        preview: "Mobile First Experience",
-        content: "Minimalist e-commerce interface designed for high-end fashion brands. Focus on speed, clarity, and seamless checkout experience.\n\nEvery interaction was polished to provide a premium feel on mobile devices."
+     'zero-fragrance': {
+        title: "ZERO FRAGRANCE",
+        preview: "Anti-perfume concept",
+        content: "“You don't need another perfume.” This is the core philosophy behind ZERO. We designed an anti-interface that strips away traditional marketing noise. Instead of selling a scent, the digital experience immerses the user in the raw, elemental atmosphere of the ingredients.\n\nEvery interaction is built around darkness, cinematic light beams, and floating particles, creating a tactile digital journey."
       }
     }
   },
@@ -204,10 +204,10 @@ export const translations: Record<Language, TranslationDict> = {
         ],
         outcome: "Кампанія зафіксувала зростання залученості на 45% порівняно з попереднім роком і була відзначена у кількох дизайнерських виданнях."
       },
-      'minimal-ecom': {
-        title: "MINIMAL E-COM",
-        preview: "Mobile First досвід",
-        content: "Мінімалістичний інтерфейс електронної комерції, розроблений для модних брендів преміум-класу. Фокус на швидкості, чіткості та безшовному досвіді оформлення замовлення.\n\nКожна взаємодія була відшліфована для створення преміального відчуття на мобільних пристроях."
+      'zero-fragrance': {
+        title: "ZERO FRAGRANCE",
+        preview: "Анти-парфумерний концепт",
+        content: "«Вам не потрібен ще один парфум». Це головна філософія ZERO. Ми створили анти-інтерфейс, який позбувся традиційного маркетингового шуму. Замість того, щоб продавати аромат, цифровий досвід занурює користувача в сиру, елементарну атмосферу інгредієнтів.\n\nКожна взаємодія побудована навколо темряви, кінематографічних променів світла та летючих частинок, створюючи тактильну цифрову подорож."
       }
     }
   }
