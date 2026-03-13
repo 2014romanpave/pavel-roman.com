@@ -1,42 +1,42 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
-export function RotatingContact() {
+interface RotatingContactProps {
+  onClick: () => void;
+  t: (key: string) => string;
+}
+
+export function RotatingContact({ onClick, t }: RotatingContactProps) {
   const [index, setIndex] = useState(0);
-  const contacts = [
-    { label: '2014romanpavel@gmail.com', href: 'mailto:2014romanpavel@gmail.com' },
-    { label: 'TELEGRAM', href: 'https://t.me/PavelRomanWeb' },
-    { label: 'WHATSAPP', href: 'https://wa.me/0663525760' },
-    { label: 'INSTAGRAM', href: 'https://www.instagram.com/pavelroman.web/' }
-  ];
+  const keys = ['cta_audit', 'cta_discuss_project', 'cta_boost'] as const;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % contacts.length);
-    }, 3500);
+      setIndex((prev) => (prev + 1) % keys.length);
+    }, 3000);
     return () => clearInterval(interval);
-  }, [contacts.length]);
+  }, []);
 
   return (
-    <div className="h-4 overflow-hidden min-w-[120px]">
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      className="relative cursor-pointer inline-block text-sm sm:text-base font-light text-white border border-white/25 rounded-[50px] px-7 py-2.5 hover:border-white hover:text-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 transition-all duration-500 ease tracking-[1px] uppercase overflow-hidden min-w-[240px] bg-transparent"
+    >
       <AnimatePresence mode="wait">
-        <motion.div
+        <motion.span
           key={index}
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="block"
         >
-          <a 
-            href={contacts[index].href} 
-            target={contacts[index].href.startsWith('http') ? "_blank" : undefined}
-            rel={contacts[index].href.startsWith('http') ? "noopener noreferrer" : undefined}
-            className="block !text-zinc-400 md:!text-zinc-500 hover:!text-white transition-colors tracking-widest uppercase truncate"
-          >
-            {contacts[index].label}
-          </a>
-        </motion.div>
+          {t(keys[index])}
+        </motion.span>
       </AnimatePresence>
-    </div>
+    </button>
   );
 }

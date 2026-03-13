@@ -1,5 +1,15 @@
 export type Language = 'en' | 'ua';
 
+export interface ProjectTranslation {
+  title: string;
+  preview: string;
+  content: string;
+  role?: string;
+  task?: string;
+  solutions?: string[];
+  outcome?: string;
+}
+
 export interface TranslationDict {
   role: string;
   menu_1: string;
@@ -19,18 +29,6 @@ export interface TranslationDict {
   form_contact: string;
   form_message: string;
   discuss: string;
-  work_1_title: string;
-  work_1_desc: string;
-  work_2_title: string;
-  work_2_desc: string;
-  work_3_title: string;
-  work_3_desc: string;
-  work_4_title: string;
-  work_4_desc: string;
-  work_5_title: string;
-  work_5_desc: string;
-  work_6_title: string;
-  work_6_desc: string;
   dock_works: string;
   dock_about: string;
   dock_audit: string;
@@ -38,9 +36,14 @@ export interface TranslationDict {
   filter_all: string;
   filter_creatives: string;
   filter_uxui: string;
-  'cta.audit': string;
-  'cta.discuss_project': string;
-  'cta.boost': string;
+  cta_discuss: string;
+  cta_audit: string;
+  cta_discuss_project: string;
+  cta_boost: string;
+  cta_impressed: string;
+  cta_lets_discuss: string;
+  cta_order_project: string;
+  cta_order_design: string;
   buy_telegram: string;
   course_modules_title: string;
   course_get_title: string;
@@ -50,6 +53,7 @@ export interface TranslationDict {
   coming_soon_title: string;
   coming_soon_subtitle: string;
   back_to_home: string;
+  projects: Record<string, ProjectTranslation>;
 }
 
 export const translations: Record<Language, TranslationDict> = {
@@ -73,27 +77,20 @@ export const translations: Record<Language, TranslationDict> = {
     form_contact: "CONTACT / TELEGRAM",
     form_message: "PROJECT LINK / DETAILS",
     discuss: "DISCUSS A PROJECT",
-    work_1_title: "VOGUE CAMPAIGN",
-    work_1_desc: "Visual Identity & Social Assets",
-    work_2_title: "TECH FLOW",
-    work_2_desc: "Product Design & Design System",
-    work_3_title: "CRYPTO DASH",
-    work_3_desc: "UX/UI & Data Visualization",
-    work_4_title: "SELLING PURITY IN A SYNTHETIC WORLD",
-    work_4_desc: "Translating the invisible notes of a premium fragrance through raw elemental textures.",
-    work_5_title: "MINIMAL E-COM",
-    work_5_desc: "Mobile First Experience",
-    work_6_title: "ART GALLERY",
-    work_6_desc: "Immersive Digital Space",
     dock_works: "WORKS",
     dock_about: "ABOUT",
     dock_audit: "ORDER",
     filter_all: "ALL",
     filter_creatives: "AD CREATIVES",
     filter_uxui: "UX-UI DESIGN",
-    'cta.audit': 'GET A FREE VISUAL AUDIT',
-    'cta.discuss_project': "LET'S DISCUSS YOUR PROJECT",
-    'cta.boost': 'BOOST YOUR SALES WITH DESIGN',
+    cta_discuss: "DISCUSS A PROJECT",
+    cta_audit: "GET A FREE AUDIT",
+    cta_discuss_project: "DISCUSS YOUR PROJECT",
+    cta_boost: "BOOST YOUR BUSINESS",
+    cta_impressed: "IMPRESSED BY THE RESULT?",
+    cta_lets_discuss: "LET'S DISCUSS YOUR PROJECT",
+    cta_order_project: "ORDER PROJECT",
+    cta_order_design: "ORDER DESIGN",
     buy_telegram: 'BUY VIA TELEGRAM',
     course_modules_title: 'COURSE MODULES',
     course_get_title: 'WHAT YOU GET',
@@ -103,6 +100,39 @@ export const translations: Record<Language, TranslationDict> = {
     coming_soon_title: 'Products under development',
     coming_soon_subtitle: 'Stay tuned for updates',
     back_to_home: 'Back to Home',
+    projects: {
+      'vogue-campaign': {
+        title: "VOGUE CAMPAIGN",
+        preview: "Visual Identity & Social Assets",
+        content: "A comprehensive visual overhaul for Vogue Magazine's summer campaign. We focused on creating a digital-first identity that speaks to Gen-Z while preserving the heritage of the brand.\n\nThe project involved art direction, motion design, and a complete social media toolkit.",
+        role: "Lead Designer & Art Director",
+        task: "Create a cohesive visual identity for the upcoming summer campaign that resonates with a younger, digital-native audience while maintaining brand prestige.",
+        solutions: [
+          "Developed a vibrant color palette inspired by Mediterranean landscapes.",
+          "Designed over 50 social media assets including motion graphics and static posts.",
+          "Created a custom typography system for campaign headlines."
+        ],
+        outcome: "The campaign saw a 45% increase in engagement compared to the previous year and was featured in several design publications."
+      },
+       'vogue-campaig': {
+        title: "VOGUE CAMPAIGN",
+        preview: "Visual Identity & Social Assets",
+        content: "A comprehensive visual overhaul for Vogue Magazine's summer campaign. We focused on creating a digital-first identity that speaks to Gen-Z while preserving the heritage of the brand.\n\nThe project involved art direction, motion design, and a complete social media toolkit.",
+        role: "Lead Designer & Art Director",
+        task: "Create a cohesive visual identity for the upcoming summer campaign that resonates with a younger, digital-native audience while maintaining brand prestige.",
+        solutions: [
+          "Developed a vibrant color palette inspired by Mediterranean landscapes.",
+          "Designed over 50 social media assets including motion graphics and static posts.",
+          "Created a custom typography system for campaign headlines."
+        ],
+        outcome: "The campaign saw a 45% increase in engagement compared to the previous year and was featured in several design publications."
+      },
+      'minimal-ecom': {
+        title: "MINIMAL E-COM",
+        preview: "Mobile First Experience",
+        content: "Minimalist e-commerce interface designed for high-end fashion brands. Focus on speed, clarity, and seamless checkout experience.\n\nEvery interaction was polished to provide a premium feel on mobile devices."
+      }
+    }
   },
   ua: {
     role: "PAVEL ROMAN",
@@ -124,27 +154,20 @@ export const translations: Record<Language, TranslationDict> = {
     form_contact: "КОНТАКТ / TELEGRAM",
     form_message: "ПОСИЛАННЯ НА ПРОЄКТ / ДЕТАЛІ",
     discuss: "ОБГОВОРИТИ ПРОЕКТ",
-    work_1_title: "VOGUE CAMPAIGN",
-    work_1_desc: "Візуальна айдентика та активи",
-    work_2_title: "TECH FLOW",
-    work_2_desc: "Продуктовий дизайн та дизайн-система",
-    work_3_title: "CRYPTO DASH",
-    work_3_desc: "UX/UI та візуалізація даних",
-    work_4_title: "LUXE INTERIORS",
-    work_4_desc: "Едіторіал веб-дизайн",
-    work_5_title: "MINIMAL E-COM",
-    work_5_desc: "Mobile First досвід",
-    work_6_title: "ART GALLERY",
-    work_6_desc: "Імерсивний цифровий простір",
     dock_works: "РОБОТИ",
     dock_about: "ПРО МЕНЕ",
     dock_audit: "ORDER",
     filter_all: "ВСІ",
     filter_creatives: "КРЕАТИВИ",
     filter_uxui: "UX-UI ДИЗАЙН",
-    'cta.audit': 'ОТРИМАТИ БЕЗКОШТОВНИЙ АУДИТ',
-    'cta.discuss_project': 'ОБГОВОРИМО ВАШ ПРОЄКТ?',
-    'cta.boost': 'ПІДВИЩІТЬ ПРОДАЖІ',
+    cta_discuss: "ОБГОВОРИТИ ПРОЄКТ",
+    cta_audit: "БЕЗКОШТОВНИЙ АУДИТ",
+    cta_discuss_project: "ОБГОВОРИТИ ВАШ ПРОЄКТ",
+    cta_boost: "ПРОКАЧАТИ ВАШ БІЗНЕС",
+    cta_impressed: "ВРАЖЕНІ РЕЗУЛЬТАТОМ?",
+    cta_lets_discuss: "ОБГОВОРИМО ВАШ ПРОЄКТ",
+    cta_order_project: "ЗАМОВИТИ ПРОЄКТ",
+    cta_order_design: "ЗАМОВИТИ ДИЗАЙН",
     buy_telegram: 'КУПИТИ ЧЕРЕЗ TELEGRAM',
     course_modules_title: 'МОДУЛІ КУРСУ',
     course_get_title: 'ЩО ВИ ОТРИМАЄТЕ',
@@ -154,6 +177,39 @@ export const translations: Record<Language, TranslationDict> = {
     coming_soon_title: 'Продукти в розробці',
     coming_soon_subtitle: 'Слідкуйте за оновленнями',
     back_to_home: 'Назад на головну',
+    projects: {
+      'vogue-campaign': {
+        title: "VOGUE CAMPAIGN",
+        preview: "Візуальна айдентика та активи",
+        content: "Комплексне візуальне оновлення літньої кампанії Vogue Magazine. Ми зосередилися на створенні digital-first айдентики, яка звертається до покоління Z, зберігаючи при цьому спадщину бренду.\n\nПроєкт включав арт-дирекшн, моушн-дизайн та повний набір інструментів для соціальних мереж.",
+        role: "Провідний дизайнер та арт-директор",
+        task: "Створити цілісну візуальну айдентику для майбутньої літньої кампанії, яка резонує з молодою цифровою аудиторією, зберігаючи престиж бренду.",
+        solutions: [
+          "Розроблено яскраву кольорову палітру, натхненну середземноморськими пейзажами.",
+          "Спроектовано понад 50 активів для соціальних мереж, включаючи моушн-графіку та статичні пости.",
+          "Створено кастомну типографічну систему для заголовків кампанії."
+        ],
+        outcome: "Кампанія зафіксувала зростання залученості на 45% порівняно з попереднім роком і була відзначена у кількох дизайнерських виданнях."
+      },
+      'vogue-campaig': {
+        title: "VOGUE CAMPAIGN",
+        preview: "Візуальна айдентика та активи",
+        content: "Комплексне візуальне оновлення літньої кампанії Vogue Magazine. Ми зосередилися на створенні digital-first айдентики, яка звертається до покоління Z, зберігаючи при цьому спадщину бренду.\n\nПроєкт включав арт-дирекшн, моушн-дизайн та повний набір інструментів для соціальних мереж.",
+        role: "Провідний дизайнер та арт-директор",
+        task: "Створити цілісну візуальну айдентику для майбутньої літньої кампанії, яка резонує з молодою цифровою аудиторією, зберігаючи престиж бренду.",
+        solutions: [
+          "Розроблено яскраву кольорову палітру, натхненну середземноморськими пейзажами.",
+          "Спроектовано понад 50 активів для соціальних мереж, включаючи моушн-графіку та статичні пости.",
+          "Створено кастомну типографічну систему для заголовків кампанії."
+        ],
+        outcome: "Кампанія зафіксувала зростання залученості на 45% порівняно з попереднім роком і була відзначена у кількох дизайнерських виданнях."
+      },
+      'minimal-ecom': {
+        title: "MINIMAL E-COM",
+        preview: "Mobile First досвід",
+        content: "Мінімалістичний інтерфейс електронної комерції, розроблений для модних брендів преміум-класу. Фокус на швидкості, чіткості та безшовному досвіді оформлення замовлення.\n\nКожна взаємодія була відшліфована для створення преміального відчуття на мобільних пристроях."
+      }
+    }
   }
 };
 

@@ -1,20 +1,29 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { translations, type Language } from '../translations';
 import { PROJECTS } from '../data/projects';
 
 interface WorksProps {
   lang: Language;
   initialFilter?: 'all' | 'creative' | 'ux';
-  onProjectClick?: (projectId: string) => void;
 }
 
-const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectClick }) => {
+const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all' }) => {
   const [filter, setFilter] = useState<'all' | 'creative' | 'ux'>(initialFilter);
 
   const t = (key: string): string => {
     const dict = translations[lang] as any;
-    return dict[key] || key;
+    const keys = key.split('.');
+    let value = dict;
+    for (const k of keys) {
+      if (value && value[k]) {
+        value = value[k];
+      } else {
+        return key;
+      }
+    }
+    return typeof value === 'string' ? value : key;
   };
 
   const filteredProjects = PROJECTS.filter((project) => 
@@ -75,12 +84,12 @@ const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectCli
         </nav>
       </div>
 
-      {/* Grid Container - теперь это обычный div, чтобы не конфликтовать с детьми */}
+      {/* Grid Container */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-20">
         <AnimatePresence>
           {filteredProjects.map((project) => (
             <motion.div
-              key={project.id}
+              key={project.slug}
               layout
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -91,35 +100,35 @@ const Works: React.FC<WorksProps> = ({ lang, initialFilter = 'all', onProjectCli
                 scale: { duration: 0.3 },
                 y: { duration: 0.3 }
               }}
-              className="group cursor-pointer"
-              onClick={() => onProjectClick?.(project.id)}
             >
-              {/* Image Container */}
-              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-zinc-900 mb-8 relative">
-                <motion.img
-                  src={project.image}
-                  alt={t(project.titleKey)}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
-                  whileHover={{ scale: 1.08 }}
-                  transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-                />
-                {/* Subtle Overlay on Hover */}
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-              </div>
-
-              {/* Text Info */}
-              <div className="space-y-2 px-1">
-                <h3 className="text-2xl md:text-3xl font-bold tracking-tight uppercase leading-none">
-                  {t(project.titleKey)}
-                </h3>
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-[1px] bg-zinc-700 group-hover:w-12 group-hover:bg-white transition-all duration-500" />
-                  <p className="text-zinc-400 md:text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] group-hover:text-zinc-300 transition-colors duration-500">
-                    {t(project.descKey)}
-                  </p>
+              <Link to={`/work/${project.slug}`} className="group block">
+                {/* Image Container */}
+                <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-zinc-900 mb-8 relative">
+                  <motion.img
+                    src={project.image}
+                    alt={t(`projects.${project.slug}.title`)}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                  />
+                  {/* Subtle Overlay on Hover */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
                 </div>
-              </div>
+
+                {/* Text Info */}
+                <div className="space-y-2 px-1">
+                  <h3 className="text-2xl md:text-3xl font-bold tracking-tight uppercase leading-none">
+                    {t(`projects.${project.slug}.title`)}
+                  </h3>
+                  <div className="flex items-center gap-3">
+                    <span className="w-8 h-[1px] bg-zinc-700 group-hover:w-12 group-hover:bg-white transition-all duration-500" />
+                    <p className="text-zinc-400 md:text-zinc-500 text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] group-hover:text-zinc-300 transition-colors duration-500">
+                      {t(`projects.${project.slug}.preview`)}
+                    </p>
+                  </div>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </AnimatePresence>
