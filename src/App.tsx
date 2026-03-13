@@ -37,25 +37,23 @@ const RotatingFooter = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % contacts.length);
-    }, 3000);
+    const timer = setInterval(() => setIndex((prev) => (prev + 1) % contacts.length), 3000);
     return () => clearInterval(timer);
   }, [contacts.length]);
 
   return (
-    <div className="h-4 overflow-hidden relative z-50 pointer-events-auto">
+    <div className="h-6 relative z-[100] pointer-events-auto touch-manipulation block min-w-[180px]">
       <AnimatePresence mode="wait">
         <motion.a
           key={index}
           href={contacts[index].href}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="block py-2 md:py-0 hover:text-white transition-all duration-500 whitespace-nowrap"
+          exit={{ y: -10, opacity: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="absolute right-0 top-0 block p-6 -m-6 hover:text-white transition-all duration-500 whitespace-nowrap cursor-pointer"
         >
           {contacts[index].text}
         </motion.a>
@@ -168,7 +166,7 @@ export default function App() {
       </header>
 
       {/* Global Contact Info (Bottom Right) */}
-      <div className="fixed bottom-8 right-8 z-[9999] flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 hidden md:flex pointer-events-auto font-medium tracking-widest uppercase">
+      <div className="fixed bottom-8 right-8 z-[9999] flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 pointer-events-auto font-medium tracking-widest uppercase">
         <RotatingFooter />
         <div className="mt-1">
           <GlitchCopyright />

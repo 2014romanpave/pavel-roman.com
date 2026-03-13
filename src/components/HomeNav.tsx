@@ -66,16 +66,6 @@ export const HomeNav: React.FC<HomeNavProps> = ({ t, setHoveredMenu, hoveredMenu
               {t('menu_4_desc')}
             </motion.p>
           </li>
-
-          {/* Mobile Contact Block */}
-          <li className="mt-10 flex md:hidden flex-col items-center gap-1 pointer-events-auto text-center">
-            <div className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500">
-              <a href="mailto:2014romanpavel@gmail.com" className="hover:text-white transition-colors">2014romanpavel@gmail.com</a>
-            </div>
-            <div className="mt-1">
-              <GlitchCopyright />
-            </div>
-          </li>
         </ul>
       </nav>
     </main>
