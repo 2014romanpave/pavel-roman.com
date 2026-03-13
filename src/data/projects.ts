@@ -45,8 +45,8 @@ export const PROJECTS: Project[] = [
     year: '2026',
     gallery: [
       'zero_fragrance.webp',
-      'zero_fragrance.webp',
-      'zero_fragrance.webp'
+      'zero_fragrance_2.webp',
+      'zero_fragrance_3.webp'
     ]
   },
 ];
