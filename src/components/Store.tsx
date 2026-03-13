@@ -1,8 +1,10 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 import { translations, type Language } from '../translations';
 import { COURSES } from '../data/courses';
 
-export default function Store({ lang, onSelectCourse }: { lang: Language; onSelectCourse: (id: string) => void }) {
+export default function Store({ lang }: { lang: Language }) {
+  const navigate = useNavigate();
   const t = (key: string): string => {
     const dict = translations[lang] as any;
     return dict[key] || key;
@@ -46,7 +48,7 @@ export default function Store({ lang, onSelectCourse }: { lang: Language; onSele
                 ease: [0.22, 1, 0.36, 1] 
               }}
               className="group cursor-pointer"
-              onClick={() => onSelectCourse(course.id)}
+              onClick={() => navigate(`/store/${course.id}`)}
             >
               {/* Image Container */}
               <div className="aspect-video overflow-hidden rounded-2xl bg-zinc-900 mb-8 relative">

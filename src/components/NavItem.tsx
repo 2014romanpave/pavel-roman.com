@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useNavigate } from 'react-router-dom';
 
 interface NavItemProps {
   label: string;
@@ -7,6 +8,7 @@ interface NavItemProps {
   target: string;
   onHover: () => void;
   onLeave: () => void;
+  to?: string;
   onClick?: () => void;
   hoveredMenu: string | null;
 }
@@ -18,15 +20,23 @@ export function NavItem({
   target,
   onHover,
   onLeave,
+  to,
   onClick,
   hoveredMenu
 }: NavItemProps) {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (onClick) onClick();
+    if (to) navigate(to);
+  };
+
   return (
     <li
       className="group cursor-pointer flex flex-col items-center"
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className="relative">
         <h1

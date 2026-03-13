@@ -6,10 +6,9 @@ import { translations, type Language } from '../translations';
 
 interface ProjectDetailProps {
   lang: Language;
-  setActiveModal: (modal: any) => void;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang, setActiveModal }) => {
+const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang }) => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -156,8 +155,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang, setActiveModal }) =
 
           <button 
             onClick={() => {
-              setActiveModal('audit');
-              navigate('/');
+              navigate('/audit');
             }}
             className="bg-white text-black px-10 py-4 rounded-full font-bold uppercase tracking-wide hover:scale-105 transition-transform duration-300"
           >

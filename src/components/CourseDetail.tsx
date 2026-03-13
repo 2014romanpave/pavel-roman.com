@@ -1,18 +1,19 @@
 import { motion, AnimatePresence } from 'motion/react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { translations, type Language } from '../translations';
-import { type Course } from '../data/courses';
+import { COURSES } from '../data/courses';
 import { sendTelegramMessage } from '../services/telegram';
 import { useState } from 'react';
 
 export default function CourseDetail({ 
-  course, 
-  lang, 
-  onBack 
+  lang 
 }: { 
-  course: Course; 
   lang: Language; 
-  onBack: () => void 
 }) {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const course = COURSES.find(c => c.id === id);
+
   const [isSending, setIsSending] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -23,6 +24,10 @@ export default function CourseDetail({
     const dict = translations[lang] as any;
     return dict[key] || key;
   };
+
+  if (!course) {
+    return null;
+  }
 
   const ct = course.translations[lang];
 
@@ -60,7 +65,7 @@ export default function CourseDetail({
       <motion.button
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        onClick={onBack}
+        onClick={() => navigate('/store')}
         className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] !text-zinc-400 md:!text-zinc-500 hover:!text-white transition-colors mb-12"
       >
         <span>← {t('back')}</span>

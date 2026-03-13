@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useRef, type FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence, useAnimation } from 'motion/react';
-import { translations, type Language, type TranslationKey } from './translations';
-import { sendTelegramMessage } from './services/telegram';
-import { PROJECTS, type Project } from './data/projects';
+import { AnimatePresence } from 'motion/react';
+import { translations, type Language } from './translations';
+import { PROJECTS } from './data/projects';
 import Works from './components/Works';
 import Store from './components/Store';
 import CourseDetail from './components/CourseDetail';
 import { ComingSoon } from './components/ComingSoon';
 import MyWayFeed from './components/MyWayFeed';
-import { COURSES } from './data/courses';
-import { NavItem } from './components/NavItem';
 import { MultilingualQuote } from './components/MultilingualQuote';
-import { RotatingContact } from './components/RotatingContact';
 import { ContactForm } from './components/ContactForm';
 import { GlitchCopyright } from './components/GlitchCopyright';
 import ProjectDetail from './pages/ProjectDetail';
+import { About } from './components/About';
+import { HomeNav } from './components/HomeNav';
+import { SectionWrapper } from './components/SectionWrapper';
+import ScrollToTop from './components/ScrollToTop';
+import { motion } from 'motion/react';
 
 const GLOW_COLORS = {
   creative: 'rgba(190, 18, 60, 0.4)', // Глубокая малина
@@ -47,91 +48,9 @@ export default function App() {
     );
   }, []);
   
-  // --- ГЛИТЧ-ТЕГ ДЛЯ КАРТОЧЕК ---
-const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB }) => {
-  const controls = useAnimation();
-  const [isGlitching, setIsGlitching] = useState(false);
-  const [isWordB, setIsWordB] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-    let timeoutId: any;
-
-    const triggerGlitch = async () => {
-      if (!isMounted) return;
-      setIsGlitching(true);
-      
-      try {
-        await controls.start({
-          x: [0, -4, 5, -2, 0, 0, 2, -1, 0],
-          y: [0, 1, -1, 0, 0, 0, -1, 1, 0],
-          opacity: [1, 0.3, 1, 0.8, 1, 1, 0.4, 0.9, 1],
-          transition: { duration: 1.2, times: [0, 0.05, 0.1, 0.15, 0.2, 0.85, 0.9, 0.95, 1], ease: "linear" }
-        });
-      } catch (error) {
-        // Animation interrupted or component unmounted
-      }
-
-      if (!isMounted) return;
-      setIsGlitching(false);
-      setIsWordB(prev => !prev);
-      
-      const nextDelay = Math.random() * 5000 + 4000;
-      timeoutId = setTimeout(triggerGlitch, nextDelay);
-    };
-
-    timeoutId = setTimeout(triggerGlitch, Math.random() * 3000 + 2000);
-    
-    return () => {
-      isMounted = false;
-      clearTimeout(timeoutId);
-      controls.stop();
-    };
-  }, [controls]);
-
-  const currentText = isGlitching ? (isWordB ? wordA : wordB) : (isWordB ? wordB : wordA);
-
-  return (
-    <div className="relative inline-block w-20 text-right select-none group overflow-visible">
-      <motion.div
-        animate={controls}
-        className="relative font-mono text-[9px] tracking-widest text-zinc-600 uppercase"
-        style={{ textShadow: isGlitching ? '2px 0 #ff0000, -2px 0 #0000ff' : 'none' }}
-      >
-        <span className="relative z-10">{currentText}</span>
-        {isGlitching && (
-          <>
-            <motion.span
-              className="absolute top-0 right-0 text-red-500/80 mix-blend-screen pointer-events-none z-0"
-              animate={{ x: [-4, 4, -2, 0, 0, 3, -1], opacity: [0.8, 0.2, 0.9, 0.5, 0.5, 0.8, 0] }}
-              transition={{ duration: 1.2, times: [0, 0.1, 0.2, 0.3, 0.85, 0.95, 1] }}
-            >
-              {currentText}
-            </motion.span>
-            <motion.span
-              className="absolute top-0 right-0 text-blue-500/80 mix-blend-screen pointer-events-none z-0"
-              animate={{ x: [4, -4, 2, 0, 0, -3, 1], opacity: [0.8, 0.2, 0.9, 0.5, 0.5, 0.8, 0] }}
-              transition={{ duration: 1.2, times: [0, 0.1, 0.2, 0.3, 0.85, 0.95, 1] }}
-            >
-              {currentText}
-            </motion.span>
-            <div className="absolute inset-0 z-20 overflow-hidden pointer-events-none">
-              <motion.div className="absolute top-[30%] left-0 w-full h-[1px] bg-white/60" animate={{ opacity: [0, 1, 0, 0, 1, 0], y: [0, 2, -1, 0, 3, 0] }} transition={{ duration: 1.2, times: [0, 0.1, 0.2, 0.85, 0.9, 1] }} />
-              <motion.div className="absolute top-[70%] left-0 w-full h-[2px] bg-white/30" animate={{ opacity: [0, 1, 0], x: [-5, 5, 0] }} transition={{ duration: 1.2, times: [0, 0.15, 1] }} />
-            </div>
-          </>
-        )}
-      </motion.div>
-    </div>
-  );
-};
-// --- КОНЕЦ ГЛИТЧ-ТЕГА ---
-
+  
   const [lang, setLang] = useState<Language>('en');
   const [isOpen, setIsOpen] = useState(false);
-  const [activeModal, setActiveModal] = useState<ModalType>('none');
-  const [previousModal, setPreviousModal] = useState<ModalType | null>(null);
-  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
   
   const location = useLocation();
@@ -154,7 +73,6 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
       <header className="fixed top-0 left-0 w-full h-20 md:h-24 z-[9999] bg-black/75 backdrop-blur-lg border-b border-white/5 flex items-center justify-between px-4 md:px-8">
         <div 
           onClick={() => {
-            setActiveModal('none');
             navigate('/');
           }}
           className="uppercase tracking-widest text-sm cursor-pointer hover:opacity-70 transition font-bold"
@@ -191,16 +109,11 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           </div>
 
           {/* Close Button (Integrated into Header) */}
-          {(activeModal !== 'none' || location.pathname !== '/') && (
+          {location.pathname !== '/' && (
             <div 
               onClick={(e) => {
                 e.stopPropagation();
-                if (location.pathname !== '/') {
-                  navigate('/');
-                } else {
-                  setActiveModal(previousModal ? previousModal : 'none');
-                  setPreviousModal(null);
-                }
+                navigate('/');
               }}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/30 cursor-pointer hover:scale-110 transition group !z-[9999] !text-white"
             >
@@ -274,283 +187,31 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         </div>
       </div>
 
-      {/* UI Overlay */}
-      <main className="relative flex flex-col items-center justify-center min-h-screen w-full z-10 pointer-events-none">
-        {/* Center Navigation */}
-        <nav className="flex flex-col items-center justify-center pointer-events-auto">
-          <ul className="flex flex-col items-center gap-2 md:gap-4">
-            <NavItem 
-              label={t('menu_1')} 
-              description={t('menu_1_desc')}
-              i18nKey="menu_1"
-              target="bg-creative"
-              onClick={() => {
-                setActiveModal('creative');
-              }}
-              onHover={() => setHoveredMenu('bg-creative')} 
-              onLeave={() => setHoveredMenu(null)} 
-              hoveredMenu={hoveredMenu}
-            />
-            <NavItem 
-              label={t('menu_2')} 
-              description={t('menu_2_desc')}
-              i18nKey="menu_2"
-              target="bg-ux"
-              onClick={() => {
-                setActiveModal('ux');
-              }}
-              onHover={() => setHoveredMenu('bg-ux')} 
-              onLeave={() => setHoveredMenu(null)} 
-              hoveredMenu={hoveredMenu}
-            />
-            <NavItem 
-              label={t('menu_3')} 
-              description={t('menu_3_desc')}
-              i18nKey="menu_3"
-              target="bg-about"
-              onClick={() => {
-                setActiveModal('about');
-              }}
-              onHover={() => setHoveredMenu('bg-about')} 
-              onLeave={() => setHoveredMenu(null)} 
-              hoveredMenu={hoveredMenu}
-            />
-            <li 
-              className="mt-8 md:mt-14 flex flex-col items-center"
-              onMouseEnter={() => setHoveredMenu('cta')}
-              onMouseLeave={() => setHoveredMenu(null)}
-            >
-              <RotatingContact 
-                t={t}
-                onClick={() => {
-                  if (activeModal !== 'audit') setPreviousModal(activeModal);
-                  setActiveModal('audit');
-                }}
-              />
-              <motion.p 
-                initial={{ opacity: 0, y: -5 }}
-                animate={hoveredMenu === 'cta' ? { opacity: 0.5, y: 0 } : { opacity: 0, y: -5 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="text-[10px] md:text-xs font-medium tracking-[0.2em] text-zinc-400 md:text-zinc-500 uppercase mt-4 pointer-events-none"
-              >
-                {t('menu_4_desc')}
-              </motion.p>
-            </li>
-
-            {/* Mobile Contact Block */}
-            <li className="mt-10 flex md:hidden flex-col items-center gap-1 pointer-events-auto text-center">
-              <div className="text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500">
-                <a href="mailto:2014romanpavel@gmail.com" className="hover:text-white transition-colors">2014romanpavel@gmail.com</a>
-              </div>
-              <div className="mt-1">
-                <GlitchCopyright />
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </main>
-
-      {/* Overlays */}
+      {/* UI Overlay & Routing */}
+      <ScrollToTop />
       <AnimatePresence mode="wait">
-        {activeModal !== 'none' && (
-          <motion.div
-            key="main-modal"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-50 bg-black text-white p-6 md:p-12 pt-12 md:pt-40 flex flex-col overflow-y-auto custom-scrollbar"
-          >
-            {/* Mobile Close Button for Modal */}
-            <div 
-              onClick={() => {
-                setActiveModal(previousModal ? previousModal : 'none');
-                setPreviousModal(null);
-              }}
-              className="md:hidden fixed top-6 right-6 !z-[9999] w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/40 cursor-pointer !text-white"
-            >
-              <div className="relative w-4 h-4">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45"></div>
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45"></div>
-              </div>
-            </div>
-
-            <div className="mt-12 md:mt-24 max-w-6xl mx-auto w-full pb-32">
-              {activeModal === 'about' ? (
-                <>
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-7xl mx-auto">
-                    {/* Left Column: Visuals */}
-                    <div className="text-5xl lg:text-[4vw] xl:text-[4.5vw] font-bold uppercase leading-[0.85] text-[#333] break-words tracking-tight">
-                      <img 
-                        src="/img/avatar.webp" 
-                        alt="Pavel Roman" 
-                        className="float-left w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 object-cover rounded-full mr-6 mb-2 md:mr-8 md:mb-4" 
-                        style={{ shapeOutside: 'circle()', borderRadius: '50%' }}
-                        referrerPolicy="no-referrer"
-                      />
-                      "DON'T LET YOUR FEARS LIMIT YOUR POSSIBILITIES."
-                    </div>
-
-                    {/* Right Column: Information */}
-                    <div className="flex flex-col gap-12">
-                      <div className="space-y-6">
-                        <p className="text-xl md:text-3xl font-light leading-tight text-white" data-i18n="about_hello">
-                          {t('about_hello')}
-                        </p>
-                        <p className="text-lg md:text-xl text-zinc-400 leading-relaxed" data-i18n="about_text">
-                          {t('about_text')}
-                        </p>
-                      </div>
-
-                      {/* Social Links at the bottom */}
-                      <div className="pt-8 flex flex-wrap gap-8 border-t border-zinc-900">
-                        <a 
-                          href="https://www.behance.net/PavelRoman" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-xs font-bold tracking-[0.3em] uppercase hover:text-zinc-400 transition-colors border-b border-transparent hover:border-zinc-400 pb-1"
-                        >
-                          BEHANCE
-                        </a>
-                        <a 
-                          href="https://www.instagram.com/pavelroman.web/" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-xs font-bold tracking-[0.3em] uppercase hover:text-zinc-400 transition-colors border-b border-transparent hover:border-zinc-400 pb-1"
-                        >
-                          INSTAGRAM
-                        </a>
-                        <a 
-                          href="https://t.me/PavelRomanWeb" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-xs font-bold tracking-[0.3em] uppercase hover:text-zinc-400 transition-colors border-b border-transparent hover:border-zinc-400 pb-1"
-                        >
-                          TELEGRAM
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Services Section */}
-                  <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
-                    {/* Card 1: Creatives */}
-                    <div className="p-8 rounded-3xl border border-white/10 bg-zinc-900/30 hover:bg-zinc-900/80 transition-all duration-500 flex flex-col group">
-                      <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-white mb-4">
-                        {lang === 'en' ? 'CREATIVES' : 'КРЕАТИВИ'}
-                      </h3>
-                      <p className="text-sm text-zinc-400 leading-relaxed mb-8 flex-grow">
-                        {lang === 'en' 
-                          ? 'Creation of static and video creatives for targeted advertising. Design that breaks through banner blindness, grabs attention, and generates targeted leads for your business.'
-                          : 'Створення статичних та відеокреативів для таргетованої реклами. Дизайн, що пробиває банерну сліпоту, привертає увагу та генерує цільові ліди для вашого бізнесу.'}
-                      </p>
-                      <div className="mt-auto flex items-end justify-between w-full">
-                        <button 
-                          onClick={() => {
-                            setPreviousModal('about');
-                            setActiveModal('audit');
-                          }}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-full !bg-white !text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
-                        >
-                          {lang === 'en' ? 'DISCUSS' : 'ОБГОВОРИТИ'}
-                        </button>
-                        <GlitchTag wordA="VIDEO" wordB="BANNERS" />
-                      </div>
-                    </div>
-
-                    {/* Card 2: Web & App */}
-                    <div className="p-8 rounded-3xl border border-white/10 bg-zinc-900/30 hover:bg-zinc-900/80 transition-all duration-500 flex flex-col group">
-                      <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-white mb-4">
-                        {lang === 'en' ? 'WEB & APP DEVELOPMENT' : 'РОЗРОБКА WEB/APP'}
-                      </h3>
-                      <p className="text-sm text-zinc-400 leading-relaxed mb-8 flex-grow">
-                        {lang === 'en'
-                          ? 'Creation of modern websites, apps, and unique brand identity. Full-cycle turnkey development with a focus on high conversion and a premium visual experience.'
-                          : 'Створення сучасних веб-сайтів, додатків та унікальної айдентики брендів. Повний цикл розробки «під ключ» з фокусом на високу конверсію та преміальний візуальний досвід.'}
-                      </p>
-                      <div className="mt-auto flex items-end justify-between w-full">
-                        <button 
-                          onClick={() => {
-                            setPreviousModal('about');
-                            setActiveModal('audit');
-                          }}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-full !bg-white !text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
-                        >
-                          {lang === 'en' ? 'DISCUSS' : 'ОБГОВОРИТИ'}
-                        </button>
-                        <GlitchTag wordA="WEB" wordB="APP" />
-                      </div>
-                    </div>
-
-                    {/* Card 3: Strategy */}
-                    <div className="p-8 rounded-3xl border border-white/10 bg-zinc-900/30 hover:bg-zinc-900/80 transition-all duration-500 flex flex-col group">
-                      <h3 className="text-sm md:text-base font-bold uppercase tracking-widest text-white mb-4">
-                        {lang === 'en' ? 'STRATEGY & SMM' : 'СТРАТЕГІЯ ТА SMM'}
-                      </h3>
-                      <p className="text-sm text-zinc-400 leading-relaxed mb-8 flex-grow">
-                        {lang === 'en'
-                          ? 'Development of a comprehensive content plan, social media growth strategy, and setup of effective ad campaigns that bring real profit.'
-                          : 'Розробка комплексного контент-плану, стратегії розвитку в соціальних мережах та налаштування эффективних рекламних кампаній, які приносять реальний прибуток.'}
-                      </p>
-                      <div className="mt-auto flex items-end justify-between w-full">
-                        <button 
-                          onClick={() => {
-                            setPreviousModal('about');
-                            setActiveModal('audit');
-                          }}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-full !bg-white !text-black text-[10px] md:text-xs font-bold uppercase tracking-[0.1em] hover:scale-105 transition-transform duration-300 w-fit cursor-pointer"
-                        >
-                          {lang === 'en' ? 'DISCUSS' : 'ОБГОВОРИТИ'}
-                        </button>
-                        <GlitchTag wordA="SMM" wordB="TARGET" />
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : activeModal === 'audit' ? (
-                <ContactForm lang={lang} t={t} />
-              ) : (activeModal === 'store' || activeModal === 'store_detail') && IS_STORE_MAINTENANCE ? (
-                /* Если магазин на обслуживании — показываем ComingSoon */
-                <ComingSoon 
-                  t={t} 
-                  onBack={() => setActiveModal('none')} 
-                />
-              ) : activeModal === 'store' ? (
-                /* Если выбран магазин — показываем список курсов */
-                <Store 
-                  lang={lang} 
-                  onSelectCourse={(id) => {
-                    setSelectedCourseId(id);
-                    setActiveModal('store_detail');
-                  }}
-                />
-              ) : activeModal === 'store_detail' ? (
-                /* Если выбраны детали — показываем конкретный курс по ID */
-                <CourseDetail 
-                  lang={lang} 
-                  course={COURSES.find(c => c.id === selectedCourseId)!} 
-                  onBack={() => setActiveModal('store')}
-                />
-              ) : activeModal === 'myway' ? (
-                <MyWayFeed />
-              ) : (
-                /* В остальных случаях показываем работы (Works) */
-                <Works 
-                  lang={lang} 
-                  initialFilter={activeModal === 'creative' ? 'creative' : activeModal === 'ux' ? 'ux' : 'all'} 
-                />
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Routing for Project Details */}
-      <AnimatePresence mode="wait">
-        <Routes location={location}>
-          <Route path="/work/:slug" element={<ProjectDetail lang={lang} setActiveModal={setActiveModal} />} />
-          <Route path="*" element={null} />
-        </Routes>
+        <div key={location.pathname}>
+          <Routes location={location}>
+            <Route path="/" element={<HomeNav t={t} setHoveredMenu={setHoveredMenu} hoveredMenu={hoveredMenu} />} />
+            <Route path="/about" element={<SectionWrapper><About lang={lang} t={t} onDiscuss={() => navigate('/audit')} /></SectionWrapper>} />
+            <Route path="/store" element={
+              <SectionWrapper>
+                {IS_STORE_MAINTENANCE ? <ComingSoon t={t} onBack={() => navigate('/')} /> : <Store lang={lang} />}
+              </SectionWrapper>
+            } />
+            <Route path="/store/:id" element={
+              <SectionWrapper>
+                {IS_STORE_MAINTENANCE ? <ComingSoon t={t} onBack={() => navigate('/')} /> : <CourseDetail lang={lang} />}
+              </SectionWrapper>
+            } />
+            <Route path="/my-way" element={<SectionWrapper><MyWayFeed /></SectionWrapper>} />
+            <Route path="/audit" element={<SectionWrapper><ContactForm lang={lang} t={t} /></SectionWrapper>} />
+            <Route path="/creative" element={<SectionWrapper><Works lang={lang} initialFilter="creative" /></SectionWrapper>} />
+            <Route path="/ux" element={<SectionWrapper><Works lang={lang} initialFilter="ux" /></SectionWrapper>} />
+            <Route path="/work/:slug" element={<ProjectDetail lang={lang} />} />
+            <Route path="*" element={<HomeNav t={t} setHoveredMenu={setHoveredMenu} hoveredMenu={hoveredMenu} />} />
+          </Routes>
+        </div>
       </AnimatePresence>
 
       {/* Smart Dock */}
@@ -572,7 +233,6 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(!isOpen);
-            setActiveModal('none');
             navigate('/');
           }}
         >
@@ -594,9 +254,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
         >
           <button 
             onClick={() => {
-              if (activeModal !== 'creative') setPreviousModal(activeModal);
-              setActiveModal('creative');
-              navigate('/');
+              navigate('/creative');
             }} 
             className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
             data-i18n="dock_works"
@@ -605,9 +263,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           </button>
           <button 
             onClick={() => {
-              if (activeModal !== 'store') setPreviousModal(activeModal);
-              setActiveModal('store');
-              navigate('/');
+              navigate('/store');
             }} 
             className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
             data-i18n="menu_store"
@@ -616,9 +272,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           </button>
           <button 
             onClick={() => {
-              if (activeModal !== 'about') setPreviousModal(activeModal);
-              setActiveModal('about');
-              navigate('/');
+              navigate('/about');
             }} 
             className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
             data-i18n="dock_about"
@@ -627,9 +281,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           </button>
           <button 
             onClick={() => {
-              if (activeModal !== 'myway') setPreviousModal(activeModal);
-              setActiveModal('myway');
-              navigate('/');
+              navigate('/my-way');
             }} 
             className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95"
           >
@@ -637,9 +289,7 @@ const GlitchTag: React.FC<{ wordA: string, wordB: string }> = ({ wordA, wordB })
           </button>
           <button 
             onClick={() => {
-              if (activeModal !== 'audit') setPreviousModal(activeModal);
-              setActiveModal('audit');
-              navigate('/');
+              navigate('/audit');
             }} 
             className="!bg-white !text-black px-3 py-1 sm:px-4 sm:py-1.5 rounded-full hover:bg-black hover:text-white hover:shadow-[0_0_30px_rgba(255,255,255,0.8)] hover:scale-110 active:scale-95 transition-all duration-500 font-bold text-[10px] sm:text-xs uppercase tracking-widest"
             data-i18n="dock_audit"
