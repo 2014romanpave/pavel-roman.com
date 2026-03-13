@@ -80,6 +80,22 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ lang }) => {
               </div>
             )}
           </div>
+
+          {/* Cinematic Hero Image */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+            className="w-full mt-10 mb-16 rounded-2xl overflow-hidden relative max-h-[75vh]"
+          >
+            <img 
+              src={project.image} 
+              alt={getProjectTranslation('title') || "Project cover"} 
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+
           <p className="text-lg md:text-2xl text-zinc-300 leading-relaxed max-w-3xl whitespace-pre-wrap">
             {getProjectTranslation('content')}
           </p>
