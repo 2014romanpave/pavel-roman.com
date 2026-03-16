@@ -196,47 +196,56 @@ export default function App() {
              style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
         </div>
 
-        <div className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out hidden md:block ${hoveredMenu ? 'opacity-100' : 'opacity-0'}`}>
-          {/* Creative Glow */}
-          <div className={`absolute inset-0 transition-opacity duration-[1000ms] ${hoveredMenu === 'bg-creative' ? 'opacity-100' : 'opacity-0'}`}>
-             <motion.div
-               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-               style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.creative}, transparent 70%)` }}
-               animate={{ x: [-40, 40], rotate: [0, 10, 0] }}
-               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-             />
-          </div>
+        {/* --- FIX: OPTIMIZED RENDERING --- */}
+        {/* Render only when on Home path AND hover state is active to physically unmount when navigating to audit/work/myway */}
+        {location.pathname === '/' && hoveredMenu && (
+          // We removed the conditional opacity classes. Dom does not exist until hover, 
+          // and physically removes on navigation, saving huge GPU frames globally.
+          // Note: Framer motion will pop-in instead of CSS opacity fade due to DOM unmount. 
+          // To add fade, use AnimatePresence or add entrance animation to motion.divs below.
+          <div className="absolute inset-0 hidden md:block opacity-100 transition-opacity">
+            {/* Creative Glow */}
+            {hoveredMenu === 'bg-creative' && (
+               <motion.div
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
+                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.creative}, transparent 70%)` }}
+                 animate={{ x: [-40, 40], rotate: [0, 10, 0] }}
+                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+               />
+            )}
 
-          {/* UX Glow */}
-          <div className={`absolute inset-0 transition-opacity duration-[1000ms] ${hoveredMenu === 'bg-ux' ? 'opacity-100' : 'opacity-0'}`}>
-             <motion.div
-               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-               style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.ux}, transparent 70%)` }}
-               animate={{ x: [40, -40], rotate: [0, -10, 0] }}
-               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-             />
-          </div>
+            {/* UX Glow */}
+            {hoveredMenu === 'bg-ux' && (
+               <motion.div
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
+                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.ux}, transparent 70%)` }}
+                 animate={{ x: [40, -40], rotate: [0, -10, 0] }}
+                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+               />
+            )}
 
-          {/* Store Glow */}
-          <div className={`absolute inset-0 transition-opacity duration-[1000ms] ${hoveredMenu === 'bg-store' ? 'opacity-100' : 'opacity-0'}`}>
-             <motion.div
-               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-               style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.store}, transparent 70%)` }}
-               animate={{ scale: [1, 1.2, 1], rotate: [0, 15, 0] }}
-               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-             />
-          </div>
+            {/* Store Glow */}
+            {hoveredMenu === 'bg-store' && (
+               <motion.div
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
+                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.store}, transparent 70%)` }}
+                 animate={{ scale: [1, 1.2, 1], rotate: [0, 15, 0] }}
+                 transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+               />
+            )}
 
-          {/* About Glow */}
-          <div className={`absolute inset-0 transition-opacity duration-[1000ms] ${hoveredMenu === 'bg-about' ? 'opacity-100' : 'opacity-0'}`}>
-             <motion.div
-               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-               style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.about}, transparent 70%)` }}
-               animate={{ y: [-30, 30], scale: [1, 1.1, 1] }}
-               transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-             />
+            {/* About Glow */}
+            {hoveredMenu === 'bg-about' && (
+               <motion.div
+                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
+                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.about}, transparent 70%)` }}
+                 animate={{ y: [-30, 30], scale: [1, 1.1, 1] }}
+                 transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+               />
+            )}
           </div>
-        </div>
+        )}
+        {/* --- END FIX --- */}
       </div>
 
       {/* UI Overlay & Routing */}
@@ -368,5 +377,3 @@ export default function App() {
     </div>
   );
 }
-
-
