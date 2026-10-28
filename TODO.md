@@ -19,3 +19,11 @@
 - [ ] Google Search Console: verify domain, submit `/sitemap.xml`
 - [ ] Analytics (GA4 or Vercel Analytics) + events on Telegram click / form submit
 - [ ] Update Behance website link to https://pavelroman.com
+
+## Digital footprint (src/data/footprint.ts)
+- [ ] Set `INSTAGRAM_URL` once the handle is known; replace tiles with `placeholder: true` by real posts.
+- Manual: export post images to `public/img/footprint/*.webp`, add `{ type: 'post'|'reels', href: <post URL>, img, title }`.
+- Automatic: Instagram Graph API (Business/Creator account linked to a FB Page) → `GET /{ig-user-id}/media?fields=media_type,media_url,thumbnail_url,permalink,caption,timestamp` with a long-lived token stored in Vercel env (`IG_TOKEN`, never in code); fetch at build time in `scripts/prerender.mjs` (or a Vercel Cron rebuild daily) and write the list into the footprint data.
+
+## Courses teaser
+- [ ] `SHOW_COURSES_TEASER` in `src/extra.ts` hides/shows the "coming soon" block. Add real course pages only when program/price are defined.

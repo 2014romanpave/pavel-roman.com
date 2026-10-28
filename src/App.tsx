@@ -2,6 +2,7 @@ import { CONTACTS, DICT, LANGS, LANG_LABEL, type Lang } from './i18n';
 import { ContactForm } from './components/ContactForm';
 import { WorkPage } from './components/WorkPage';
 import { WORKS, WORK_UI, type WorkKey } from './work';
+import { Expertise, Footprint, CoursesTeaser } from './components/Blocks';
 import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
 const TAGS: [string, string][] = [['WEB', 'APP'], ['ADS', 'TARGET'], ['BRAND', 'SMM'], ['VIDEO', 'BANNERS']];
@@ -111,6 +112,8 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
           </div>
         </section>
 
+        <Expertise lang={lang} />
+
         <Section id="services" title={t.servicesTitle} sub={t.servicesSub}>
           <div className="divide-y divide-white/[0.05]">
             {t.packs.map((p, pi) => (
@@ -142,6 +145,9 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
           <p className="text-lg md:text-xl leading-relaxed text-stone-300 max-w-2xl">{t.aboutText}</p>
           <a href={CONTACTS.behance} target="_blank" rel="noopener" className="inline-block mt-8 text-sm text-stone-300 link-line pb-1">Behance ↗</a>
         </Section>
+
+        <Footprint lang={lang} />
+        <CoursesTeaser lang={lang} />
 
         <Section title={t.faqTitle}>
           <div className="max-w-2xl">
