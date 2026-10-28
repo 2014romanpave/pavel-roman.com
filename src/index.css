@@ -77,3 +77,43 @@
 .link-line { background: linear-gradient(currentColor,currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s ease; }
 .link-line:hover { background-size: 100% 1px; }
 html { scroll-behavior: smooth; }
+
+/* ---- v3 palette: warm graphite + grain + vignette ---- */
+:root { --bg: #12110f; --bg-2: #181614; --panel: #1d1b18; --ink: #ece6dc; }
+body { background: var(--bg) !important; }
+.page-bg { background: radial-gradient(120% 80% at 70% 0%, #1a1815 0%, var(--bg) 55%, #0d0c0b 100%); }
+.grain::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ---- restored effects ---- */
+.glitch { position: relative; display: inline-block; }
+.glitch.is-on > span:first-child { animation: g-jit 1.2s linear both; text-shadow: 1.5px 0 rgba(255,80,60,.7), -1.5px 0 rgba(80,140,255,.7); }
+.glitch-l, .glitch-r { position: absolute; inset: 0; mix-blend-mode: screen; pointer-events: none; }
+.glitch-l { color: rgba(255,90,70,.75); animation: g-l 1.2s linear both; }
+.glitch-r { color: rgba(90,150,255,.75); animation: g-r 1.2s linear both; }
+.glitch-n { position: absolute; left: 0; right: 0; top: 35%; height: 1px; background: rgba(255,255,255,.55); animation: g-n 1.2s linear both; }
+@keyframes g-jit { 0%{transform:none;opacity:1} 5%{transform:translate(-4px,1px);opacity:.3} 10%{transform:translate(5px,-1px);opacity:1} 15%{transform:translate(-2px,0);opacity:.8} 20%,85%{transform:none;opacity:1} 90%{transform:translate(2px,-1px);opacity:.4} 95%{transform:translate(-1px,1px);opacity:.9} 100%{transform:none;opacity:1} }
+@keyframes g-l { 0%{transform:translateX(-4px);opacity:.8} 10%{transform:translateX(4px);opacity:.2} 20%{transform:translateX(-2px);opacity:.9} 30%,85%{transform:none;opacity:.5} 95%{transform:translateX(3px);opacity:.8} 100%{opacity:0} }
+@keyframes g-r { 0%{transform:translateX(4px);opacity:.8} 10%{transform:translateX(-4px);opacity:.2} 20%{transform:translateX(2px);opacity:.9} 30%,85%{transform:none;opacity:.5} 95%{transform:translateX(-3px);opacity:.8} 100%{opacity:0} }
+@keyframes g-n { 0%{opacity:0} 10%{opacity:1;transform:translateY(2px)} 20%,85%{opacity:0} 90%{opacity:1;transform:translateY(3px)} 100%{opacity:0} }
+.rot-fade { animation: rot-fade 1s ease both; }
+@keyframes rot-fade { from { opacity: 0 } to { opacity: 1 } }
+.rot-slide { animation: rot-slide .4s ease-out both; }
+@keyframes rot-slide { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+.dock { max-width: 104px; transition: max-width .6s cubic-bezier(.76,0,.24,1); }
+.dock.is-open { max-width: 640px; }
+.dock-links { opacity: 0; pointer-events: none; transition: opacity .4s ease .1s; }
+.dock.is-open .dock-links { opacity: 1; pointer-events: auto; }
+.dock-burger { transition: opacity .3s; }
+.dock.is-open .dock-burger { opacity: 0; }
+.dock-logo svg { animation: spin 10s linear infinite; }
+
+/* cases */
+.case-frame { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.group:hover .case-frame { transform: translateY(-6px); }
+.case-mob { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.group:hover .case-mob { transform: translateY(-14px); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}

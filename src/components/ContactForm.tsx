@@ -17,7 +17,7 @@ export function ContactForm({ t, lang }: { t: Dict; lang: string }) {
       if (r.ok) form.reset();
     } catch { setState('err'); }
   }
-  const field = 'w-full bg-transparent border-b border-white/10 focus:border-white/60 outline-none py-3 text-sm text-white placeholder:text-zinc-600 transition-colors duration-500';
+  const field = 'w-full bg-transparent border-b border-white/10 focus:border-white/60 outline-none py-3 text-sm text-white placeholder:text-stone-600 transition-colors duration-500';
   return (
     <form onSubmit={onSubmit} className="relative flex flex-col gap-8 max-w-md">
       <input name="name" required maxLength={100} placeholder={t.fName} className={field} />
