@@ -105,7 +105,7 @@ body { background: var(--bg) !important; }
 .dock-links { opacity: 0; pointer-events: none; transition: opacity .4s ease .1s; }
 .dock.is-open .dock-links { opacity: 1; pointer-events: auto; }
 .dock-burger { transition: opacity .3s; }
-.dock.is-open .dock-burger { opacity: 0; }
+.dock.is-open .dock-burger { opacity: 0; pointer-events: none; }
 .dock-logo svg { animation: spin 10s linear infinite; }
 
 /* cases */

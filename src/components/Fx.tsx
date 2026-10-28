@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Lang } from '../i18n';
 import { CONTACTS } from '../i18n';
 import { tapSecret } from './Secret';
@@ -91,26 +91,37 @@ export function CornerContacts() {
 /** Smart dock (old bottom menu): rotating round logo, expands on hover/tap into section links + CTA. */
 export function Dock({ nav, cta, lang }: { nav: { cases: string; services: string; process: string; contact: string }; cta: string; lang: Lang }) {
   const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('pointerdown', onDown); document.addEventListener('keydown', onKey);
+    return () => { document.removeEventListener('pointerdown', onDown); document.removeEventListener('keydown', onKey); };
+  }, [open]);
+  // mouse already opened it on hover -> keep open (no double toggle); touch/keyboard -> toggle
+  const toggle = (e: React.MouseEvent) => { if ((e.nativeEvent as PointerEvent).pointerType === 'mouse') setOpen(true); else setOpen((v) => !v); };
   const name = lang === 'ua' || lang === 'ru' ? 'РОМАН ПАВЕЛ' : 'PAVEL ROMAN';
   const links: [string, string][] = [['#works', nav.cases], ['#services', nav.services], ['#process', nav.process]];
   return (
     <nav
       aria-label="menu"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      ref={ref}
+      onPointerEnter={(e) => { if (e.pointerType === 'mouse') setOpen(true); }}
+      onPointerLeave={(e) => { if (e.pointerType === 'mouse') setOpen(false); }}
       className={`dock fixed bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 z-50 h-14 flex items-center p-1.5 rounded-full border border-white/15 bg-stone-900/60 backdrop-blur-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,.8)] overflow-hidden ${open ? 'is-open' : ''}`}
     >
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="menu" className="w-11 h-11 shrink-0 rounded-full bg-[#ece6dc] text-[#14120f] p-0.5 dock-logo">
+      <button type="button" onClick={toggle} aria-expanded={open} aria-controls="dock-links" aria-label="menu" className="w-11 h-11 shrink-0 rounded-full bg-[#ece6dc] text-[#14120f] p-0.5 dock-logo">
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <path id="dockCircle" d="M 50, 50 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0" fill="none" />
           <text fontSize="11.5" fontWeight="600" fill="currentColor" letterSpacing="1.2"><textPath href="#dockCircle">{name} 2026 • {name} 2026 • </textPath></text>
         </svg>
       </button>
-      <div className="dock-links flex items-center gap-5 pl-5 pr-1 whitespace-nowrap">
+      <div id="dock-links" className="dock-links flex items-center gap-5 pl-5 pr-1 whitespace-nowrap">
         {links.map(([h, l]) => <a key={h} href={`/${lang}/${h}`} onClick={() => setOpen(false)} className="text-[11px] tracking-[0.18em] uppercase text-stone-400 hover:text-white transition-colors">{l}</a>)}
         <a href={`/${lang}/#contact`} onClick={() => setOpen(false)} className="rounded-full bg-[#ece6dc] text-[#14120f] px-4 py-1.5 text-[11px] tracking-[0.18em] uppercase hover:bg-white transition-colors">{cta}</a>
       </div>
-      <svg className="dock-burger absolute right-4 pointer-events-none" width="20" height="12" viewBox="0 0 22 14" fill="none"><rect width="22" height="1.3" fill="#d6d0c6"/><rect y="6" width="15" height="1.3" fill="#d6d0c6"/><rect y="12" width="22" height="1.3" fill="#d6d0c6"/></svg>
+      <button type="button" onClick={toggle} aria-expanded={open} aria-controls="dock-links" aria-label="menu" className="dock-burger absolute right-1.5 top-1.5 w-11 h-11 flex items-center justify-center"><svg width="20" height="12" viewBox="0 0 22 14" fill="none" aria-hidden><rect width="22" height="1.3" fill="#d6d0c6"/><rect y="6" width="15" height="1.3" fill="#d6d0c6"/><rect y="12" width="22" height="1.3" fill="#d6d0c6"/></svg></button>
     </nav>
   );
 }
