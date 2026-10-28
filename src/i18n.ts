@@ -68,9 +68,9 @@ const ua: Dict = {
   servicesTitle: 'Послуги та ціни', servicesSub: 'Фіксований обсяг і зрозуміла ціна. Точна сума — після короткого брифу.',
   from: 'від', popular: 'Найчастіше обирають',
   packs: [
-    { name: 'Сайт + Google Ads під ключ', price: '8 000 PLN', term: '3–5 тижнів', items: ['Дизайн і розробка сайту', 'Продаючі тексти', 'Налаштування Google Ads і аналітики', 'Google Business Profile', 'Підтримка першого місяця'] },
-    { name: 'Лендинг', price: '3 500 PLN', term: '1–2 тижні', items: ['Односторінковий сайт під послугу або акцію', 'Форма заявки в Telegram / email', 'Адаптив і базове SEO'] },
-    { name: 'Айдентика', price: '4 000 PLN', term: '2–3 тижні', items: ['Логотип і фірмові кольори', 'Шрифти та гайд', 'Візитки, вивіска, соцмережі'] },
+    { name: 'Сайт + Google Ads під ключ', price: '€1 900', term: '3–5 тижнів', items: ['Дизайн і розробка сайту', 'Продаючі тексти', 'Налаштування Google Ads і аналітики', 'Google Business Profile', 'Підтримка першого місяця'] },
+    { name: 'Лендинг', price: '€850', term: '1–2 тижні', items: ['Односторінковий сайт під послугу або акцію', 'Форма заявки в Telegram / email', 'Адаптив і базове SEO'] },
+    { name: 'Айдентика', price: '€950', term: '2–3 тижні', items: ['Логотип і фірмові кольори', 'Шрифти та гайд', 'Візитки, вивіска, соцмережі'] },
   ],
   processTitle: 'Як працюємо',
   steps: [
@@ -124,9 +124,9 @@ const ru: Dict = {
   servicesTitle: 'Услуги и цены', servicesSub: 'Фиксированный объём и понятная цена. Точная сумма — после короткого брифа.',
   from: 'от', popular: 'Чаще всего выбирают',
   packs: [
-    { name: 'Сайт + Google Ads под ключ', price: '8 000 PLN', term: '3–5 недель', items: ['Дизайн и разработка сайта', 'Продающие тексты', 'Настройка Google Ads и аналитики', 'Google Business Profile', 'Поддержка первый месяц'] },
-    { name: 'Лендинг', price: '3 500 PLN', term: '1–2 недели', items: ['Одностраничный сайт под услугу или акцию', 'Форма заявки в Telegram / email', 'Адаптив и базовое SEO'] },
-    { name: 'Айдентика', price: '4 000 PLN', term: '2–3 недели', items: ['Логотип и фирменные цвета', 'Шрифты и гайд', 'Визитки, вывеска, соцсети'] },
+    { name: 'Сайт + Google Ads под ключ', price: '€1 900', term: '3–5 недель', items: ['Дизайн и разработка сайта', 'Продающие тексты', 'Настройка Google Ads и аналитики', 'Google Business Profile', 'Поддержка первый месяц'] },
+    { name: 'Лендинг', price: '€850', term: '1–2 недели', items: ['Одностраничный сайт под услугу или акцию', 'Форма заявки в Telegram / email', 'Адаптив и базовое SEO'] },
+    { name: 'Айдентика', price: '€950', term: '2–3 недели', items: ['Логотип и фирменные цвета', 'Шрифты и гайд', 'Визитки, вывеска, соцсети'] },
   ],
   processTitle: 'Как работаем',
   steps: [
@@ -180,9 +180,9 @@ const pl: Dict = {
   servicesTitle: 'Usługi i ceny', servicesSub: 'Stały zakres i jasna cena. Dokładna kwota po krótkim briefie.',
   from: 'od', popular: 'Najczęściej wybierane',
   packs: [
-    { name: 'Strona + Google Ads pod klucz', price: '8 000 PLN', term: '3–5 tygodni', items: ['Projekt i wdrożenie strony', 'Teksty sprzedażowe', 'Google Ads i analityka', 'Profil Firmy w Google', 'Wsparcie przez pierwszy miesiąc'] },
-    { name: 'Landing page', price: '3 500 PLN', term: '1–2 tygodnie', items: ['Strona jednej usługi lub promocji', 'Formularz do Telegrama / e-mail', 'Wersja mobilna i podstawowe SEO'] },
-    { name: 'Identyfikacja wizualna', price: '4 000 PLN', term: '2–3 tygodnie', items: ['Logo i kolory marki', 'Fonty i księga znaku', 'Wizytówki, szyld, social media'] },
+    { name: 'Strona + Google Ads pod klucz', price: '1 900 €', term: '3–5 tygodni', items: ['Projekt i wdrożenie strony', 'Teksty sprzedażowe', 'Google Ads i analityka', 'Profil Firmy w Google', 'Wsparcie przez pierwszy miesiąc'] },
+    { name: 'Landing page', price: '850 €', term: '1–2 tygodnie', items: ['Strona jednej usługi lub promocji', 'Formularz do Telegrama / e-mail', 'Wersja mobilna i podstawowe SEO'] },
+    { name: 'Identyfikacja wizualna', price: '950 €', term: '2–3 tygodnie', items: ['Logo i kolory marki', 'Fonty i księga znaku', 'Wizytówki, szyld, social media'] },
   ],
   processTitle: 'Jak pracujemy',
   steps: [
@@ -237,9 +237,9 @@ const en: Dict = {
   servicesTitle: 'Services & pricing', servicesSub: 'Fixed scope, clear price. Final quote after a short brief.',
   from: 'from', popular: 'Most popular',
   packs: [
-    { name: 'Website + Google Ads, turnkey', price: '8 000 PLN', term: '3–5 weeks', items: ['Website design and development', 'Conversion copy', 'Google Ads and analytics setup', 'Google Business Profile', 'First month of support'] },
-    { name: 'Landing page', price: '3 500 PLN', term: '1–2 weeks', items: ['One-page site for a service or offer', 'Lead form to Telegram / email', 'Responsive, basic SEO'] },
-    { name: 'Brand identity', price: '4 000 PLN', term: '2–3 weeks', items: ['Logo and brand colours', 'Typography and guide', 'Business cards, signage, social'] },
+    { name: 'Website + Google Ads, turnkey', price: '€1,900', term: '3–5 weeks', items: ['Website design and development', 'Conversion copy', 'Google Ads and analytics setup', 'Google Business Profile', 'First month of support'] },
+    { name: 'Landing page', price: '€850', term: '1–2 weeks', items: ['One-page site for a service or offer', 'Lead form to Telegram / email', 'Responsive, basic SEO'] },
+    { name: 'Brand identity', price: '€950', term: '2–3 weeks', items: ['Logo and brand colours', 'Typography and guide', 'Business cards, signage, social'] },
   ],
   processTitle: 'How we work',
   steps: [
