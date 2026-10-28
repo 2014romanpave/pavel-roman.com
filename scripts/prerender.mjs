@@ -31,7 +31,6 @@ function head(lang, w) {
     address: { '@type': 'PostalAddress', addressLocality: 'Poznań', addressCountry: 'PL' },
     founder: { '@type': 'Person', name: 'Roman Pavel', jobTitle: 'Web & Brand Designer' },
     sameAs: [CONTACTS.behance, CONTACTS.telegram],
-    knowsLanguage: ['uk', 'ru'],
     makesOffer: t.packs.map((p) => ({ '@type': 'Offer', name: p.name, priceSpecification: { '@type': 'PriceSpecification', minPrice: Number(p.price.replace(/\D/g, '')), priceCurrency: 'PLN' } })),
   };
   return `<title>${esc(title)}</title>
