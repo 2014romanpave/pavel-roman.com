@@ -10,7 +10,7 @@
 - [ ] teslahubservice.com: [LEADS/month], [VISITS/month] if analytics exist
 - [ ] Client quote / testimonial for each case (with permission)
 - [ ] Number of completed projects [N] — add to trust bar only when confirmed
-- [ ] Photo of Roman for About section
+- [ ] Real portrait photo: replace `public/img/portrait-placeholder.webp` (vertical ~1200x1600, moody, at work) — or change path in `src/App.tsx`
 - [ ] Fix on client sites: awtonapraw.pl uses "від" instead of "od" in PL prices; teslahubservice.com — remove leftover AI text in "O firmie", unify brand name (Tesla HUB vs EV Spot Service), fix identical car specs
 
 ## Infra

@@ -5,71 +5,104 @@ const CASES = [
   { key: 'awto' as const, url: 'https://awtonapraw.pl/', img: '/img/cases/awtonapraw-desktop.webp', mob: '/img/cases/awtonapraw-mobile.webp' },
   { key: 'tesla' as const, url: 'https://www.teslahubservice.com/', img: '/img/cases/teslahub-desktop.webp', mob: '/img/cases/teslahub-mobile.webp' },
 ];
+const NAME: Record<Lang, string> = { ua: 'Роман Павел', ru: 'Роман Павел', pl: 'Roman Pavel', en: 'Roman Pavel' };
 
-const H2 = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-none mb-4">{children}</h2>
+const Label = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[11px] uppercase tracking-[0.25em] text-zinc-500">{children}</p>
+);
+const Section = ({ id, title, sub, children }: { id?: string; title: string; sub?: string; children: React.ReactNode }) => (
+  <section id={id} className="px-6 md:px-16 py-28 md:py-40 scroll-mt-10">
+    <div className="grid md:grid-cols-12 gap-10">
+      <div className="md:col-span-4">
+        <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-zinc-100">{title}</h2>
+        {sub && <p className="mt-4 text-sm text-zinc-500 max-w-xs leading-relaxed">{sub}</p>}
+      </div>
+      <div className="md:col-span-8">{children}</div>
+    </div>
+  </section>
 );
 
 export default function App({ lang }: { lang: Lang }) {
   const t = DICT[lang];
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black">
-      <header className="fixed top-0 inset-x-0 z-50 h-16 md:h-20 bg-black/75 backdrop-blur-lg border-b border-white/5 flex items-center justify-between px-4 md:px-8">
-        <a href={`/${lang}/`} className="uppercase tracking-widest text-sm font-bold">Pavel Roman</a>
-        <nav className="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-zinc-400">
-          <a href="#cases" className="hover:text-white">{t.nav.cases}</a>
-          <a href="#services" className="hover:text-white">{t.nav.services}</a>
-          <a href="#process" className="hover:text-white">{t.nav.process}</a>
-          <a href="#contact" className="hover:text-white">{t.nav.contact}</a>
-        </nav>
-        <div className="flex gap-1 text-xs font-bold">
-          {LANGS.map((l) => (
-            <a key={l} href={`/${l}/`} hrefLang={l === 'ua' ? 'uk' : l} className={`px-2 py-1 rounded ${l === lang ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}>{LANG_LABEL[l]}</a>
-          ))}
-        </div>
-      </header>
-
+    <div className="min-h-screen bg-[#1c1c1c] text-zinc-200 font-sans font-light selection:bg-white selection:text-black">
       <main>
-        {/* HERO */}
-        <section className="relative min-h-[92vh] flex flex-col justify-center px-4 md:px-8 pt-28 pb-16 max-w-7xl mx-auto">
-          <div className="absolute -z-0 top-1/4 right-0 w-[40vw] h-[40vw] rounded-full bg-rose-700/20 blur-[120px] pointer-events-none" />
-          <p className="relative text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-400 mb-6">{t.heroEyebrow}</p>
-          <h1 className="relative text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tight leading-[0.95] max-w-5xl">{t.heroTitle}</h1>
-          <p className="relative mt-8 text-lg md:text-xl text-zinc-300 max-w-2xl">{t.heroSub}</p>
-          <div className="relative mt-10 flex flex-wrap gap-4">
-            <a href={CONTACTS.telegram} target="_blank" rel="noopener" className="rounded-full bg-white text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-zinc-300 transition">{t.ctaTelegram}</a>
-            <a href="#contact" className="rounded-full border border-white/30 px-8 py-4 text-sm font-bold uppercase tracking-widest hover:border-white transition">{t.ctaAudit}</a>
+        {/* HERO: split screen */}
+        <section className="grid md:grid-cols-2 min-h-[100svh]">
+          <div className="relative h-[60svh] md:h-auto overflow-hidden bg-[#0b1214]">
+            {/* TODO: replace with real photo — public/img/portrait-placeholder.webp */}
+            <img src="/img/portrait-placeholder.webp" alt={NAME[lang]} width={1200} height={1600} className="absolute inset-0 w-full h-full object-cover slow-zoom" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:hidden" />
           </div>
-          <dl className="relative mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-8">
+          <div className="relative flex flex-col justify-between px-6 md:px-16 py-8 md:py-12 min-h-[70svh] md:min-h-0">
+            <header className="flex items-center justify-between fade-up">
+              <a href={`/${lang}/`} className="text-sm text-white">{NAME[lang]}</a>
+              <nav className="flex gap-4 text-[11px] tracking-widest">
+                {LANGS.map((l) => (
+                  <a key={l} href={`/${l}/`} hrefLang={l === 'ua' ? 'uk' : l} className={l === lang ? 'text-white' : 'text-zinc-600 hover:text-zinc-300 transition-colors'}>{LANG_LABEL[l]}</a>
+                ))}
+              </nav>
+            </header>
+            <nav className="hidden md:flex flex-col gap-2 text-sm text-zinc-500 fade-up" style={{ animationDelay: '.3s' }}>
+              <a href="#cases" className="self-start hover:text-white transition-colors">{t.nav.cases}</a>
+              <a href="#services" className="self-start hover:text-white transition-colors">{t.nav.services}</a>
+              <a href="#process" className="self-start hover:text-white transition-colors">{t.nav.process}</a>
+              <a href="#contact" className="self-start hover:text-white transition-colors">{t.nav.contact}</a>
+            </nav>
+            <div className="grid sm:grid-cols-2 gap-10 mt-16 md:mt-0 fade-up" style={{ animationDelay: '.5s' }}>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.25em] text-zinc-500 mb-4">{t.heroEyebrow}</p>
+                <h1 className="text-[15px] leading-relaxed text-white font-normal max-w-xs">{t.heroTitle}</h1>
+              </div>
+              <div>
+                <p className="text-[15px] leading-relaxed text-zinc-400 max-w-xs">{t.heroSub}</p>
+                <a href={CONTACTS.telegram} target="_blank" rel="noopener" className="inline-flex items-center gap-2 mt-6 text-sm text-white link-line pb-1">{t.ctaTelegram} <span aria-hidden>→</span></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TRUST */}
+        <section className="px-6 md:px-16 py-20 md:py-28">
+          <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6">
             {t.trust.map((x) => (
-              <div key={x.l}><dt className="text-2xl md:text-4xl font-black">{x.v}</dt><dd className="text-xs uppercase tracking-widest text-zinc-500 mt-1">{x.l}</dd></div>
+              <div key={x.l}><dt className="text-xl md:text-2xl text-white font-normal">{x.v}</dt><dd className="text-xs text-zinc-500 mt-2">{x.l}</dd></div>
             ))}
           </dl>
         </section>
 
         {/* CASES */}
-        <section id="cases" className="px-4 md:px-8 py-24 max-w-7xl mx-auto scroll-mt-20">
-          <H2>{t.casesTitle}</H2>
-          <p className="text-zinc-400 mb-14">{t.casesSub}</p>
-          <div className="flex flex-col gap-24">
+        <section id="cases" className="px-6 md:px-16 py-28 md:py-40 scroll-mt-10">
+          <div className="mb-20 md:mb-28 max-w-md">
+            <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-zinc-100">{t.casesTitle}</h2>
+            <p className="mt-4 text-sm text-zinc-500 leading-relaxed">{t.casesSub}</p>
+          </div>
+          <div className="flex flex-col gap-32 md:gap-48">
             {CASES.map((c, i) => {
               const d = t.cases[c.key];
               return (
-                <article key={c.key} className="grid md:grid-cols-2 gap-10 items-start">
-                  <a href={c.url} target="_blank" rel="noopener" className={`relative block ${i % 2 ? 'md:order-2' : ''}`}>
-                    <img src={c.img} alt={d.title} width={1200} height={750} loading="lazy" className="w-full rounded-2xl border border-white/10" />
-                    <img src={c.mob} alt="" width={390} height={844} loading="lazy" className="absolute -bottom-8 -right-2 md:-right-6 w-[26%] rounded-xl border border-white/20 shadow-2xl" />
+                <article key={c.key} className="group">
+                  <a href={c.url} target="_blank" rel="noopener" className="relative block overflow-hidden rounded-sm">
+                    <img src={c.img} alt={d.title} width={1200} height={750} loading="lazy" className="w-full transition-transform duration-[1.2s] ease-out group-hover:scale-[1.02]" />
                   </a>
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-rose-400 mb-3">{d.tag}</p>
-                    <h3 className="text-2xl md:text-4xl font-black mb-6">{d.title}</h3>
-                    <p className="text-sm uppercase tracking-widest text-zinc-500">{t.taskL}</p>
-                    <p className="text-zinc-200 mt-2 mb-6">{d.task}</p>
-                    <p className="text-sm uppercase tracking-widest text-zinc-500">{t.didL}</p>
-                    <ul className="mt-2 mb-6 space-y-1 text-zinc-300">{d.did.map((x) => <li key={x}>— {x}</li>)}</ul>
-                    <p className="text-sm uppercase tracking-widest text-zinc-500">{t.resultL}</p>
-                    <ul className="mt-2 mb-8 space-y-1 text-zinc-100">{d.result.map((x) => <li key={x}>✓ {x}</li>)}</ul>
-                    <a href={c.url} target="_blank" rel="noopener" className="text-sm font-bold uppercase tracking-widest underline underline-offset-8 hover:text-zinc-300">{t.visit} ↗</a>
+                  <div className="grid md:grid-cols-12 gap-8 mt-8 md:mt-10">
+                    <div className="md:col-span-4">
+                      <p className="text-xs text-zinc-500">0{i + 1}</p>
+                      <h3 className="mt-2 text-lg text-white font-normal">{d.title}</h3>
+                      <p className="mt-1 text-sm text-zinc-500">{d.tag}</p>
+                      <a href={c.url} target="_blank" rel="noopener" className="inline-block mt-5 text-sm text-zinc-300 link-line pb-1">{t.visit} ↗</a>
+                    </div>
+                    <div className="md:col-span-4 text-sm leading-relaxed">
+                      <Label>{t.taskL}</Label>
+                      <p className="mt-3 text-zinc-300">{d.task}</p>
+                      <div className="mt-8"><Label>{t.didL}</Label></div>
+                      <p className="mt-3 text-zinc-400">{d.did.join(' · ')}</p>
+                    </div>
+                    <div className="md:col-span-4 text-sm leading-relaxed">
+                      <Label>{t.resultL}</Label>
+                      <ul className="mt-3 space-y-2 text-zinc-300">{d.result.map((x) => <li key={x}>{x}</li>)}</ul>
+                      <img src={c.mob} alt="" width={390} height={844} loading="lazy" className="hidden md:block mt-8 w-28 rounded-sm opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+                    </div>
                   </div>
                 </article>
               );
@@ -77,80 +110,66 @@ export default function App({ lang }: { lang: Lang }) {
           </div>
         </section>
 
-        {/* SERVICES */}
-        <section id="services" className="px-4 md:px-8 py-24 max-w-7xl mx-auto scroll-mt-20">
-          <H2>{t.servicesTitle}</H2>
-          <p className="text-zinc-400 mb-14">{t.servicesSub}</p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {t.packs.map((p, i) => (
-              <div key={p.name} className={`rounded-2xl p-8 border flex flex-col ${i === 0 ? 'border-white bg-white/5' : 'border-white/10'}`}>
-                {i === 0 && <span className="self-start text-[10px] uppercase tracking-widest bg-white text-black rounded-full px-3 py-1 mb-4 font-bold">{t.popular}</span>}
-                <h3 className="text-xl font-bold">{p.name}</h3>
-                <p className="mt-4 text-3xl font-black">{t.from} {p.price}</p>
-                <p className="text-xs uppercase tracking-widest text-zinc-500 mt-1">{p.term}</p>
-                <ul className="mt-6 space-y-2 text-zinc-300 text-sm flex-1">{p.items.map((x) => <li key={x}>— {x}</li>)}</ul>
-                <a href="#contact" className="mt-8 text-center rounded-full border border-white/30 py-3 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">{t.nav.contact}</a>
+        <Section id="services" title={t.servicesTitle} sub={t.servicesSub}>
+          <div className="divide-y divide-white/[0.06]">
+            {t.packs.map((p) => (
+              <div key={p.name} className="group grid md:grid-cols-8 gap-4 py-10 first:pt-0">
+                <div className="md:col-span-3">
+                  <h3 className="text-lg text-white font-normal">{p.name}</h3>
+                  <p className="mt-2 text-sm text-zinc-500">{t.from} {p.price} · {p.term}</p>
+                </div>
+                <p className="md:col-span-5 text-sm text-zinc-400 leading-relaxed">{p.items.join(' · ')}</p>
               </div>
             ))}
           </div>
-        </section>
+        </Section>
 
-        {/* PROCESS */}
-        <section id="process" className="px-4 md:px-8 py-24 max-w-7xl mx-auto scroll-mt-20">
-          <H2>{t.processTitle}</H2>
-          <ol className="grid md:grid-cols-4 gap-8 mt-12">
+        <Section id="process" title={t.processTitle}>
+          <ol className="grid sm:grid-cols-2 gap-x-12 gap-y-14">
             {t.steps.map((s, i) => (
-              <li key={s.t} className="border-t border-white/20 pt-6">
-                <span className="text-5xl font-black text-zinc-700">0{i + 1}</span>
-                <h3 className="text-lg font-bold mt-3">{s.t}</h3>
-                <p className="text-zinc-400 mt-2 text-sm">{s.d}</p>
+              <li key={s.t}>
+                <span className="text-xs text-zinc-600">0{i + 1}</span>
+                <h3 className="mt-2 text-white font-normal">{s.t}</h3>
+                <p className="mt-2 text-sm text-zinc-500 leading-relaxed max-w-xs">{s.d}</p>
               </li>
             ))}
           </ol>
-        </section>
+        </Section>
 
-        {/* ABOUT + FAQ */}
-        <section className="px-4 md:px-8 py-24 max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
-          <div>
-            <H2>{t.aboutTitle}</H2>
-            <p className="text-zinc-300 text-lg mt-6">{t.aboutText}</p>
-            <a href={CONTACTS.behance} target="_blank" rel="noopener" className="inline-block mt-6 text-sm font-bold uppercase tracking-widest underline underline-offset-8">Behance ↗</a>
-          </div>
-          <div>
-            <H2>{t.faqTitle}</H2>
-            <div className="mt-6 divide-y divide-white/10">
-              {t.faq.map((f) => (
-                <details key={f.q} className="py-4 group">
-                  <summary className="cursor-pointer font-bold list-none flex justify-between">{f.q}<span className="group-open:rotate-45 transition">+</span></summary>
-                  <p className="text-zinc-400 mt-3">{f.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <Section title={t.aboutTitle}>
+          <p className="text-lg md:text-xl leading-relaxed text-zinc-300 max-w-2xl">{t.aboutText}</p>
+          <a href={CONTACTS.behance} target="_blank" rel="noopener" className="inline-block mt-8 text-sm text-zinc-300 link-line pb-1">Behance ↗</a>
+        </Section>
 
-        {/* CONTACT */}
-        <section id="contact" className="px-4 md:px-8 py-24 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 scroll-mt-20">
-          <div>
-            <H2>{t.contactTitle}</H2>
-            <p className="text-zinc-400 mt-4 mb-10">{t.contactSub}</p>
-            <ul className="space-y-4 text-lg">
-              <li><a href={CONTACTS.telegram} target="_blank" rel="noopener" className="hover:text-zinc-300">Telegram · {CONTACTS.telegramHandle}</a></li>
-              <li><a href={CONTACTS.whatsapp} target="_blank" rel="noopener" className="hover:text-zinc-300">WhatsApp · {CONTACTS.phone}</a></li>
-              <li><a href={`mailto:${CONTACTS.email}`} className="hover:text-zinc-300">{CONTACTS.email}</a></li>
+        <Section title={t.faqTitle}>
+          <div className="max-w-2xl">
+            {t.faq.map((f) => (
+              <details key={f.q} className="group py-6 border-b border-white/[0.06] first:pt-0">
+                <summary className="cursor-pointer list-none flex justify-between gap-6 text-zinc-200 hover:text-white transition-colors">{f.q}<span className="text-zinc-600 transition-transform duration-300 group-open:rotate-45">+</span></summary>
+                <p className="mt-4 text-sm text-zinc-500 leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </Section>
+
+        <section id="contact" className="grid md:grid-cols-2 scroll-mt-10">
+          <div className="px-6 md:px-16 py-28 md:py-40 bg-[#161616]">
+            <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-zinc-100">{t.contactTitle}</h2>
+            <p className="mt-4 text-sm text-zinc-500 max-w-xs leading-relaxed">{t.contactSub}</p>
+            <ul className="mt-12 space-y-3 text-sm">
+              <li><a href={CONTACTS.telegram} target="_blank" rel="noopener" className="link-line pb-1 text-white">Telegram {CONTACTS.telegramHandle}</a></li>
+              <li><a href={CONTACTS.whatsapp} target="_blank" rel="noopener" className="link-line pb-1 text-zinc-400 hover:text-white">WhatsApp {CONTACTS.phone}</a></li>
+              <li><a href={`mailto:${CONTACTS.email}`} className="link-line pb-1 text-zinc-400 hover:text-white">{CONTACTS.email}</a></li>
             </ul>
           </div>
-          <ContactForm t={t} lang={lang} />
+          <div className="px-6 md:px-16 py-20 md:py-40"><ContactForm t={t} lang={lang} /></div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 px-4 md:px-8 py-10 text-xs uppercase tracking-widest text-zinc-500 flex flex-col md:flex-row justify-between gap-4 pb-28 md:pb-10">
+      <footer className="px-6 md:px-16 py-10 text-xs text-zinc-600 flex flex-col md:flex-row justify-between gap-2">
         <span>© 2026 {t.footer}</span>
         <span>Web & Brand Design · Google Ads</span>
       </footer>
-
-      {/* mobile sticky CTA */}
-      <a href={CONTACTS.telegram} target="_blank" rel="noopener" className="md:hidden fixed bottom-4 inset-x-4 z-50 rounded-full bg-white text-black text-center py-4 text-sm font-bold uppercase tracking-widest shadow-2xl">{t.ctaTelegram}</a>
     </div>
   );
 }
