@@ -172,6 +172,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
             <ul className="mt-12 space-y-3 text-sm">
               <li><a href={CONTACTS.telegram} target="_blank" rel="noopener" className="link-line pb-1 text-white">Telegram {CONTACTS.telegramHandle}</a></li>
               <li><a href={CONTACTS.whatsapp} target="_blank" rel="noopener" className="link-line pb-1 text-stone-400 hover:text-white">WhatsApp {CONTACTS.phone}</a></li>
+              <li><a href={CONTACTS.instagram} target="_blank" rel="noopener" className="link-line pb-1 text-stone-400 hover:text-white">Instagram {CONTACTS.instagramHandle}</a></li>
               <li><a href={`mailto:${CONTACTS.email}`} className="link-line pb-1 text-stone-400 hover:text-white">{CONTACTS.email}</a></li>
             </ul>
           </div>
@@ -182,7 +183,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
 
       <footer className="px-6 md:px-16 pt-10 pb-28 text-xs text-stone-600 flex flex-col md:flex-row justify-between gap-2">
         <span><span onClick={tapSecret} className="cursor-default select-none"><Glitch a="© MMXXVI" b="© 2026" className="font-mono" /></span> {t.footer}</span>
-        <span>Web & Brand Design · Google Ads</span>
+        <span className="flex gap-4"><a href={CONTACTS.instagram} target="_blank" rel="noopener" className="hover:text-white transition-colors">Instagram</a><a href={CONTACTS.behance} target="_blank" rel="noopener" className="hover:text-white transition-colors">Behance</a><a href={CONTACTS.telegram} target="_blank" rel="noopener" className="hover:text-white transition-colors">Telegram</a></span>
       </footer>
       <RotatingQuote lang={lang} />
       <Secret lang={lang} />

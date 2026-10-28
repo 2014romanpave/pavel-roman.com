@@ -74,6 +74,7 @@ export function RotatingQuote({ lang }: { lang: Lang }) {
 const CONTACT_ROT = [
   { text: 'Telegram', href: CONTACTS.telegram },
   { text: 'WhatsApp', href: CONTACTS.whatsapp },
+  { text: 'Instagram', href: CONTACTS.instagram },
   { text: 'Email', href: `mailto:${CONTACTS.email}` },
 ];
 /** Bottom-right: rotating contact link + glitch copyright (old "Global Contact Info"). */

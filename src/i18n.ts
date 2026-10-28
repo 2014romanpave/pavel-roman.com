@@ -10,6 +10,8 @@ export const CONTACTS = {
   phone: '+48 696 992 756',
   email: '2014romanpavel@gmail.com',
   behance: 'https://www.behance.net/PavelRoman',
+  instagram: 'https://www.instagram.com/pavelroman.web/',
+  instagramHandle: '@pavelroman.web',
 };
 
 export const SITE_URL = 'https://pavelroman.com';
