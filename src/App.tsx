@@ -3,6 +3,7 @@ import { ContactForm } from './components/ContactForm';
 import { WorkPage } from './components/WorkPage';
 import { WORKS, WORK_UI, caseText, type WorkKey } from './work';
 import { Expertise, Footprint, CoursesTeaser } from './components/Blocks';
+import { Secret, tapSecret } from './components/Secret';
 import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
 const TAGS: [string, string][] = [['WEB', 'APP'], ['ADS', 'TARGET'], ['BRAND', 'SMM'], ['VIDEO', 'BANNERS']];
@@ -180,10 +181,11 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
       )}
 
       <footer className="px-6 md:px-16 pt-10 pb-28 text-xs text-stone-600 flex flex-col md:flex-row justify-between gap-2">
-        <span><Glitch a="© MMXXVI" b="© 2026" className="font-mono" /> {t.footer}</span>
+        <span><span onClick={tapSecret} className="cursor-default select-none"><Glitch a="© MMXXVI" b="© 2026" className="font-mono" /></span> {t.footer}</span>
         <span>Web & Brand Design · Google Ads</span>
       </footer>
       <RotatingQuote lang={lang} />
+      <Secret lang={lang} />
       <CornerContacts />
       <Dock nav={t.nav} cta={t.nav.contact} lang={lang} />
     </div>

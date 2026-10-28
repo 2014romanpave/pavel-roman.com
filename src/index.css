@@ -139,3 +139,7 @@ body { background: var(--bg) !important; }
 .fp-ph { background: radial-gradient(70% 70% at 30% 30%, rgba(201,138,75,.35), transparent 70%), radial-gradient(60% 60% at 80% 80%, rgba(140,127,166,.25), transparent 70%); }
 .fp-ph-1 { background: radial-gradient(70% 70% at 70% 30%, rgba(181,101,74,.35), transparent 70%), radial-gradient(60% 60% at 20% 80%, rgba(143,154,126,.25), transparent 70%); }
 .fp-ph-2 { background: radial-gradient(70% 70% at 50% 60%, rgba(185,133,138,.35), transparent 70%); }
+
+.secret-panel { animation: secret-in .5s steps(6) both; }
+@keyframes secret-in { 0%{opacity:0;transform:translateX(-6px);filter:hue-rotate(90deg)} 40%{opacity:1;transform:translateX(4px)} 70%{transform:translateX(-2px)} 100%{transform:none;filter:none} }
+.secret-title { position: relative; text-shadow: 1.5px 0 rgba(255,80,60,.6), -1.5px 0 rgba(80,140,255,.6); animation: g-jit 1.2s linear 2 both; }

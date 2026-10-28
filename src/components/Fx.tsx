@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Lang } from '../i18n';
 import { CONTACTS } from '../i18n';
+import { tapSecret } from './Secret';
 
 const reduced = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
@@ -82,7 +83,7 @@ export function CornerContacts() {
   return (
     <div className="fixed bottom-8 right-8 z-40 hidden lg:flex flex-col items-end gap-1 text-[10px] tracking-[0.2em] uppercase text-stone-500">
       <a key={i} href={c.href} target="_blank" rel="noopener" className="rot-slide hover:text-white transition-colors">{c.text}</a>
-      <Glitch a="© MMXXVI" b="© 2026" className="font-mono text-stone-600" />
+      <span onClick={tapSecret} className="cursor-default select-none"><Glitch a="© MMXXVI" b="© 2026" className="font-mono text-stone-600" /></span>
     </div>
   );
 }

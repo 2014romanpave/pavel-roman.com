@@ -47,7 +47,7 @@ const ua: Dict = {
     { v: 'Авто · EV', l: 'основна ніша' },
     { v: 'UA / RU', l: 'мови спілкування' },
   ],
-  casesTitle: 'Кейси', casesSub: 'Живі сайти для автосервісів у Познані та околицях.',
+  casesTitle: 'Кейси', casesSub: 'Сайти, брендинг та інтерфейси — живі проєкти й продукти.',
   taskL: 'Задача', didL: 'Що зроблено', resultL: 'Результат', visit: 'Відкрити сайт',
   cases: {
     awto: {
@@ -104,7 +104,7 @@ const ru: Dict = {
     { v: 'Авто · EV', l: 'основная ниша' },
     { v: 'RU / UA', l: 'языки общения' },
   ],
-  casesTitle: 'Кейсы', casesSub: 'Живые сайты для автосервисов в Познани и окрестностях.',
+  casesTitle: 'Кейсы', casesSub: 'Сайты, брендинг и интерфейсы — живые проекты и продукты.',
   taskL: 'Задача', didL: 'Что сделано', resultL: 'Результат', visit: 'Открыть сайт',
   cases: {
     awto: {
@@ -161,7 +161,7 @@ const pl: Dict = {
     { v: 'Auto · EV', l: 'główna branża' },
     { v: 'PL / EN', l: 'kontakt pisemny' },
   ],
-  casesTitle: 'Realizacje', casesSub: 'Działające strony dla warsztatów w Poznaniu i okolicach.',
+  casesTitle: 'Realizacje', casesSub: 'Strony, branding i interfejsy — działające projekty i produkty.',
   taskL: 'Zadanie', didL: 'Co zrobiłem', resultL: 'Efekt', visit: 'Zobacz stronę',
   cases: {
     awto: {
@@ -218,7 +218,7 @@ const en: Dict = {
     { v: 'Auto · EV', l: 'core niche' },
     { v: 'EN / PL', l: 'written communication' },
   ],
-  casesTitle: 'Cases', casesSub: 'Live websites for car services in and around Poznań.',
+  casesTitle: 'Cases', casesSub: 'Websites, branding and interfaces — live projects and products.',
   taskL: 'Task', didL: 'What I did', resultL: 'Result', visit: 'Visit site',
   cases: {
     awto: {
