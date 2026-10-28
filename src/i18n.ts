@@ -36,16 +36,16 @@ export interface Dict {
 }
 
 const ua: Dict = {
-  metaTitle: 'Роман Павел — сайти та Google Ads для автосервісів і бізнесу в Польщі',
-  metaDesc: 'Дизайн і розробка сайтів, налаштування Google Ads та айдентика для автосервісів і локального бізнесу в Польщі. Познань. 13+ років у дизайні..',
+  metaTitle: 'Роман Павел — сайти та Google Ads для автосервісів і бізнесу · віддалено по всьому світу',
+  metaDesc: 'Дизайн і розробка сайтів, налаштування Google Ads та айдентика для автосервісів і локального бізнесу. Працюю віддалено з клієнтами по всьому світу. 13+ років у дизайні.',
   nav: { cases: 'Кейси', services: 'Послуги', process: 'Процес', contact: 'Контакт' },
-  heroEyebrow: 'Web & Brand Designer · Познань',
-  heroTitle: 'Сайти та Google Ads для автосервісів і локального бізнесу в Польщі',
+  heroEyebrow: 'Web & Brand Designer · Віддалено',
+  heroTitle: 'Сайти та Google Ads для автосервісів і локального бізнесу · працюю віддалено з клієнтами по всьому світу',
   heroSub: 'Роблю під ключ сайт і рекламу, які приводять заявки: дизайн, розробка, Google Ads і звіти — ви отримуєте клієнтів, а не просто гарну сторінку.',
   ctaTelegram: 'Написати в Telegram', ctaAudit: 'Безкоштовний аудит',
   trust: [
     { v: '13+', l: 'років у дизайні' },
-    { v: 'Познань', l: 'працюю в Польщі' },
+    { v: 'Віддалено', l: 'клієнти по всьому світу' },
     { v: 'Авто · EV', l: 'основна ніша' },
     { v: 'Сайт + Ads', l: 'одна команда, один відповідальний' },
   ],
@@ -80,7 +80,7 @@ const ua: Dict = {
     { t: 'Запуск і реклама', d: 'Домен, аналітика, Google Ads — і перші заявки.' },
   ],
   aboutTitle: 'Про мене',
-  aboutText: 'Я Роман Павел, дизайнер з 2013 року. Працюю з рекламою, брендингом, UX/UI та сайтами. Зараз живу в Познані й допомагаю локальному бізнесу — насамперед автосервісам — отримувати клієнтів з інтернету.',
+  aboutText: 'Я Роман Павел, дизайнер з 2013 року. Працюю з рекламою, брендингом, UX/UI та сайтами. Працюю віддалено й допомагаю локальному бізнесу — насамперед автосервісам — отримувати клієнтів з інтернету.',
   faqTitle: 'Питання',
   faq: [
     { q: 'Що я отримаю в результаті?', a: 'Готовий сайт, налаштовану рекламу та аналітику, звіти по заявках і підтримку після запуску.' },
@@ -88,20 +88,20 @@ const ua: Dict = {
   ],
   contactTitle: 'Обговоримо проєкт?', contactSub: 'Найшвидше — у Telegram. Або залиште заявку, я відповім протягом дня.',
   fName: "Ім'я", fContact: 'Telegram, телефон або email', fMsg: 'Розкажіть про бізнес і задачу', fSend: 'Надіслати', fSending: 'Надсилаю…', fOk: 'Дякую! Я скоро відповім.', fErr: 'Не вдалося надіслати. Напишіть, будь ласка, у Telegram.',
-  footer: 'Роман Павел · Познань, Польща',
+  footer: 'Роман Павел · Віддалено · по всьому світу',
 };
 
 const ru: Dict = {
-  metaTitle: 'Роман Павел — сайты и Google Ads для автосервисов и бизнеса в Польше',
-  metaDesc: 'Дизайн и разработка сайтов, настройка Google Ads и айдентика для автосервисов и локального бизнеса в Польше. Познань. 13+ лет в дизайне..',
+  metaTitle: 'Роман Павел — сайты и Google Ads для автосервисов и бизнеса · удалённо по всему миру',
+  metaDesc: 'Дизайн и разработка сайтов, настройка Google Ads и айдентика для автосервисов и локального бизнеса. Работаю удалённо с клиентами по всему миру. 13+ лет в дизайне.',
   nav: { cases: 'Кейсы', services: 'Услуги', process: 'Процесс', contact: 'Контакт' },
-  heroEyebrow: 'Web & Brand Designer · Познань',
-  heroTitle: 'Сайты и Google Ads для автосервисов и локального бизнеса в Польше',
+  heroEyebrow: 'Web & Brand Designer · Удалённо',
+  heroTitle: 'Сайты и Google Ads для автосервисов и локального бизнеса · работаю удалённо с клиентами по всему миру',
   heroSub: 'Делаю под ключ сайт и рекламу, которые приводят заявки: дизайн, разработка, Google Ads и отчёты — вы получаете клиентов, а не просто красивую страницу.',
   ctaTelegram: 'Написать в Telegram', ctaAudit: 'Бесплатный аудит',
   trust: [
     { v: '13+', l: 'лет в дизайне' },
-    { v: 'Познань', l: 'работаю в Польше' },
+    { v: 'Удалённо', l: 'клиенты по всему миру' },
     { v: 'Авто · EV', l: 'основная ниша' },
     { v: 'Сайт + Ads', l: 'один подрядчик, одна ответственность' },
   ],
@@ -136,7 +136,7 @@ const ru: Dict = {
     { t: 'Запуск и реклама', d: 'Домен, аналитика, Google Ads — и первые заявки.' },
   ],
   aboutTitle: 'Обо мне',
-  aboutText: 'Я Роман Павел, дизайнер с 2013 года. Работаю с рекламой, брендингом, UX/UI и сайтами. Сейчас живу в Познани и помогаю локальному бизнесу — прежде всего автосервисам — получать клиентов из интернета.',
+  aboutText: 'Я Роман Павел, дизайнер с 2013 года. Работаю с рекламой, брендингом, UX/UI и сайтами. Работаю удалённо и помогаю локальному бизнесу — прежде всего автосервисам — получать клиентов из интернета.',
   faqTitle: 'Вопросы',
   faq: [
     { q: 'Что я получу в итоге?', a: 'Готовый сайт, настроенную рекламу и аналитику, отчёты по заявкам и поддержку после запуска.' },
@@ -144,20 +144,20 @@ const ru: Dict = {
   ],
   contactTitle: 'Обсудим проект?', contactSub: 'Быстрее всего — в Telegram. Или оставьте заявку, отвечу в течение дня.',
   fName: 'Имя', fContact: 'Telegram, телефон или email', fMsg: 'Расскажите о бизнесе и задаче', fSend: 'Отправить', fSending: 'Отправляю…', fOk: 'Спасибо! Скоро отвечу.', fErr: 'Не удалось отправить. Напишите, пожалуйста, в Telegram.',
-  footer: 'Роман Павел · Познань, Польша',
+  footer: 'Роман Павел · Удалённо · по всему миру',
 };
 
 const pl: Dict = {
   metaTitle: 'Roman Pavel — strony WWW i Google Ads dla warsztatów i firm lokalnych',
-  metaDesc: 'Projektowanie i tworzenie stron, kampanie Google Ads i identyfikacja wizualna dla warsztatów samochodowych i lokalnych firm w Polsce. Poznań. 13+ lat w designie.',
+  metaDesc: 'Projektowanie i tworzenie stron, kampanie Google Ads i identyfikacja wizualna dla warsztatów samochodowych i lokalnych firm. Pracuję zdalnie z klientami na całym świecie. 13+ lat w designie.',
   nav: { cases: 'Realizacje', services: 'Usługi', process: 'Proces', contact: 'Kontakt' },
-  heroEyebrow: 'Web & Brand Designer · Poznań',
-  heroTitle: 'Strony WWW i Google Ads dla warsztatów samochodowych i lokalnych firm',
+  heroEyebrow: 'Web & Brand Designer · Zdalnie',
+  heroTitle: 'Strony WWW i Google Ads dla warsztatów samochodowych i lokalnych firm · pracuję zdalnie z klientami na całym świecie',
   heroSub: 'Strona i reklama pod klucz, które przynoszą zapytania: projekt, wdrożenie, Google Ads i raporty — dostajesz klientów, a nie tylko ładną stronę.',
   ctaTelegram: 'Napisz na Telegramie', ctaAudit: 'Darmowy audyt',
   trust: [
     { v: '13+', l: 'lat w designie' },
-    { v: 'Poznań', l: 'działam w Polsce' },
+    { v: 'Zdalnie', l: 'klienci na całym świecie' },
     { v: 'Auto · EV', l: 'główna branża' },
     { v: 'Strona + Ads', l: 'jeden wykonawca, jedna odpowiedzialność' },
   ],
@@ -192,7 +192,7 @@ const pl: Dict = {
     { t: 'Start i reklama', d: 'Domena, analityka, Google Ads i pierwsze zgłoszenia.' },
   ],
   aboutTitle: 'O mnie',
-  aboutText: 'Jestem Roman Pavel, projektant od 2013 roku: reklama, branding, UX/UI i strony WWW. Mieszkam w Poznaniu i pomagam lokalnym firmom — przede wszystkim warsztatom — zdobywać klientów z internetu.',
+  aboutText: 'Jestem Roman Pavel, projektant od 2013 roku: reklama, branding, UX/UI i strony WWW. Pracuję zdalnie i pomagam lokalnym firmom — przede wszystkim warsztatom — zdobywać klientów z internetu.',
   faqTitle: 'Pytania',
   faq: [
     { q: 'Co dostanę na koniec?', a: 'Gotową stronę, skonfigurowaną reklamę i analitykę, raporty z zapytań oraz wsparcie po starcie.' },
@@ -201,20 +201,20 @@ const pl: Dict = {
   ],
   contactTitle: 'Porozmawiajmy o projekcie', contactSub: 'Najszybciej na Telegramie. Możesz też zostawić zgłoszenie — odpowiem w ciągu dnia.',
   fName: 'Imię', fContact: 'Telegram, telefon lub e-mail', fMsg: 'Opisz firmę i zadanie', fSend: 'Wyślij', fSending: 'Wysyłanie…', fOk: 'Dziękuję! Wkrótce odpowiem.', fErr: 'Nie udało się wysłać. Napisz proszę na Telegramie.',
-  footer: 'Roman Pavel · Poznań, Polska',
+  footer: 'Roman Pavel · Zdalnie · cały świat',
 };
 
 const en: Dict = {
-  metaTitle: 'Roman Pavel — websites & Google Ads for car services and local businesses in Poland',
-  metaDesc: 'Website design and development, Google Ads setup and brand identity for car services and local businesses in Poland. Based in Poznań. 13+ years in design.',
+  metaTitle: 'Roman Pavel — websites & Google Ads for car services and local businesses · remote, worldwide',
+  metaDesc: 'Website design and development, Google Ads setup and brand identity for car services and local businesses. Working remotely with clients worldwide. 13+ years in design.',
   nav: { cases: 'Cases', services: 'Services', process: 'Process', contact: 'Contact' },
-  heroEyebrow: 'Web & Brand Designer · Poznań',
-  heroTitle: 'Websites and Google Ads for car services and local businesses in Poland',
+  heroEyebrow: 'Web & Brand Designer · Remote',
+  heroTitle: 'Websites and Google Ads for car services and local businesses · working remotely with clients worldwide',
   heroSub: 'Turnkey website and ads that bring in leads: design, development, Google Ads and reports — you get clients, not just a pretty page.',
   ctaTelegram: 'Message on Telegram', ctaAudit: 'Free audit',
   trust: [
     { v: '13+', l: 'years in design' },
-    { v: 'Poznań', l: 'based in Poland' },
+    { v: 'Remote', l: 'clients worldwide' },
     { v: 'Auto · EV', l: 'core niche' },
     { v: 'Website + Ads', l: 'one contractor, one point of responsibility' },
   ],
@@ -249,7 +249,7 @@ const en: Dict = {
     { t: 'Launch & ads', d: 'Domain, analytics, Google Ads and first leads.' },
   ],
   aboutTitle: 'About',
-  aboutText: "I'm Roman Pavel, a designer since 2013: advertising, branding, UX/UI and websites. Based in Poznań, I help local businesses — car services first — get customers online.",
+  aboutText: "I'm Roman Pavel, a designer since 2013: advertising, branding, UX/UI and websites. Working remotely, I help local businesses — car services first — get customers online.",
   faqTitle: 'FAQ',
   faq: [
     { q: 'What do I get in the end?', a: 'A finished website, ads and analytics set up, lead reports and support after launch.' },
@@ -258,7 +258,7 @@ const en: Dict = {
   ],
   contactTitle: "Let's discuss your project", contactSub: 'Fastest on Telegram. Or leave a request — I reply within a day.',
   fName: 'Name', fContact: 'Telegram, phone or email', fMsg: 'Tell me about your business and goal', fSend: 'Send', fSending: 'Sending…', fOk: "Thanks! I'll get back to you soon.", fErr: 'Could not send. Please message me on Telegram.',
-  footer: 'Roman Pavel · Poznań, Poland',
+  footer: 'Roman Pavel · Remote · Worldwide',
 };
 
 export const DICT: Record<Lang, Dict> = { ua, ru, pl, en };

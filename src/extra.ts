@@ -11,8 +11,8 @@ export const EXTRA: Record<Lang, X> = {
     expFacts: [
       { v: 'з 2013', l: 'у дизайні — реклама, брендинг, UX/UI, сайти' },
       { v: 'Binopt → AdBakers', l: 'досвід роботи в рекламних агенціях' },
-      { v: 'Сайти + Google Ads', l: 'для автосервісів і локального бізнесу в Польщі' },
-      { v: 'Познань', l: 'працюю з бізнесом по всій Польщі' },
+      { v: 'Сайти + Google Ads', l: 'для автосервісів і локального бізнесу' },
+      { v: 'Віддалено', l: 'клієнти в різних країнах' },
     ],
     expApproachL: 'Підхід',
     expApproach: ['Спершу бізнес-задача, потім дизайн', 'Сайт і реклама — одна система, без посередників', 'Чесні терміни й фіксована ціна пакета', 'Після запуску — звіти та підтримка'],
@@ -25,8 +25,8 @@ export const EXTRA: Record<Lang, X> = {
     expFacts: [
       { v: 'с 2013', l: 'в дизайне — реклама, брендинг, UX/UI, сайты' },
       { v: 'Binopt → AdBakers', l: 'опыт работы в рекламных агентствах' },
-      { v: 'Сайты + Google Ads', l: 'для автосервисов и локального бизнеса в Польше' },
-      { v: 'Poznań', l: 'работаю с бизнесом по всей Польше' },
+      { v: 'Сайты + Google Ads', l: 'для автосервисов и локального бизнеса' },
+      { v: 'Удалённо', l: 'клиенты в разных странах' },
     ],
     expApproachL: 'Подход',
     expApproach: ['Сначала бизнес-задача, потом дизайн', 'Сайт и реклама — одна система, без посредников', 'Честные сроки и фиксированная цена пакета', 'После запуска — отчёты и поддержка'],
@@ -39,8 +39,8 @@ export const EXTRA: Record<Lang, X> = {
     expFacts: [
       { v: 'od 2013', l: 'w designie — reklama, branding, UX/UI, strony' },
       { v: 'Binopt → AdBakers', l: 'doświadczenie w agencjach reklamowych' },
-      { v: 'Strony + Google Ads', l: 'dla warsztatów i lokalnych firm w Polsce' },
-      { v: 'Poznań', l: 'pracuję z firmami w całej Polsce' },
+      { v: 'Strony + Google Ads', l: 'dla warsztatów i lokalnych firm' },
+      { v: 'Zdalnie', l: 'klienci w różnych krajach' },
     ],
     expApproachL: 'Podejście',
     expApproach: ['Najpierw cel biznesowy, potem design', 'Strona i reklama jako jeden system, bez pośredników', 'Uczciwe terminy i stała cena pakietu', 'Po starcie — raporty i wsparcie'],
@@ -53,8 +53,8 @@ export const EXTRA: Record<Lang, X> = {
     expFacts: [
       { v: 'since 2013', l: 'in design — advertising, branding, UX/UI, websites' },
       { v: 'Binopt → AdBakers', l: 'advertising agency experience' },
-      { v: 'Websites + Google Ads', l: 'for car services and local businesses in Poland' },
-      { v: 'Poznań', l: 'working with businesses across Poland' },
+      { v: 'Websites + Google Ads', l: 'for car services and local businesses' },
+      { v: 'Remote', l: 'clients in different countries' },
     ],
     expApproachL: 'Approach',
     expApproach: ['Business goal first, design second', 'Website and ads as one system, no middlemen', 'Honest timelines and fixed package price', 'Reports and support after launch'],

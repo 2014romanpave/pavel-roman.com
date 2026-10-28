@@ -27,7 +27,7 @@ function head(lang, w) {
     image: `${SITE_URL}/og-image.jpg`,
     email: CONTACTS.email,
     telephone: CONTACTS.phone.replace(/\s/g, ''),
-    areaServed: 'PL',
+    areaServed: 'Worldwide',
     address: { '@type': 'PostalAddress', addressLocality: 'Poznań', addressCountry: 'PL' },
     founder: { '@type': 'Person', name: 'Roman Pavel', jobTitle: 'Web & Brand Designer' },
     sameAs: [CONTACTS.behance, CONTACTS.telegram, CONTACTS.instagram],
