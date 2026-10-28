@@ -1,7 +1,7 @@
 import { CONTACTS, DICT, LANGS, LANG_LABEL, type Lang } from './i18n';
 import { ContactForm } from './components/ContactForm';
 import { WorkPage } from './components/WorkPage';
-import { WORKS, WORK_UI, type WorkKey } from './work';
+import { WORKS, WORK_UI, caseText, type WorkKey } from './work';
 import { Expertise, Footprint, CoursesTeaser } from './components/Blocks';
 import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
@@ -91,15 +91,19 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
             </div>
             <span className="hidden md:block font-mono text-xs text-stone-600">0{WORKS.length}</span>
           </div>
-          <div className="grid md:grid-cols-2 gap-x-6 gap-y-14">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
             {WORKS.map((w) => {
-              const d = t.cases[w.key];
+              const d = caseText(lang, w.key);
               const [cat] = d.tag.split(' · ');
               return (
                 <a key={w.key} href={`/${lang}/work/${w.slug}/`} className="group block">
                   <div className="relative aspect-[4/3] rounded-[14px] overflow-hidden bg-gradient-to-b from-[#211e1a] to-[#171512] ring-1 ring-white/[0.05]">
-                    <img src={w.thumb} alt={d.title} width={1440} height={900} loading="lazy" className="absolute left-[8%] top-[12%] w-[84%] rounded-md ring-1 ring-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,.9)] transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-2" />
-                    <img src={w.mob} alt="" width={390} height={844} loading="lazy" className="absolute right-[6%] bottom-[-8%] w-[20%] rounded-[12px] ring-[3px] ring-[#0c0b0a] shadow-[0_20px_40px_-10px_rgba(0,0,0,.9)] transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-4" />
+                    {w.mob ? (<>
+                      <img src={w.thumb} alt={d.title} width={1440} height={900} loading="lazy" className="absolute left-[8%] top-[12%] w-[84%] rounded-md ring-1 ring-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,.9)] transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-2" />
+                      <img src={w.mob} alt="" width={390} height={844} loading="lazy" className="absolute right-[6%] bottom-[-8%] w-[20%] rounded-[12px] ring-[3px] ring-[#0c0b0a] shadow-[0_20px_40px_-10px_rgba(0,0,0,.9)] transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-4" />
+                    </>) : (
+                      <img src={w.thumb} alt={d.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.03]" />
+                    )}
                     <span className="absolute left-4 top-4 rounded-full bg-black/40 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">{ui.label}</span>
                   </div>
                   <div className="mt-5 flex items-baseline justify-between gap-4 text-sm">

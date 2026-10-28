@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 
 const dist = path.resolve('dist');
 const ssr = await import(pathToFileURL(path.resolve('dist-ssr/entry-server.js')).href);
-const { render, WORKS, DICT, LANGS, HTML_LANG, SITE_URL, CONTACTS } = ssr;
+const { render, WORKS, caseText, DICT, LANGS, HTML_LANG, SITE_URL, CONTACTS } = ssr;
 const tpl = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const OG_LOCALE = { ua: 'uk_UA', ru: 'ru_RU', pl: 'pl_PL', en: 'en_US' };
@@ -15,11 +15,11 @@ function head(lang, w) {
   const sub = w ? `work/${w.slug}/` : '';
   const url = `${SITE_URL}/${lang}/${sub}`;
   const alts = LANGS.map((l) => `<link rel="alternate" hreflang="${HTML_LANG[l]}" href="${SITE_URL}/${l}/${sub}" />`).join('\n    ');
-  const d = w && t.cases[w.key];
+  const d = w && caseText(lang, w.key);
   const title = d ? `${d.title} — ${lang === 'pl' || lang === 'en' ? 'Roman Pavel' : 'Роман Павел'}` : t.metaTitle;
   const desc = d ? `${d.tag}. ${d.task}` : t.metaDesc;
   const img = d ? `${SITE_URL}${w.thumb}` : `${SITE_URL}/og-image.jpg`;
-  const ld = d ? { '@context': 'https://schema.org', '@type': 'CreativeWork', name: d.title, url, image: img, description: desc, author: { '@type': 'Person', name: 'Roman Pavel' }, sameAs: [w.url] } : {
+  const ld = d ? { '@context': 'https://schema.org', '@type': 'CreativeWork', name: d.title, url, image: img, description: desc, author: { '@type': 'Person', name: 'Roman Pavel' }, sameAs: [w.url, w.behance].filter(Boolean) } : {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'Pavel Roman — Web & Brand Design',

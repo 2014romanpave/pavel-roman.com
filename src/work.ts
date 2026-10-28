@@ -1,14 +1,53 @@
-import type { Lang } from './i18n';
-export type WorkKey = 'awto' | 'tesla';
+import { DICT, type Lang } from './i18n';
+export type WorkKey = 'awto' | 'tesla' | 'glow' | 'reserba' | 'garcinia';
+export type CaseText = { title: string; tag: string; task: string; did: string[]; result: string[] };
+type Gallery = { label: Record<Lang, string>; imgs: string[] };
+export type Work = {
+  key: WorkKey; slug: string; url?: string; host?: string; behance?: string; proto?: string;
+  thumb: string; mob?: string; full?: string; shots: string[]; mobs: string[]; gallery?: Gallery;
+};
 const C = '/img/cases/';
-export const WORKS: { key: WorkKey; slug: string; url: string; host: string; thumb: string; mob: string; full: string; shots: string[]; mobs: string[] }[] = [
+const range = (p: string, a: number, b: number) => Array.from({ length: b - a + 1 }, (_, i) => `${C}${p}-${a + i}.webp`);
+
+export const WORKS: Work[] = [
   { key: 'awto', slug: 'awtonapraw', url: 'https://awtonapraw.pl/', host: 'awtonapraw.pl', thumb: C + 'awtonapraw-desktop.webp', mob: C + 'awtonapraw-mobile.webp', full: C + 'awtonapraw-full.webp', shots: [C + 'awtonapraw-s1.webp', C + 'awtonapraw-s2.webp', C + 'awtonapraw-s3.webp'], mobs: [C + 'awtonapraw-mobile.webp', C + 'awtonapraw-m2.webp', C + 'awtonapraw-m3.webp'] },
-  { key: 'tesla', slug: 'teslahub', url: 'https://www.teslahubservice.com/', host: 'teslahubservice.com', thumb: C + 'teslahub-desktop.webp', mob: C + 'teslahub-mobile.webp', full: C + 'teslahub-full.webp', shots: [C + 'teslahub-s1.webp', C + 'teslahub-s2.webp', C + 'teslahub-s3.webp'], mobs: [C + 'teslahub-mobile.webp', C + 'teslahub-m2.webp', C + 'teslahub-m3.webp'] },
+  { key: 'tesla', slug: 'teslahub', url: 'https://www.teslahubservice.com/', host: 'teslahubservice.com', behance: 'https://www.behance.net/gallery/213695989/Tesla-HUB-service', thumb: C + 'teslahub-desktop.webp', mob: C + 'teslahub-mobile.webp', full: C + 'teslahub-full.webp', shots: [C + 'teslahub-s1.webp', C + 'teslahub-s2.webp', C + 'teslahub-s3.webp'], mobs: [C + 'teslahub-mobile.webp', C + 'teslahub-m2.webp', C + 'teslahub-m3.webp'],
+    gallery: { label: { ua: 'Бренд під ключ: айдентика, соцмережі, друк', ru: 'Бренд под ключ: айдентика, соцсети, печать', pl: 'Marka pod klucz: identyfikacja, social media, druk', en: 'Turnkey brand: identity, social, print' }, imgs: range('teslahub-brand', 1, 7) } },
+  { key: 'glow', slug: 'glow', url: 'https://glowpoznan.com/', host: 'glowpoznan.com', behance: 'https://www.behance.net/gallery/229628319/GLOW-Beauty-Salon', thumb: C + 'glow-desktop.webp', mob: C + 'glow-mobile.webp', full: C + 'glow-full.webp', shots: [], mobs: [C + 'glow-mobile.webp', C + 'glow-m2.webp'],
+    gallery: { label: { ua: 'Макети', ru: 'Макеты', pl: 'Projekty', en: 'Layouts' }, imgs: [2, 3, 4, 5, 6].map((i) => `${C}glow-n${i}.webp`) } },
+  { key: 'reserba', slug: 'reserba', proto: 'https://www.figma.com/proto/y4a57ujScmp3J1qO9tCpbR/Reserba?node-id=1083-14349&scaling=scale-down&content-scaling=fixed&page-id=334%3A377&starting-point-node-id=1083%3A14362', thumb: C + 'reserba-2.webp', shots: [], mobs: [],
+    gallery: { label: { ua: 'Дослідження, user flow та дизайн', ru: 'Исследование, user flow и дизайн', pl: 'Badania, user flow i design', en: 'Research, user flow and design' }, imgs: range('reserba', 1, 9) } },
+  { key: 'garcinia', slug: 'garcinia', behance: 'https://www.behance.net/gallery/74894321/Carcinia-Landing-page', thumb: C + 'garcinia-2.webp', shots: [], mobs: [],
+    gallery: { label: { ua: 'Лендинг і мобільна версія', ru: 'Лендинг и мобильная версия', pl: 'Landing i wersja mobilna', en: 'Landing page and mobile' }, imgs: range('garcinia', 1, 3) } },
 ];
 export const workBySlug = (s: string) => WORKS.find((w) => w.slug === s);
-export const WORK_UI: Record<Lang, { all: string; next: string; open: string; scroll: string; mobile: string; sections: string; label: string }> = {
-  ua: { all: 'Усі роботи', next: 'Наступний проєкт', open: 'Детальніше', scroll: 'Прокрутіть сторінку у вікні', mobile: 'Мобільна версія', sections: 'Фрагменти', label: 'Портфоліо' },
-  ru: { all: 'Все работы', next: 'Следующий проект', open: 'Подробнее', scroll: 'Прокрутите страницу в окне', mobile: 'Мобильная версия', sections: 'Фрагменты', label: 'Портфолио' },
-  pl: { all: 'Wszystkie prace', next: 'Następny projekt', open: 'Szczegóły', scroll: 'Przewiń stronę w oknie', mobile: 'Wersja mobilna', sections: 'Fragmenty', label: 'Portfolio' },
-  en: { all: 'All works', next: 'Next project', open: 'View case', scroll: 'Scroll the page inside the window', mobile: 'Mobile version', sections: 'Fragments', label: 'Portfolio' },
+
+const NEW: Record<'glow' | 'reserba' | 'garcinia', Record<Lang, CaseText>> = {
+  glow: {
+    ua: { title: 'Glow Beauty Salon', tag: 'Сайт · Салон краси, Познань', task: 'Стильний адаптивний сайт, що показує роботи салону, посилює присутність онлайн і веде клієнтів на запис через Booksy.', did: ['Структура і дизайн у Figma', 'Односторінковий сайт на HTML/CSS/JS, написаний за допомогою ШІ', 'Розділи послуг і галерея робіт', 'Плавний скрол та інтерактив', 'Інтеграція запису Booksy', 'Публікація через GitHub'], result: ['Сильніший цифровий образ салону', 'Ширша аудиторія', 'Більше записів і залученості клієнтів'] },
+    ru: { title: 'Glow Beauty Salon', tag: 'Сайт · Салон красоты, Познань', task: 'Стильный адаптивный сайт, который показывает работы салона, усиливает присутствие онлайн и ведёт клиентов на запись через Booksy.', did: ['Структура и дизайн в Figma', 'Одностраничный сайт на HTML/CSS/JS, написанный с помощью ИИ', 'Разделы услуг и галерея работ', 'Плавный скролл и интерактив', 'Интеграция записи Booksy', 'Публикация через GitHub'], result: ['Более сильный цифровой образ салона', 'Шире аудитория', 'Больше записей и вовлечённости клиентов'] },
+    pl: { title: 'Glow Beauty Salon', tag: 'Strona · Salon piękności, Poznań', task: 'Stylowa, responsywna strona, która pokazuje prace salonu, wzmacnia obecność online i kieruje klientów do rezerwacji przez Booksy.', did: ['Struktura i projekt w Figma', 'Strona one-page w HTML/CSS/JS napisana z pomocą AI', 'Sekcje usług i galeria prac', 'Płynne przewijanie i interakcje', 'Integracja rezerwacji Booksy', 'Publikacja przez GitHub'], result: ['Mocniejszy wizerunek salonu online', 'Szersze grono odbiorców', 'Więcej rezerwacji i zaangażowania'] },
+    en: { title: 'Glow Beauty Salon', tag: 'Website · Beauty salon, Poznań', task: 'A stylish responsive website that showcases the salon’s work, strengthens its online presence and drives bookings via Booksy.', did: ['Structure and design in Figma', 'One-page site in HTML/CSS/JS, written with AI', 'Services and gallery sections', 'Smooth scroll and interactions', 'Booksy booking integration', 'Deployed via GitHub'], result: ['Stronger digital image of the salon', 'Broader audience', 'More bookings and client engagement'] },
+  },
+  reserba: {
+    ua: { title: 'Reserba', tag: 'UX/UI · Мобільний застосунок і веб-сервіс бронювання', task: 'Зручний прототип для пошуку та бронювання локальних спеціалістів (салони краси, няні, садівники тощо): аналіз потреб, конкурентів, інтерфейс і ключові функції.', did: ['Дослідження та аналіз цільової аудиторії', 'Аналіз конкурентів', 'User flow та етапи роботи', 'Дизайн-система та інтерфейс', 'Пошук і фільтри, бронювання, відгуки, чат', 'Клікабельний прототип у Figma'], result: ['Час підтвердження бронювання −40%', 'Висока залученість і простота використання', 'Більше довіри завдяки системі відгуків'] },
+    ru: { title: 'Reserba', tag: 'UX/UI · Мобильное приложение и веб-сервис бронирования', task: 'Удобный прототип для поиска и бронирования локальных специалистов (салоны красоты, няни, садовники и т. д.): анализ потребностей, конкурентов, интерфейс и ключевые функции.', did: ['Исследование и анализ целевой аудитории', 'Анализ конкурентов', 'User flow и этапы работы', 'Дизайн-система и интерфейс', 'Поиск и фильтры, бронирование, отзывы, чат', 'Кликабельный прототип в Figma'], result: ['Время подтверждения бронирования −40%', 'Высокая вовлечённость и простота использования', 'Больше доверия благодаря системе отзывов'] },
+    pl: { title: 'Reserba', tag: 'UX/UI · Aplikacja mobilna i serwis rezerwacji', task: 'Wygodny prototyp do wyszukiwania i rezerwowania lokalnych specjalistów (salony, opieka nad dziećmi, ogrodnictwo itd.): analiza potrzeb, konkurencji, interfejs i kluczowe funkcje.', did: ['Badania i analiza grupy docelowej', 'Analiza konkurencji', 'User flow i etapy pracy', 'Design system i interfejs', 'Wyszukiwanie i filtry, rezerwacja, opinie, czat', 'Klikalny prototyp w Figma'], result: ['Czas potwierdzenia rezerwacji −40%', 'Wysokie zaangażowanie i łatwość użycia', 'Większe zaufanie dzięki opiniom'] },
+    en: { title: 'Reserba', tag: 'UX/UI · Booking mobile app and web service', task: 'A user-friendly prototype for finding and booking local specialists (beauty salons, childcare, gardening, etc.): user needs, competitor analysis, interface and key features.', did: ['Research and target audience analysis', 'Competitor analysis', 'User flow and work stages', 'Design system and UI', 'Search & filters, booking, reviews, chat', 'Clickable Figma prototype'], result: ['Booking confirmation time −40%', 'High engagement and ease of use', 'More trust through the review system'] },
+  },
+  garcinia: {
+    ua: { title: 'Garcinia', tag: 'Лендинг · Інтернет-магазин добавок', task: 'Лендинг, що приводить користувачів в інтернет-магазин, покращує SEO та збільшує кількість заявок; оптимізація мобільної версії та блог для органічного трафіку.', did: ['Дослідження аудиторії та конкурентів', 'Зрозумілий макет з ефективними CTA', 'Блог з SEO-статтями', 'Адаптація під мобільні'], result: ['Трафік на основний сайт +30%', 'Заявки +25%', 'Органічний трафік через блог +15%'] },
+    ru: { title: 'Garcinia', tag: 'Лендинг · Интернет-магазин добавок', task: 'Лендинг, который приводит пользователей в интернет-магазин, улучшает SEO и увеличивает число заявок; оптимизация мобильной версии и блог для органического трафика.', did: ['Исследование аудитории и конкурентов', 'Понятный макет с эффективными CTA', 'Блог с SEO-статьями', 'Адаптация под мобильные'], result: ['Трафик на основной сайт +30%', 'Заявки +25%', 'Органический трафик через блог +15%'] },
+    pl: { title: 'Garcinia', tag: 'Landing · Sklep z suplementami', task: 'Landing, który kieruje użytkowników do sklepu, wspiera SEO i zwiększa liczbę leadów; optymalizacja mobilna i blog dla ruchu organicznego.', did: ['Badanie odbiorców i konkurencji', 'Prosty układ ze skutecznymi CTA', 'Blog z artykułami SEO', 'Wersja mobilna'], result: ['Ruch na głównej stronie +30%', 'Leady +25%', 'Ruch organiczny z bloga +15%'] },
+    en: { title: 'Garcinia', tag: 'Landing page · Supplements e-shop', task: 'A landing page that drives users to the online store, boosts SEO and increases leads; optimized mobile experience and a blog for organic growth.', did: ['Audience and competitor research', 'Clear layout with effective CTAs', 'SEO-optimized blog', 'Mobile adaptation'], result: ['Traffic to the main site +30%', 'Leads +25%', 'Organic traffic via blog +15%'] },
+  },
+};
+export const caseText = (lang: Lang, key: WorkKey): CaseText =>
+  key === 'awto' || key === 'tesla' ? DICT[lang].cases[key] : NEW[key][lang];
+
+export const WORK_UI: Record<Lang, { all: string; next: string; open: string; scroll: string; mobile: string; sections: string; label: string; proto: string }> = {
+  ua: { all: 'Усі роботи', next: 'Наступний проєкт', open: 'Детальніше', scroll: 'Прокрутіть сторінку у вікні', mobile: 'Мобільна версія', sections: 'Фрагменти', label: 'Портфоліо', proto: 'Прототип у Figma' },
+  ru: { all: 'Все работы', next: 'Следующий проект', open: 'Подробнее', scroll: 'Прокрутите страницу в окне', mobile: 'Мобильная версия', sections: 'Фрагменты', label: 'Портфолио', proto: 'Прототип в Figma' },
+  pl: { all: 'Wszystkie prace', next: 'Następny projekt', open: 'Szczegóły', scroll: 'Przewiń stronę w oknie', mobile: 'Wersja mobilna', sections: 'Fragmenty', label: 'Portfolio', proto: 'Prototyp w Figma' },
+  en: { all: 'All works', next: 'Next project', open: 'View case', scroll: 'Scroll the page inside the window', mobile: 'Mobile version', sections: 'Fragments', label: 'Portfolio', proto: 'Figma prototype' },
 };

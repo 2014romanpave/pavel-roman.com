@@ -3,6 +3,9 @@ import { EXTRA, SHOW_COURSES_TEASER } from '../extra';
 import { FOOTPRINT, INSTAGRAM_URL } from '../data/footprint';
 
 const Label = ({ children }: { children: React.ReactNode }) => <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{children}</p>;
+const TOOLS = ['Figma', 'Photoshop', 'Illustrator', 'Adobe XD', 'Webflow', 'HTML/CSS', 'After Effects', 'Midjourney'];
+const SKILLS = ['UX research', 'CustDev', 'CJM', 'JTBD', 'User flows', 'Wireframing', 'Prototyping', 'Design systems / UI kits', 'Responsive design', 'UX writing'];
+const SK_L: Record<Lang, [string, string]> = { ua: ['Інструменти', 'Експертиза'], ru: ['Инструменты', 'Экспертиза'], pl: ['Narzędzia', 'Kompetencje'], en: ['Tools', 'Expertise'] };
 const SOON: Record<Lang, string> = { ua: 'Скоро в Instagram', ru: 'Скоро в Instagram', pl: 'Wkrótce na Instagramie', en: 'Soon on Instagram' };
 
 export function Expertise({ lang }: { lang: Lang }) {
@@ -23,6 +26,14 @@ export function Expertise({ lang }: { lang: Lang }) {
           <ol className="mt-5 grid sm:grid-cols-2 gap-x-8 gap-y-3 text-sm text-stone-300">
             {x.expApproach.map((a, i) => <li key={a} className="flex gap-3"><span className="font-mono text-xs text-stone-600 pt-0.5">0{i + 1}</span>{a}</li>)}
           </ol>
+          <div className="mt-12 grid sm:grid-cols-2 gap-8">
+            {([[SK_L[lang][0], TOOLS], [SK_L[lang][1], SKILLS]] as [string, string[]][]).map(([l, list]) => (
+              <div key={l}>
+                <Label>{l}</Label>
+                <ul className="mt-4 flex flex-wrap gap-2">{list.map((k) => <li key={k} className="rounded-full border border-white/[0.08] px-3 py-1 text-xs text-stone-400">{k}</li>)}</ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -49,7 +60,7 @@ export function Footprint({ lang }: { lang: Lang }) {
                 <div className={`absolute inset-0 fp-ph fp-ph-${i % 3}`} aria-hidden />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <span className="absolute left-3 top-3 text-[10px] uppercase tracking-[0.2em] text-stone-300">{x.fpTypes[f.type]}</span>
+              <span className="absolute left-3 top-3 rounded-full bg-black/55 backdrop-blur-md px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-100 ring-1 ring-white/10">{x.fpTypes[f.type]}</span>
               <p className="absolute left-3 right-3 bottom-3 text-xs md:text-sm text-stone-200 leading-snug">{f.placeholder ? SOON[lang] : f.title}</p>
             </a>
           );

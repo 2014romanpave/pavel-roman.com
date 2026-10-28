@@ -1,9 +1,9 @@
 import { DICT, type Lang } from '../i18n';
-import { WORKS, WORK_UI, type WorkKey } from '../work';
+import { WORKS, WORK_UI, caseText, type WorkKey } from '../work';
 
 const Label = ({ children }: { children: React.ReactNode }) => <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{children}</p>;
 
-export function Browser({ host, children, className = '' }: { host: string; children: React.ReactNode; className?: string }) {
+export function Browser({ host, children, className = '' }: { host?: string; children: React.ReactNode; className?: string }) {
   return (
     <div className={`rounded-[10px] overflow-hidden ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] bg-[#0f0e0d] ${className}`}>
       <div className="flex items-center gap-1.5 px-4 h-8 bg-[#262320] border-b border-white/[0.05]">
@@ -22,8 +22,8 @@ const Phone = ({ src }: { src: string }) => (
 
 export function WorkPage({ lang, work }: { lang: Lang; work: WorkKey }) {
   const t = DICT[lang]; const ui = WORK_UI[lang];
-  const i = WORKS.findIndex((w) => w.key === work); const w = WORKS[i]; const d = t.cases[work];
-  const next = WORKS[(i + 1) % WORKS.length]; const nd = t.cases[next.key];
+  const i = WORKS.findIndex((w) => w.key === work); const w = WORKS[i]; const d = caseText(lang, work);
+  const next = WORKS[(i + 1) % WORKS.length]; const nd = caseText(lang, next.key);
   const [cat, place] = d.tag.split(' · ');
   return (
     <main className="px-6 md:px-16 pt-8 md:pt-12">
@@ -39,7 +39,11 @@ export function WorkPage({ lang, work }: { lang: Lang; work: WorkKey }) {
           <div className="mt-5 flex flex-wrap gap-2">
             {[cat, place].filter(Boolean).map((x) => <span key={x} className="rounded-full border border-white/10 px-3 py-1 text-[11px] text-stone-400">{x}</span>)}
           </div>
-          <a href={w.url} target="_blank" rel="noopener" className="inline-flex gap-2 mt-8 text-sm text-stone-200 link-line pb-1">{t.visit} ↗</a>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm">
+            {w.url && <a href={w.url} target="_blank" rel="noopener" className="text-stone-200 link-line pb-1">{t.visit} ↗</a>}
+            {w.proto && <a href={w.proto} target="_blank" rel="noopener" className="text-stone-200 link-line pb-1">{ui.proto} ↗</a>}
+            {w.behance && <a href={w.behance} target="_blank" rel="noopener" className="text-stone-400 hover:text-white link-line pb-1">Behance ↗</a>}
+          </div>
         </div>
         <div className="md:col-span-7 md:pt-8 text-sm leading-relaxed grid sm:grid-cols-2 gap-10">
           <div><Label>{t.taskL}</Label><p className="mt-3 text-stone-300">{d.task}</p></div>
@@ -48,23 +52,23 @@ export function WorkPage({ lang, work }: { lang: Lang; work: WorkKey }) {
         </div>
       </section>
 
-      <section className="mt-20 md:mt-28 rounded-[18px] bg-gradient-to-b from-[#211e1a] to-[#171512] ring-1 ring-white/[0.05] p-4 md:p-16">
+      {w.full && <section className="mt-20 md:mt-28 rounded-[18px] bg-gradient-to-b from-[#211e1a] to-[#171512] ring-1 ring-white/[0.05] p-4 md:p-16">
         <Browser host={w.host} className="mx-auto max-w-[1180px]">
           <div className="h-[56vw] max-h-[760px] overflow-y-auto custom-scrollbar">
             <img src={w.full} alt={d.title} width={1440} loading="lazy" className="block w-full" />
           </div>
         </Browser>
         <p className="mt-4 text-center text-[11px] text-stone-600">{ui.scroll}</p>
-      </section>
+      </section>}
 
-      <section className="mt-24 md:mt-36">
+      {w.mobs.length > 0 && <section className="mt-24 md:mt-36">
         <Label>{ui.mobile}</Label>
         <div className="mt-8 grid grid-cols-3 gap-3 md:gap-10 max-w-4xl">
           {w.mobs.map((m) => <Phone key={m} src={m} />)}
         </div>
-      </section>
+      </section>}
 
-      <section className="mt-24 md:mt-36">
+      {w.shots.length > 0 && <section className="mt-24 md:mt-36">
         <Label>{ui.sections}</Label>
         <div className="mt-8 grid md:grid-cols-2 gap-6 md:gap-10">
           {w.shots.map((s, k) => (
@@ -73,14 +77,23 @@ export function WorkPage({ lang, work }: { lang: Lang; work: WorkKey }) {
             </Browser>
           ))}
         </div>
-      </section>
+      </section>}
+
+      {w.gallery && <section className="mt-24 md:mt-36">
+        <Label>{w.gallery.label[lang]}</Label>
+        <div className="mt-8 grid md:grid-cols-2 gap-4 md:gap-6">
+          {w.gallery.imgs.map((g, k) => (
+            <img key={g} src={g} alt={`${d.title} — ${k + 1}`} loading="lazy" className={`block w-full rounded-[12px] ring-1 ring-white/[0.06] bg-[#1d1b18] ${k === 0 ? 'md:col-span-2' : ''}`} />
+          ))}
+        </div>
+      </section>}
 
       <a href={`/${lang}/work/${next.slug}/`} className="group mt-28 md:mt-40 mb-10 flex items-center justify-between gap-6 border-t border-white/[0.07] pt-8">
         <div>
           <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{ui.next}</p>
           <p className="mt-3 text-lg text-white">{nd.title} <span className="inline-block transition-transform duration-500 group-hover:translate-x-1">→</span></p>
         </div>
-        <img src={next.thumb} alt="" width={1440} height={900} loading="lazy" className="w-40 md:w-64 rounded-md ring-1 ring-white/10 opacity-70 group-hover:opacity-100 transition-opacity duration-700" />
+        <img src={next.thumb} alt="" width={1440} height={900} loading="lazy" className="w-40 md:w-64 rounded-md ring-1 ring-white/10 opacity-70 aspect-[16/10] object-cover object-top group-hover:opacity-100 transition-opacity duration-700" />
       </a>
     </main>
   );
