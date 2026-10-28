@@ -1,20 +1,11 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# pavelroman.com
 
-# Run and deploy your AI Studio app
+Vite + React 19 + Tailwind 4. Static prerendered pages: `/ua/`, `/ru/`, `/pl/`, `/en/` (`/` → `/ua/`).
 
-This contains everything you need to run your app locally.
+- Texts (4 languages): `src/i18n.ts`
+- Page: `src/App.tsx`, form: `src/components/ContactForm.tsx`
+- Contact form backend: Vercel function `api/contact.ts` (env `TG_BOT_TOKEN`, `TG_CHAT_ID`)
+- Build: `npm run build` (client build → SSR build → `scripts/prerender.mjs` writes per-language HTML, sitemap.xml, robots.txt)
+- Dev: `npm run dev` (form needs `vercel dev` to work locally)
 
-View your app in AI Studio: https://ai.studio/apps/8efe337b-27c8-4582-a3d5-34242adf972d
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+See `TODO.md`.

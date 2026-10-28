@@ -1,379 +1,156 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { AnimatePresence } from 'motion/react';
-import { translations, type Language } from './translations';
-import { PROJECTS } from './data/projects';
-import Works from './components/Works';
-import Store from './components/Store';
-import CourseDetail from './components/CourseDetail';
-import { ComingSoon } from './components/ComingSoon';
-import MyWayFeed from './components/MyWayFeed';
-import { MultilingualQuote } from './components/MultilingualQuote';
+import { CONTACTS, DICT, LANGS, LANG_LABEL, type Lang } from './i18n';
 import { ContactForm } from './components/ContactForm';
-import { GlitchCopyright } from './components/GlitchCopyright';
-import ProjectDetail from './pages/ProjectDetail';
-import NotFound from './pages/NotFound';
-import { About } from './components/About';
-import { HomeNav } from './components/HomeNav';
-import { SectionWrapper } from './components/SectionWrapper';
-import ScrollToTop from './components/ScrollToTop';
-import { motion } from 'motion/react';
 
-const GLOW_COLORS = {
-  creative: 'rgba(190, 18, 60, 0.4)', // Глубокая малина
-  ux: 'rgba(7, 89, 133, 0.4)',       // Ночной лед
-  store: 'rgba(139, 92, 246, 0.4)',   // Благородный фиолетовый
-  about: 'rgba(20, 83, 45, 0.4)',     // Темная мята
-};
+const CASES = [
+  { key: 'awto' as const, url: 'https://awtonapraw.pl/', img: '/img/cases/awtonapraw-desktop.webp', mob: '/img/cases/awtonapraw-mobile.webp' },
+  { key: 'tesla' as const, url: 'https://www.teslahubservice.com/', img: '/img/cases/teslahub-desktop.webp', mob: '/img/cases/teslahub-mobile.webp' },
+];
 
-type ModalType = 'none' | 'creative' | 'ux' | 'store' | 'store_detail' | 'about' | 'audit' | 'myway';
+const H2 = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-none mb-4">{children}</h2>
+);
 
-const RotatingFooter = () => {
-  const contacts = [
-    { text: 'EMAIL', href: 'mailto:2014romanpavel@gmail.com' },
-    { text: 'TELEGRAM', href: 'https://t.me/PavelRomanWeb' },
-    { text: 'WHATSAPP', href: 'https://wa.me/0663525760' }
-  ];
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => setIndex((prev) => (prev + 1) % contacts.length), 3000);
-    return () => clearInterval(timer);
-  }, [contacts.length]);
-
+export default function App({ lang }: { lang: Lang }) {
+  const t = DICT[lang];
   return (
-    <div className="h-6 relative z-[100] w-full md:w-[250px] pointer-events-auto">
-      <AnimatePresence mode="wait">
-        <motion.a
-          key={index}
-          href={contacts[index].href}
-          target="_blank"
-          rel="noopener noreferrer"
-          initial={{ y: 10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -10, opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="absolute left-0 right-0 w-full text-center md:text-right top-0 py-4 md:py-0 hover:text-white transition-colors duration-500 whitespace-nowrap cursor-pointer pl-[0.1em]"
-        >
-          {contacts[index].text}
-        </motion.a>
-      </AnimatePresence>
-    </div>
-  );
-};
-
-export default function App() {
-
-  useEffect(() => {
-    const asciiArt = `
-███╗   ███╗██╗   ██╗    ████████╗██████╗  █████╗  ██████╗███████╗
-████╗ ████║╚██╗ ██╔╝    ╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██╔════╝
-██╔████╔██║ ╚████╔╝        ██║   ██████╔╝███████║██║     █████╗  
-██║╚██╔╝██║  ╚██╔╝         ██║   ██╔══██╗██╔══██║██║     ██╔══╝  
-██║ ╚═╝ ██║   ██║          ██║   ██║  ██║██║  ██║╚██████╗███████╗
-╚═╝     ╚═╝   ╚═╝          ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚══════╝
-    `;
-    const logoStyle = "color: #ffffff; font-weight: bold; background: #000000; padding: 10px; display: block;";
-    const textStyle = "color: #a1a1aa; font-size: 14px; font-family: monospace; line-height: 1.5;";
-    
-    console.log(`%c${asciiArt}`, logoStyle);
-    console.log(
-      `%c\nDesigned & crafted with passion by Pavel Roman. © MMXXVI\n\nLooking for a top-tier designer or developer?\nLet's discuss your project:\n✉️ 2014romanpavel@gmail.com\n🚀 Telegram: t.me/PavelRomanWeb\n\n`, 
-      textStyle
-    );
-  }, []);
-  
-  
-  const [lang, setLang] = useState<Language>('en');
-  const [isOpen, setIsOpen] = useState(false);
-  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
-  
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const isProjectPage = location.pathname.startsWith('/work/');
-  const projectSlug = isProjectPage ? location.pathname.split('/')[2] : null;
-  const currentProject = projectSlug ? PROJECTS.find(p => p.slug === projectSlug) : null;
-
-  const IS_STORE_MAINTENANCE = true; // true = stub, false = store open
-
-  const t = (key: string): string => {
-    const dict = translations[lang] as any;
-    return dict[key] || key;
-  };
-
-  return (
-    <div className="relative min-h-screen w-screen overflow-x-hidden bg-black font-sans selection:bg-white selection:text-black">
-      {/* Global Header */}
-      <header className="fixed top-0 left-0 w-full h-20 md:h-24 z-[9999] bg-black/75 backdrop-blur-lg border-b border-white/5 flex items-center justify-between px-4 md:px-8">
-        <div 
-          onClick={() => {
-            navigate('/');
-          }}
-          className="uppercase tracking-widest text-sm cursor-pointer hover:opacity-70 transition font-bold"
-        >
-          {t('role')}
-        </div>
-
-        {/* Project Title (Desktop/Tablet) */}
-        {currentProject && (
-          <div className="hidden md:block absolute left-1/2 -translate-x-1/2 pointer-events-none">
-            <span className="text-[8px] md:text-[10px] font-bold tracking-[0.3em] text-zinc-400 md:text-zinc-500 uppercase block text-center mb-0.5">Project</span>
-            <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase block text-center truncate max-w-[120px] md:max-w-none">
-              {translations[lang].projects[currentProject.slug].title}
-            </span>
-          </div>
-        )}
-
-        <div className="flex items-center gap-4 md:gap-8">
-          {/* Global Language Switcher */}
-          <div className="text-sm flex gap-2 pointer-events-auto font-bold uppercase tracking-widest z-[9999]">
-            <button 
-              onClick={() => setLang('en')}
-              className={`transition-colors cursor-pointer p-4 -m-4 pointer-events-auto ${lang === 'en' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
-            >
-              EN
-            </button>
-            <span className="text-white/20">/</span>
-            <button 
-              onClick={() => setLang('ua')}
-              className={`transition-colors cursor-pointer p-4 -m-4 pointer-events-auto ${lang === 'ua' ? '!text-white' : '!text-white/50 md:!text-zinc-500 hover:!text-zinc-300'}`}
-            >
-              UA
-            </button>
-          </div>
-
-          {/* Close Button (Integrated into Header) */}
-          {location.pathname !== '/' && (
-            <div 
-              onClick={(e) => {
-                e.stopPropagation();
-                if (window.history.length > 2) {
-                  navigate(-1);
-                } else {
-                  navigate('/');
-                }
-              }}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-lg border border-white/30 cursor-pointer hover:scale-110 transition group !z-[9999] !text-white"
-            >
-              <div className="relative w-4 h-4 pointer-events-none">
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white rotate-45 transition-transform group-hover:rotate-135"></div>
-                <div className="absolute top-1/2 left-0 w-full h-0.5 !bg-white -rotate-45 transition-transform group-hover:-rotate-135"></div>
-              </div>
-            </div>
-          )}
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-white selection:text-black">
+      <header className="fixed top-0 inset-x-0 z-50 h-16 md:h-20 bg-black/75 backdrop-blur-lg border-b border-white/5 flex items-center justify-between px-4 md:px-8">
+        <a href={`/${lang}/`} className="uppercase tracking-widest text-sm font-bold">Pavel Roman</a>
+        <nav className="hidden md:flex gap-8 text-xs uppercase tracking-[0.2em] text-zinc-400">
+          <a href="#cases" className="hover:text-white">{t.nav.cases}</a>
+          <a href="#services" className="hover:text-white">{t.nav.services}</a>
+          <a href="#process" className="hover:text-white">{t.nav.process}</a>
+          <a href="#contact" className="hover:text-white">{t.nav.contact}</a>
+        </nav>
+        <div className="flex gap-1 text-xs font-bold">
+          {LANGS.map((l) => (
+            <a key={l} href={`/${l}/`} hrefLang={l === 'ua' ? 'uk' : l} className={`px-2 py-1 rounded ${l === lang ? 'bg-white text-black' : 'text-zinc-500 hover:text-white'}`}>{LANG_LABEL[l]}</a>
+          ))}
         </div>
       </header>
 
-      {/* Global Contact Info (Bottom Right) */}
-      <div className="fixed bottom-8 right-8 z-[9999] hidden md:flex flex-col items-end text-right text-[10px] text-zinc-400 md:text-zinc-500 pointer-events-auto font-medium tracking-widest uppercase">
-        <RotatingFooter />
-        <div className="mt-1">
-          <GlitchCopyright />
-        </div>
-      </div>
-
-{/* Mobile-Only Home Contacts */}
-      {location.pathname === '/' && (
-        <div className="flex md:hidden flex-col items-center justify-center text-[10px] text-zinc-500 font-medium tracking-widest uppercase fixed bottom-[90px] left-0 w-full z-[9999] pointer-events-none">
-          <div className="w-full relative pointer-events-auto">
-            <RotatingFooter />
+      <main>
+        {/* HERO */}
+        <section className="relative min-h-[92vh] flex flex-col justify-center px-4 md:px-8 pt-28 pb-16 max-w-7xl mx-auto">
+          <div className="absolute -z-0 top-1/4 right-0 w-[40vw] h-[40vw] rounded-full bg-rose-700/20 blur-[120px] pointer-events-none" />
+          <p className="relative text-xs md:text-sm uppercase tracking-[0.3em] text-zinc-400 mb-6">{t.heroEyebrow}</p>
+          <h1 className="relative text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-tight leading-[0.95] max-w-5xl">{t.heroTitle}</h1>
+          <p className="relative mt-8 text-lg md:text-xl text-zinc-300 max-w-2xl">{t.heroSub}</p>
+          <div className="relative mt-10 flex flex-wrap gap-4">
+            <a href={CONTACTS.telegram} target="_blank" rel="noopener" className="rounded-full bg-white text-black px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-zinc-300 transition">{t.ctaTelegram}</a>
+            <a href="#contact" className="rounded-full border border-white/30 px-8 py-4 text-sm font-bold uppercase tracking-widest hover:border-white transition">{t.ctaAudit}</a>
           </div>
-         <div className="opacity-60 text-[9px] mt-4 w-full flex justify-center pointer-events-auto translate-x-[-16px]">
-            <GlitchCopyright />
-         </div>
-        </div>
-      )
-      }
+          <dl className="relative mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-white/10 pt-8">
+            {t.trust.map((x) => (
+              <div key={x.l}><dt className="text-2xl md:text-4xl font-black">{x.v}</dt><dd className="text-xs uppercase tracking-widest text-zinc-500 mt-1">{x.l}</dd></div>
+            ))}
+          </dl>
+        </section>
 
-      {/* Multilingual Rotating Quote (Bottom Left) */}
-      <MultilingualQuote />
-      
-      {/* Organic Ambient Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-black">
-        {/* Grain Texture */}
-        <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay hidden md:block" 
-             style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
-        </div>
-
-        {/* --- FIX: OPTIMIZED RENDERING --- */}
-        {/* Render only when on Home path AND hover state is active to physically unmount when navigating to audit/work/myway */}
-        {location.pathname === '/' && hoveredMenu && (
-          // We removed the conditional opacity classes. Dom does not exist until hover, 
-          // and physically removes on navigation, saving huge GPU frames globally.
-          // Note: Framer motion will pop-in instead of CSS opacity fade due to DOM unmount. 
-          // To add fade, use AnimatePresence or add entrance animation to motion.divs below.
-          <div className="absolute inset-0 hidden md:block opacity-100 transition-opacity">
-            {/* Creative Glow */}
-            {hoveredMenu === 'bg-creative' && (
-               <motion.div
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.creative}, transparent 70%)` }}
-                 animate={{ x: [-40, 40], rotate: [0, 10, 0] }}
-                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-               />
-            )}
-
-            {/* UX Glow */}
-            {hoveredMenu === 'bg-ux' && (
-               <motion.div
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.ux}, transparent 70%)` }}
-                 animate={{ x: [40, -40], rotate: [0, -10, 0] }}
-                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-               />
-            )}
-
-            {/* Store Glow */}
-            {hoveredMenu === 'bg-store' && (
-               <motion.div
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.store}, transparent 70%)` }}
-                 animate={{ scale: [1, 1.2, 1], rotate: [0, 15, 0] }}
-                 transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-               />
-            )}
-
-            {/* About Glow */}
-            {hoveredMenu === 'bg-about' && (
-               <motion.div
-                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] blur-[120px]"
-                 style={{ background: `radial-gradient(ellipse at center, ${GLOW_COLORS.about}, transparent 70%)` }}
-                 animate={{ y: [-30, 30], scale: [1, 1.1, 1] }}
-                 transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-               />
-            )}
+        {/* CASES */}
+        <section id="cases" className="px-4 md:px-8 py-24 max-w-7xl mx-auto scroll-mt-20">
+          <H2>{t.casesTitle}</H2>
+          <p className="text-zinc-400 mb-14">{t.casesSub}</p>
+          <div className="flex flex-col gap-24">
+            {CASES.map((c, i) => {
+              const d = t.cases[c.key];
+              return (
+                <article key={c.key} className="grid md:grid-cols-2 gap-10 items-start">
+                  <a href={c.url} target="_blank" rel="noopener" className={`relative block ${i % 2 ? 'md:order-2' : ''}`}>
+                    <img src={c.img} alt={d.title} width={1200} height={750} loading="lazy" className="w-full rounded-2xl border border-white/10" />
+                    <img src={c.mob} alt="" width={390} height={844} loading="lazy" className="absolute -bottom-8 -right-2 md:-right-6 w-[26%] rounded-xl border border-white/20 shadow-2xl" />
+                  </a>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-rose-400 mb-3">{d.tag}</p>
+                    <h3 className="text-2xl md:text-4xl font-black mb-6">{d.title}</h3>
+                    <p className="text-sm uppercase tracking-widest text-zinc-500">{t.taskL}</p>
+                    <p className="text-zinc-200 mt-2 mb-6">{d.task}</p>
+                    <p className="text-sm uppercase tracking-widest text-zinc-500">{t.didL}</p>
+                    <ul className="mt-2 mb-6 space-y-1 text-zinc-300">{d.did.map((x) => <li key={x}>— {x}</li>)}</ul>
+                    <p className="text-sm uppercase tracking-widest text-zinc-500">{t.resultL}</p>
+                    <ul className="mt-2 mb-8 space-y-1 text-zinc-100">{d.result.map((x) => <li key={x}>✓ {x}</li>)}</ul>
+                    <a href={c.url} target="_blank" rel="noopener" className="text-sm font-bold uppercase tracking-widest underline underline-offset-8 hover:text-zinc-300">{t.visit} ↗</a>
+                  </div>
+                </article>
+              );
+            })}
           </div>
-        )}
-        {/* --- END FIX --- */}
-      </div>
+        </section>
 
-      {/* UI Overlay & Routing */}
-      <ScrollToTop />
-      <AnimatePresence mode="wait">
-        <div key={location.pathname}>
-          <Routes location={location}>
-            <Route path="/" element={<HomeNav t={t} setHoveredMenu={setHoveredMenu} hoveredMenu={hoveredMenu} />} />
-            <Route path="/about" element={<SectionWrapper><About lang={lang} t={t} onDiscuss={() => navigate('/audit')} /></SectionWrapper>} />
-            <Route path="/store" element={
-              <SectionWrapper>
-                {IS_STORE_MAINTENANCE ? <ComingSoon t={t} onBack={() => navigate('/')} /> : <Store lang={lang} />}
-              </SectionWrapper>
-            } />
-            <Route path="/store/:id" element={
-              <SectionWrapper>
-                {IS_STORE_MAINTENANCE ? <ComingSoon t={t} onBack={() => navigate('/')} /> : <CourseDetail lang={lang} />}
-              </SectionWrapper>
-            } />
-            <Route path="/my-way" element={<SectionWrapper><MyWayFeed /></SectionWrapper>} />
-            <Route path="/audit" element={<SectionWrapper><ContactForm lang={lang} t={t} /></SectionWrapper>} />
-            <Route path="/creative" element={<SectionWrapper><Works lang={lang} initialFilter="creative" /></SectionWrapper>} />
-            <Route path="/ux" element={<SectionWrapper><Works lang={lang} initialFilter="ux" /></SectionWrapper>} />
-            <Route path="/work/:slug" element={<ProjectDetail lang={lang} />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </AnimatePresence>
+        {/* SERVICES */}
+        <section id="services" className="px-4 md:px-8 py-24 max-w-7xl mx-auto scroll-mt-20">
+          <H2>{t.servicesTitle}</H2>
+          <p className="text-zinc-400 mb-14">{t.servicesSub}</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {t.packs.map((p, i) => (
+              <div key={p.name} className={`rounded-2xl p-8 border flex flex-col ${i === 0 ? 'border-white bg-white/5' : 'border-white/10'}`}>
+                {i === 0 && <span className="self-start text-[10px] uppercase tracking-widest bg-white text-black rounded-full px-3 py-1 mb-4 font-bold">{t.popular}</span>}
+                <h3 className="text-xl font-bold">{p.name}</h3>
+                <p className="mt-4 text-3xl font-black">{t.from} {p.price}</p>
+                <p className="text-xs uppercase tracking-widest text-zinc-500 mt-1">{p.term}</p>
+                <ul className="mt-6 space-y-2 text-zinc-300 text-sm flex-1">{p.items.map((x) => <li key={x}>— {x}</li>)}</ul>
+                <a href="#contact" className="mt-8 text-center rounded-full border border-white/30 py-3 text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition">{t.nav.contact}</a>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Smart Dock */}
-      <motion.nav 
-        id="smart-dock" 
-        initial={false}
-        animate={isOpen ? "open" : "closed"}
-        variants={{
-          open: { maxWidth: '600px' },
-          closed: { maxWidth: '104px' }
-        }}
-        onMouseEnter={() => setIsOpen(true)}
-        onMouseLeave={() => setIsOpen(false)}
-        className="fixed bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 z-[9999] bg-white/10 backdrop-blur-xl border border-white/30 rounded-full h-14 flex items-center p-1.5 transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] w-max overflow-hidden shadow-2xl pointer-events-auto transform-gpu will-change-transform"
-      >
-        {/* Left: Rotating Logo */}
-        <div 
-          className="w-11 h-11 !bg-white rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite] shrink-0 overflow-hidden p-0.5 z-20 cursor-pointer"
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsOpen(!isOpen);
-            navigate('/');
-          }}
-        >
-          <svg viewBox="0 0 100 100" className="w-full h-full scale-110">
-            <path id="circlePath" d="M 50, 50 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0" fill="none" />
-            <text fontSize="12" fontWeight="900" fill="#000000" letterSpacing="1">
-              <textPath href="#circlePath" startOffset="0%">PAVEL ROMAN 2026 • PAVEL ROMAN 2026 • </textPath>
-            </text>
-          </svg>
-        </div>
+        {/* PROCESS */}
+        <section id="process" className="px-4 md:px-8 py-24 max-w-7xl mx-auto scroll-mt-20">
+          <H2>{t.processTitle}</H2>
+          <ol className="grid md:grid-cols-4 gap-8 mt-12">
+            {t.steps.map((s, i) => (
+              <li key={s.t} className="border-t border-white/20 pt-6">
+                <span className="text-5xl font-black text-zinc-700">0{i + 1}</span>
+                <h3 className="text-lg font-bold mt-3">{s.t}</h3>
+                <p className="text-zinc-400 mt-2 text-sm">{s.d}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
 
-        {/* Center: Nav Links (Reveal on hover) */}
-        <motion.div 
-          variants={{
-            open: { opacity: 1, pointerEvents: 'auto' },
-            closed: { opacity: 0, pointerEvents: 'none' }
-          }}
-          className="flex items-center gap-2 sm:gap-4 transition-opacity duration-500 delay-100 whitespace-nowrap pl-4 pr-1 sm:pr-2 z-10"
-        >
-          <button 
-            onClick={() => {
-              navigate('/creative');
-            }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
-            data-i18n="dock_works"
-          >
-            {t('dock_works')}
-          </button>
-          <button 
-            onClick={() => {
-              navigate('/store');
-            }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
-            data-i18n="menu_store"
-          >
-            {t('menu_store')}
-          </button>
-          <button 
-            onClick={() => {
-              navigate('/about');
-            }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
-            data-i18n="dock_about"
-          >
-            {t('dock_about')}
-          </button>
-          <button 
-            onClick={() => {
-              navigate('/my-way');
-            }} 
-            className="text-[10px] sm:text-xs font-bold tracking-widest uppercase hover:!text-white !text-white md:!text-zinc-400 transition-all duration-300 hover:scale-110 active:scale-95 p-4 -m-4"
-          >
-            {t('nav_works')}
-          </button>
-          <button 
-            onClick={() => {
-              navigate('/audit');
-            }} 
-            className="!bg-white !text-black px-3 py-1 sm:px-4 sm:py-1.5 rounded-full hover:bg-black hover:text-white hover:shadow-[0_0_30px_rgba(255,255,255,0.8)] hover:scale-110 active:scale-95 transition-all duration-500 font-bold text-[10px] sm:text-xs uppercase tracking-widest"
-            data-i18n="dock_audit"
-          >
-            {t('dock_audit')}
-          </button>
-        </motion.div>
+        {/* ABOUT + FAQ */}
+        <section className="px-4 md:px-8 py-24 max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+          <div>
+            <H2>{t.aboutTitle}</H2>
+            <p className="text-zinc-300 text-lg mt-6">{t.aboutText}</p>
+            <a href={CONTACTS.behance} target="_blank" rel="noopener" className="inline-block mt-6 text-sm font-bold uppercase tracking-widest underline underline-offset-8">Behance ↗</a>
+          </div>
+          <div>
+            <H2>{t.faqTitle}</H2>
+            <div className="mt-6 divide-y divide-white/10">
+              {t.faq.map((f) => (
+                <details key={f.q} className="py-4 group">
+                  <summary className="cursor-pointer font-bold list-none flex justify-between">{f.q}<span className="group-open:rotate-45 transition">+</span></summary>
+                  <p className="text-zinc-400 mt-3">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        {/* Right: Hamburger Icon (Hidden on hover) */}
-        <motion.div 
-          variants={{
-            open: { opacity: 0 },
-            closed: { opacity: 1 }
-          }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center transition-opacity duration-300 pointer-events-none z-30"
-        >
-          <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="22" height="1.5" fill="white"/>
-            <rect y="6" width="16" height="1.5" fill="white"/>
-            <rect y="12" width="22" height="1.5" fill="white"/>
-          </svg>
-        </motion.div>
-      </motion.nav>
+        {/* CONTACT */}
+        <section id="contact" className="px-4 md:px-8 py-24 max-w-7xl mx-auto grid md:grid-cols-2 gap-16 scroll-mt-20">
+          <div>
+            <H2>{t.contactTitle}</H2>
+            <p className="text-zinc-400 mt-4 mb-10">{t.contactSub}</p>
+            <ul className="space-y-4 text-lg">
+              <li><a href={CONTACTS.telegram} target="_blank" rel="noopener" className="hover:text-zinc-300">Telegram · {CONTACTS.telegramHandle}</a></li>
+              <li><a href={CONTACTS.whatsapp} target="_blank" rel="noopener" className="hover:text-zinc-300">WhatsApp · {CONTACTS.phone}</a></li>
+              <li><a href={`mailto:${CONTACTS.email}`} className="hover:text-zinc-300">{CONTACTS.email}</a></li>
+            </ul>
+          </div>
+          <ContactForm t={t} lang={lang} />
+        </section>
+      </main>
+
+      <footer className="border-t border-white/10 px-4 md:px-8 py-10 text-xs uppercase tracking-widest text-zinc-500 flex flex-col md:flex-row justify-between gap-4 pb-28 md:pb-10">
+        <span>© 2026 {t.footer}</span>
+        <span>Web & Brand Design · Google Ads</span>
+      </footer>
+
+      {/* mobile sticky CTA */}
+      <a href={CONTACTS.telegram} target="_blank" rel="noopener" className="md:hidden fixed bottom-4 inset-x-4 z-50 rounded-full bg-white text-black text-center py-4 text-sm font-bold uppercase tracking-widest shadow-2xl">{t.ctaTelegram}</a>
     </div>
   );
 }
