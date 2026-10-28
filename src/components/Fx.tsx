@@ -91,7 +91,7 @@ export function CornerContacts() {
 export function Dock({ nav, cta, lang }: { nav: { cases: string; services: string; process: string; contact: string }; cta: string; lang: Lang }) {
   const [open, setOpen] = useState(false);
   const name = lang === 'ua' || lang === 'ru' ? 'РОМАН ПАВЕЛ' : 'PAVEL ROMAN';
-  const links: [string, string][] = [['#cases', nav.cases], ['#services', nav.services], ['#process', nav.process]];
+  const links: [string, string][] = [['#works', nav.cases], ['#services', nav.services], ['#process', nav.process]];
   return (
     <nav
       aria-label="menu"
@@ -106,8 +106,8 @@ export function Dock({ nav, cta, lang }: { nav: { cases: string; services: strin
         </svg>
       </button>
       <div className="dock-links flex items-center gap-5 pl-5 pr-1 whitespace-nowrap">
-        {links.map(([h, l]) => <a key={h} href={h} onClick={() => setOpen(false)} className="text-[11px] tracking-[0.18em] uppercase text-stone-400 hover:text-white transition-colors">{l}</a>)}
-        <a href="#contact" onClick={() => setOpen(false)} className="rounded-full bg-[#ece6dc] text-[#14120f] px-4 py-1.5 text-[11px] tracking-[0.18em] uppercase hover:bg-white transition-colors">{cta}</a>
+        {links.map(([h, l]) => <a key={h} href={`/${lang}/${h}`} onClick={() => setOpen(false)} className="text-[11px] tracking-[0.18em] uppercase text-stone-400 hover:text-white transition-colors">{l}</a>)}
+        <a href={`/${lang}/#contact`} onClick={() => setOpen(false)} className="rounded-full bg-[#ece6dc] text-[#14120f] px-4 py-1.5 text-[11px] tracking-[0.18em] uppercase hover:bg-white transition-colors">{cta}</a>
       </div>
       <svg className="dock-burger absolute right-4 pointer-events-none" width="20" height="12" viewBox="0 0 22 14" fill="none"><rect width="22" height="1.3" fill="#d6d0c6"/><rect y="6" width="15" height="1.3" fill="#d6d0c6"/><rect y="12" width="22" height="1.3" fill="#d6d0c6"/></svg>
     </nav>

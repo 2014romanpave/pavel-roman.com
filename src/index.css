@@ -117,3 +117,22 @@ body { background: var(--bg) !important; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
+
+/* ---- v4 hero: lamp-like animated gradient ---- */
+.lamp { position: absolute; inset: 0; overflow: hidden; background: #1b1714; }
+.lamp i { position: absolute; width: 85%; aspect-ratio: 1; border-radius: 50%; will-change: transform;
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,.55) 45%, transparent 100%); mask-image: radial-gradient(closest-side, #000 0%, rgba(0,0,0,.55) 45%, transparent 100%); opacity: .85; }
+.lamp-b1 { left: -20%; top: -10%; background: #c98a4b; animation: lamp-c1 28s ease-in-out infinite, lamp-m1 22s ease-in-out infinite alternate; }
+.lamp-b2 { right: -25%; top: 20%; background: #b5654a; animation: lamp-c2 28s ease-in-out infinite, lamp-m2 26s ease-in-out infinite alternate; }
+.lamp-b3 { left: 5%; bottom: -25%; background: #8f9a7e; animation: lamp-c3 28s ease-in-out infinite, lamp-m3 24s ease-in-out infinite alternate; }
+.lamp-b4 { left: 30%; top: 30%; width: 55% !important; background: #d9a48c; opacity: .5 !important; animation: lamp-c2 32s ease-in-out infinite reverse, lamp-m1 30s ease-in-out infinite alternate-reverse; }
+.lamp::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, transparent 30%, rgba(18,17,15,.75) 100%); }
+.lamp-grain { position: absolute; inset: 0; z-index: 2; opacity: .18; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* amber → terracotta → peach → dusty rose → sage → soft violet → mocha */
+@keyframes lamp-c1 { 0%,100%{background:#c98a4b} 16%{background:#b5654a} 33%{background:#d9a48c} 50%{background:#b9858a} 66%{background:#8f9a7e} 83%{background:#8c7fa6} }
+@keyframes lamp-c2 { 0%,100%{background:#b5654a} 16%{background:#d9a48c} 33%{background:#b9858a} 50%{background:#8c7fa6} 66%{background:#7a5c48} 83%{background:#c98a4b} }
+@keyframes lamp-c3 { 0%,100%{background:#8f9a7e} 16%{background:#8c7fa6} 33%{background:#7a5c48} 50%{background:#c98a4b} 66%{background:#b5654a} 83%{background:#d9a48c} }
+@keyframes lamp-m1 { from { transform: translate3d(0,0,0) scale(1) } to { transform: translate3d(18%,14%,0) scale(1.15) } }
+@keyframes lamp-m2 { from { transform: translate3d(0,0,0) scale(1.1) } to { transform: translate3d(-22%,10%,0) scale(.9) } }
+@keyframes lamp-m3 { from { transform: translate3d(0,0,0) scale(.95) } to { transform: translate3d(15%,-20%,0) scale(1.1) } }

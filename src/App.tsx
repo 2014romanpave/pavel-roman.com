@@ -1,13 +1,11 @@
 import { CONTACTS, DICT, LANGS, LANG_LABEL, type Lang } from './i18n';
 import { ContactForm } from './components/ContactForm';
+import { WorkPage } from './components/WorkPage';
+import { WORKS, WORK_UI, type WorkKey } from './work';
 import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
 const TAGS: [string, string][] = [['WEB', 'APP'], ['ADS', 'TARGET'], ['BRAND', 'SMM'], ['VIDEO', 'BANNERS']];
 
-const CASES = [
-  { key: 'awto' as const, url: 'https://awtonapraw.pl/', img: '/img/cases/awtonapraw-desktop.webp', mob: '/img/cases/awtonapraw-mobile.webp' },
-  { key: 'tesla' as const, url: 'https://www.teslahubservice.com/', img: '/img/cases/teslahub-desktop.webp', mob: '/img/cases/teslahub-mobile.webp' },
-];
 const NAME: Record<Lang, string> = { ua: 'Роман Павел', ru: 'Роман Павел', pl: 'Roman Pavel', en: 'Roman Pavel' };
 
 const Label = ({ children }: { children: React.ReactNode }) => (
@@ -25,16 +23,24 @@ const Section = ({ id, title, sub, children }: { id?: string; title: string; sub
   </section>
 );
 
-export default function App({ lang }: { lang: Lang }) {
+/** Hero visual: set to an image path (e.g. '/img/portrait.webp') to show a real photo instead of the animated gradient. */
+export const HERO_PHOTO: string | null = null;
+
+export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
   const t = DICT[lang];
+  const ui = WORK_UI[lang];
   return (
     <div className="grain page-bg min-h-screen text-stone-300 font-sans font-light selection:bg-white selection:text-black">
+      {work ? <WorkPage lang={lang} work={work} /> : (
       <main>
         {/* HERO: split screen */}
         <section className="grid md:grid-cols-2 min-h-[100svh]">
           <div className="relative h-[60svh] md:h-auto overflow-hidden bg-[#1a1714]">
-            {/* TODO: replace with real photo — public/img/portrait-placeholder.webp */}
-            <img src="/img/portrait-placeholder.webp" alt={NAME[lang]} width={1200} height={1600} className="absolute inset-0 w-full h-full object-cover slow-zoom" />
+            {HERO_PHOTO ? (
+              <img src={HERO_PHOTO} alt={NAME[lang]} width={1200} height={1600} className="absolute inset-0 w-full h-full object-cover slow-zoom" />
+            ) : (
+              <div className="lamp" aria-hidden><i className="lamp-b1" /><i className="lamp-b2" /><i className="lamp-b3" /><i className="lamp-b4" /><span className="lamp-grain" /></div>
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:hidden" />
           </div>
           <div className="relative flex flex-col justify-between px-6 md:px-16 py-8 md:py-12 min-h-[70svh] md:min-h-0">
@@ -47,7 +53,7 @@ export default function App({ lang }: { lang: Lang }) {
               </nav>
             </header>
             <nav className="hidden md:flex flex-col gap-2 text-sm text-stone-500 fade-up" style={{ animationDelay: '.3s' }}>
-              <a href="#cases" className="self-start hover:text-white transition-colors">{t.nav.cases}</a>
+              <a href="#works" className="self-start hover:text-white transition-colors">{t.nav.cases}</a>
               <a href="#services" className="self-start hover:text-white transition-colors">{t.nav.services}</a>
               <a href="#process" className="self-start hover:text-white transition-colors">{t.nav.process}</a>
               <a href="#contact" className="self-start hover:text-white transition-colors">{t.nav.contact}</a>
@@ -74,53 +80,32 @@ export default function App({ lang }: { lang: Lang }) {
           </dl>
         </section>
 
-        {/* CASES */}
-        <section id="cases" className="px-6 md:px-16 py-28 md:py-40 scroll-mt-10">
-          <div className="mb-20 md:mb-28 max-w-md">
-            <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{t.casesTitle}</h2>
-            <p className="mt-4 text-sm text-stone-500 leading-relaxed">{t.casesSub}</p>
+        {/* WORKS */}
+        <section id="works" className="px-6 md:px-16 py-28 md:py-40 scroll-mt-10">
+          <span id="cases" className="block -mt-10 pt-10" aria-hidden />
+          <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
+            <div className="max-w-md">
+              <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{t.casesTitle}</h2>
+              <p className="mt-4 text-sm text-stone-500 leading-relaxed">{t.casesSub}</p>
+            </div>
+            <span className="hidden md:block font-mono text-xs text-stone-600">0{WORKS.length}</span>
           </div>
-          <div className="flex flex-col gap-36 md:gap-56">
-            {CASES.map((c, i) => {
-              const d = t.cases[c.key];
-              const host = c.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+          <div className="grid md:grid-cols-2 gap-x-6 gap-y-14">
+            {WORKS.map((w) => {
+              const d = t.cases[w.key];
+              const [cat] = d.tag.split(' · ');
               return (
-                <article key={c.key} className="group">
-                  <div className="flex items-baseline justify-between gap-6 border-t border-white/[0.07] pt-6 text-xs text-stone-500">
-                    <span className="font-mono text-stone-600">0{i + 1} / 0{CASES.length}</span>
-                    <span className="hidden sm:block">{d.tag}</span>
-                    <span className="font-mono">{host}</span>
+                <a key={w.key} href={`/${lang}/work/${w.slug}/`} className="group block">
+                  <div className="relative aspect-[4/3] rounded-[14px] overflow-hidden bg-gradient-to-b from-[#211e1a] to-[#171512] ring-1 ring-white/[0.05]">
+                    <img src={w.thumb} alt={d.title} width={1440} height={900} loading="lazy" className="absolute left-[8%] top-[12%] w-[84%] rounded-md ring-1 ring-white/10 shadow-[0_20px_50px_-15px_rgba(0,0,0,.9)] transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-2" />
+                    <img src={w.mob} alt="" width={390} height={844} loading="lazy" className="absolute right-[6%] bottom-[-8%] w-[20%] rounded-[12px] ring-[3px] ring-[#0c0b0a] shadow-[0_20px_40px_-10px_rgba(0,0,0,.9)] transition-transform duration-[1.2s] ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-4" />
+                    <span className="absolute left-4 top-4 rounded-full bg-black/40 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-300">{ui.label}</span>
                   </div>
-                  <a href={c.url} target="_blank" rel="noopener" aria-label={d.title} className="relative block mt-8 md:mt-10 rounded-[18px] bg-gradient-to-b from-[#211e1a] to-[#171512] ring-1 ring-white/[0.05] px-5 pt-8 pb-0 md:px-20 md:pt-20 overflow-hidden">
-                    <div className="case-frame relative mx-auto max-w-[1100px] rounded-t-[10px] overflow-hidden ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,.85)] bg-[#0f0e0d]">
-                      <div className="flex items-center gap-1.5 px-4 h-8 bg-[#262320] border-b border-white/[0.05]">
-                        <i className="w-2 h-2 rounded-full bg-white/15" /><i className="w-2 h-2 rounded-full bg-white/15" /><i className="w-2 h-2 rounded-full bg-white/15" />
-                        <span className="mx-auto text-[10px] text-stone-500 font-mono">{host}</span>
-                      </div>
-                      <img src={c.img} alt={d.title} width={1440} height={900} loading="lazy" className="block w-full aspect-[16/10] object-cover object-top" />
-                    </div>
-                    <div className="case-mob absolute hidden md:block right-8 lg:right-14 bottom-10 w-[150px] lg:w-[190px] rounded-[26px] p-[5px] bg-[#0c0b0a] ring-1 ring-white/10 shadow-[0_30px_60px_-10px_rgba(0,0,0,.9)]">
-                      <img src={c.mob} alt="" width={390} height={844} loading="lazy" className="block w-full rounded-[21px] aspect-[390/844] object-cover object-top" />
-                    </div>
-                  </a>
-                  <div className="grid md:grid-cols-12 gap-10 mt-10 md:mt-14">
-                    <div className="md:col-span-4">
-                      <h3 className="text-lg text-white font-normal">{d.title}</h3>
-                      <p className="mt-1 text-sm text-stone-500 sm:hidden">{d.tag}</p>
-                      <a href={c.url} target="_blank" rel="noopener" className="inline-flex items-center gap-2 mt-5 text-sm text-stone-200 link-line pb-1">{t.visit} <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1">→</span></a>
-                    </div>
-                    <div className="md:col-span-4 text-sm leading-relaxed">
-                      <Label>{t.taskL}</Label>
-                      <p className="mt-3 text-stone-300">{d.task}</p>
-                      <div className="mt-8"><Label>{t.didL}</Label></div>
-                      <p className="mt-3 text-stone-400">{d.did.join(' · ')}</p>
-                    </div>
-                    <div className="md:col-span-4 text-sm leading-relaxed">
-                      <Label>{t.resultL}</Label>
-                      <ul className="mt-3 space-y-2 text-stone-300">{d.result.map((x) => <li key={x} className="flex gap-3"><span className="text-stone-600">—</span>{x}</li>)}</ul>
-                    </div>
+                  <div className="mt-5 flex items-baseline justify-between gap-4 text-sm">
+                    <p className="text-stone-200">{d.title.replace(/ \(.*\)$/, '')} <span className="text-stone-600">/ {cat}</span></p>
+                    <span className="shrink-0 text-xs text-stone-500 group-hover:text-white transition-colors">{ui.open} →</span>
                   </div>
-                </article>
+                </a>
               );
             })}
           </div>
@@ -182,6 +167,7 @@ export default function App({ lang }: { lang: Lang }) {
           <div className="px-6 md:px-16 py-20 md:py-40"><ContactForm t={t} lang={lang} /></div>
         </section>
       </main>
+      )}
 
       <footer className="px-6 md:px-16 pt-10 pb-28 text-xs text-stone-600 flex flex-col md:flex-row justify-between gap-2">
         <span><Glitch a="© MMXXVI" b="© 2026" className="font-mono" /> {t.footer}</span>
