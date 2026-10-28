@@ -3,6 +3,7 @@ import { ContactForm } from './components/ContactForm';
 import { WorkPage } from './components/WorkPage';
 import { WORKS, WORK_UI, caseText, type WorkKey } from './work';
 import { Expertise, Footprint, CoursesTeaser } from './components/Blocks';
+import { Venom } from './components/Venom';
 import { Secret, tapSecret } from './components/Secret';
 import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
@@ -41,7 +42,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
             {HERO_PHOTO ? (
               <img src={HERO_PHOTO} alt={NAME[lang]} width={1200} height={1600} className="absolute inset-0 w-full h-full object-cover slow-zoom" />
             ) : (
-              <div className="lamp" aria-hidden><i className="lamp-b1" /><i className="lamp-b2" /><i className="lamp-b3" /><i className="lamp-b4" /><span className="lamp-grain" /></div>
+              <Venom />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:hidden" />
           </div>
