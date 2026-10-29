@@ -3,12 +3,14 @@ import { ContactForm } from './components/ContactForm';
 import { WorkPage } from './components/WorkPage';
 import { WORKS, WORK_UI, caseText, type WorkKey } from './work';
 import { Expertise, Footprint, CoursesTeaser } from './components/Blocks';
+import { AboutPhoto } from './components/AboutPhoto';
 import { Venom } from './components/Venom';
 import { Secret, tapSecret } from './components/Secret';
 import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
 const TAGS: [string, string][] = [['WEB', 'APP'], ['ADS', 'TARGET'], ['BRAND', 'SMM'], ['VIDEO', 'BANNERS']];
 
+const ABOUT_CTA: Record<Lang, string> = { ua: 'Познайомимося й обговоримо ваш проєкт', ru: 'Познакомимся и обсудим ваш проект', pl: 'Poznajmy się i porozmawiajmy o projekcie', en: "Let's meet and discuss your project" };
 const NAME: Record<Lang, string> = { ua: 'Роман Павел', ru: 'Роман Павел', pl: 'Roman Pavel', en: 'Roman Pavel' };
 
 const Label = ({ children }: { children: React.ReactNode }) => (
@@ -148,8 +150,13 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
         </Section>
 
         <Section title={t.aboutTitle}>
-          <p className="text-lg md:text-xl leading-relaxed text-stone-300 max-w-2xl">{t.aboutText}</p>
-          <a href={CONTACTS.behance} target="_blank" rel="noopener" className="inline-block mt-8 text-sm text-stone-300 link-line pb-1">Behance ↗</a>
+          <div className="flex flex-col sm:flex-row gap-14 sm:gap-16 md:gap-20 items-start">
+            <AboutPhoto lang={lang} alt={NAME[lang]} />
+            <div>
+              <p className="text-lg md:text-xl leading-relaxed text-stone-300 max-w-xl">{t.aboutText}</p>
+              <a href="#contact" className="inline-block mt-8 text-sm text-white link-line pb-1">{ABOUT_CTA[lang]} →</a>
+            </div>
+          </div>
         </Section>
 
         <Footprint lang={lang} />
