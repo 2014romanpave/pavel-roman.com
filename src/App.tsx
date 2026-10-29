@@ -166,10 +166,11 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
           </div>
         </Section>
 
-        <section id="contact" className="grid md:grid-cols-2 scroll-mt-10">
-          <div className="px-6 md:px-16 py-28 md:py-40 bg-[#181614]">
+        <section id="contact" className="relative grid md:grid-cols-2 scroll-mt-10 overflow-hidden isolate">
+          <div className="absolute inset-0 -z-10"><Venom muted /></div>
+          <div className="px-6 md:px-16 py-28 md:py-40 bg-[#14120f]/55 backdrop-blur-[2px]">
             <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{t.contactTitle}</h2>
-            <p className="mt-4 text-sm text-stone-500 max-w-xs leading-relaxed">{t.contactSub}</p>
+            <p className="mt-4 text-sm text-stone-400 max-w-xs leading-relaxed">{t.contactSub}</p>
             <ul className="mt-12 space-y-3 text-sm">
               <li><a href={CONTACTS.telegram} target="_blank" rel="noopener" className="link-line pb-1 text-white">Telegram {CONTACTS.telegramHandle}</a></li>
               <li><a href={CONTACTS.whatsapp} target="_blank" rel="noopener" className="link-line pb-1 text-stone-400 hover:text-white">WhatsApp {CONTACTS.phone}</a></li>

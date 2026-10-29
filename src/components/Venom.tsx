@@ -4,7 +4,7 @@ import { FS, VS } from './venomShader';
 declare global { interface Window { __venomGlitch?: () => void } }
 
 /** "Living substance" hero: WebGL metaballs + domain-warped noise, periodic glitch bursts. Falls back to CSS lamp gradient. */
-export function Venom() {
+export function Venom({ muted = false }: { muted?: boolean } = {}) {
   const ref = useRef<HTMLCanvasElement>(null);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
@@ -25,7 +25,7 @@ export function Venom() {
     gl.uniform1f(gl.getUniformLocation(pr, 'seed'), rnd[0] * 6);
     gl.uniform4f(gl.getUniformLocation(pr, 'sv'), 0.8 + rnd[1] * 0.4, rnd[2] * 50, rnd[3] * 50, rnd[4]);
     const mobile = matchMedia('(max-width: 768px)').matches;
-    const scale = Math.min(window.devicePixelRatio || 1, 1.5) * (mobile ? 0.45 : 0.7);
+    const scale = Math.min(window.devicePixelRatio || 1, 1.5) * (muted ? (mobile ? 0.3 : 0.4) : mobile ? 0.45 : 0.7);
     const resize = () => {
       const w = Math.max(1, Math.round(cv.clientWidth * scale)), h = Math.max(1, Math.round(cv.clientHeight * scale));
       cv.width = w; cv.height = h; gl.viewport(0, 0, w, h); gl.uniform2f(uR, w, h);
@@ -35,11 +35,11 @@ export function Venom() {
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const t0 = performance.now() - Math.random() * 30000;
     let glitchUntil = 0, nextGlitch = performance.now() + 6000 + Math.random() * 4000;
-    window.__venomGlitch = () => { glitchUntil = performance.now() + 450; };
+    if (!muted) window.__venomGlitch = () => { glitchUntil = performance.now() + 450; };
     let raf = 0, visible = true;
     const draw = (now: number) => {
       if (now > nextGlitch) { glitchUntil = now + 250 + Math.random() * 300; nextGlitch = now + 6000 + Math.random() * 4000; }
-      const g = now < glitchUntil ? 0.6 + 0.4 * Math.random() : 0;
+      const g = now < glitchUntil ? (muted ? 0.35 : 0.6) + (muted ? 0.25 : 0.4) * Math.random() : 0;
       gl.uniform1f(uT, (now - t0) / 1000); gl.uniform1f(uG, g); gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
     const loop = (now: number) => { draw(now); raf = requestAnimationFrame(loop); };
@@ -51,12 +51,14 @@ export function Venom() {
     const onVis = () => (document.hidden ? stop() : start());
     document.addEventListener('visibilitychange', onVis);
     start();
-    return () => { stop(); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', onVis); delete window.__venomGlitch; };
+    return () => { stop(); io.disconnect(); ro.disconnect(); document.removeEventListener('visibilitychange', onVis); if (!muted) delete window.__venomGlitch; gl.getExtension('WEBGL_lose_context')?.loseContext(); };
   }, []);
+  if (failed && muted) return null;
   if (failed) return <div className="lamp" aria-hidden><i className="lamp-b1" /><i className="lamp-b2" /><i className="lamp-b3" /><i className="lamp-b4" /><span className="lamp-grain" /></div>;
   return (
     <div className="lamp" aria-hidden>
-      <canvas ref={ref} className="absolute inset-0 w-full h-full" style={{ filter: 'blur(5px)', transform: 'scale(1.04)' }} />
+      <canvas ref={ref} className="absolute inset-0 w-full h-full" style={muted ? { filter: 'blur(16px) brightness(.7) saturate(.85)', opacity: 0.55, transform: 'scale(1.08)' } : { filter: 'blur(5px)', transform: 'scale(1.04)' }} />
+      {muted && <div className="absolute inset-0" style={{ background: 'radial-gradient(120% 90% at 50% 50%, rgba(18,17,15,.35) 0%, rgba(18,17,15,.8) 100%), linear-gradient(rgba(18,17,15,.35), rgba(18,17,15,.35))' }} />}
       <span className="lamp-grain" />
     </div>
   );
