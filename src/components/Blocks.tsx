@@ -44,7 +44,7 @@ export function Footprint({ lang }: { lang: Lang }) {
   const x = EXTRA[lang];
   return (
     <section id="footprint" className="px-6 md:px-10 py-24 md:py-32">
-      <div className="text-center mb-14 md:mb-20">
+      <div className="text-left mb-14 md:mb-20">
         <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{x.fpTitle}</h2>
         <p className="mt-3 text-sm text-stone-500">{x.fpSub}</p>
       </div>
