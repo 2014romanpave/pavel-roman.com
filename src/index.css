@@ -146,3 +146,4 @@ body { background: var(--bg) !important; }
 .secret-panel { animation: secret-in .5s steps(6) both; }
 @keyframes secret-in { 0%{opacity:0;transform:translateX(-6px);filter:hue-rotate(90deg)} 40%{opacity:1;transform:translateX(4px)} 70%{transform:translateX(-2px)} 100%{transform:none;filter:none} }
 .secret-title { position: relative; text-shadow: 1.5px 0 rgba(255,80,60,.6), -1.5px 0 rgba(80,140,255,.6); animation: g-jit 1.2s linear 2 both; }
+@media (min-width: 1024px) { .fp-grid .fp-item { grid-column: var(--c); grid-row: var(--r); } }

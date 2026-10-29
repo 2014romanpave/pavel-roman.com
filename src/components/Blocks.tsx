@@ -43,28 +43,36 @@ export function Expertise({ lang }: { lang: Lang }) {
 export function Footprint({ lang }: { lang: Lang }) {
   const x = EXTRA[lang];
   return (
-    <section id="footprint" className="px-6 md:px-16 py-24 md:py-32">
-      <div className="flex items-end justify-between gap-6 mb-10">
-        <div><h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{x.fpTitle}</h2><p className="mt-3 text-sm text-stone-500">{x.fpSub}</p></div>
-        <a href={INSTAGRAM_URL ?? CONTACTS.behance} target="_blank" rel="noopener" className="text-sm text-stone-300 link-line pb-1 shrink-0">{x.fpMore} ↗</a>
+    <section id="footprint" className="px-6 md:px-10 py-24 md:py-32">
+      <div className="text-center mb-14 md:mb-20">
+        <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{x.fpTitle}</h2>
+        <p className="mt-3 text-sm text-stone-500">{x.fpSub}</p>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+      <div className="fp-grid grid grid-cols-2 lg:grid-cols-8 gap-x-3 md:gap-x-4 gap-y-10 lg:gap-y-16 items-start">
         {FOOTPRINT.map((f, i) => {
           const href = f.href.replace('{lang}', lang);
           const ext = href.startsWith('http');
           return (
-            <a key={i} href={href} {...(ext ? { target: '_blank', rel: 'noopener' } : {})} className="group relative block aspect-square overflow-hidden rounded-[12px] ring-1 ring-white/[0.05] bg-gradient-to-br from-[#241f1b] to-[#151311]">
-              {f.img ? (
-                <img src={f.img} alt="" loading="lazy" className="absolute inset-0 w-full h-full object-cover object-top opacity-80 transition duration-[1.2s] group-hover:scale-[1.04] group-hover:opacity-100" />
-              ) : (
-                <div className={`absolute inset-0 fp-ph fp-ph-${i % 3}`} aria-hidden />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <span className="absolute left-3 top-3 rounded-full bg-black/55 backdrop-blur-md px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-100 ring-1 ring-white/10">{x.fpTypes[f.type]}</span>
-              <p className="absolute left-3 right-3 bottom-3 text-xs md:text-sm text-stone-200 leading-snug">{f.placeholder ? SOON[lang] : f.title}</p>
+            <a key={i} href={href} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}
+              style={{ ['--c' as string]: f.col, ['--r' as string]: f.row }}
+              className={`fp-item group block ${i % 2 ? 'mt-10 lg:mt-0' : ''}`}>
+              <div className={`relative overflow-hidden rounded-[6px] bg-[#1d1b18] ring-1 ring-white/[0.05] transition-transform duration-700 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-1 group-hover:scale-[1.02] ${f.tall ? 'aspect-[4/5]' : 'aspect-[16/10]'}`}>
+                {f.img ? (
+                  <img src={f.img} alt={f.title} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-top" />
+                ) : (
+                  <div className={`absolute inset-0 fp-ph fp-ph-${i % 3} flex items-end p-3`}>
+                    <span className="text-[13px] leading-tight text-stone-200">{SOON[lang]}<br /><span className="text-stone-400">{CONTACTS.instagramHandle}</span></span>
+                  </div>
+                )}
+              </div>
+              <p className="mt-2.5 text-[9px] uppercase tracking-[0.2em] text-stone-500">{x.fpTypes[f.type]}</p>
+              <p className="mt-1 text-xs text-stone-300 leading-snug">{f.placeholder ? 'Instagram' : f.title}</p>
             </a>
           );
         })}
+      </div>
+      <div className="mt-14 text-center">
+        <a href={INSTAGRAM_URL ?? CONTACTS.behance} target="_blank" rel="noopener" className="text-sm text-stone-300 link-line pb-1">{x.fpMore} ↗</a>
       </div>
     </section>
   );
