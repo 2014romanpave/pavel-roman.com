@@ -1,6 +1,6 @@
 export const VS = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
 export const FS = `precision mediump float;
-uniform vec2 r;uniform float t;uniform float g;uniform float seed;
+uniform vec2 r;uniform float t;uniform float g;uniform float seed;uniform vec4 sv;
 float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
  return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
@@ -14,9 +14,9 @@ vec3 pal(float k){
 float field(vec2 uv,float T){
  float m=0.;
  for(int i=0;i<5;i++){float fi=float(i);
-  vec2 c=vec2(sin(T*.21+fi*1.9+seed)*.33,cos(T*.17+fi*2.7)*.42);
+  float sp=.75+.5*fract(sin(fi*12.9+seed)*437.5);vec2 c=vec2(sin(T*.21*sp*sv.x+fi*(1.9+seed*.3)+seed)*.33,cos(T*.17*sp+fi*(2.7+seed*.2)+seed*1.7)*.42);
   c+=.12*vec2(sin(T*.53+fi),cos(T*.47+fi*1.3));
-  float rad=.13+.05*sin(T*.8+fi*1.7);
+  float rad=(.11+.05*fract(sin(fi*7.3+seed)*91.7))+.05*sin(T*.8*sp+fi*1.7+seed);
   m+=rad*rad/(dot(uv-c,uv-c)+.002);}
  return m;}
 void main(){
@@ -24,12 +24,12 @@ void main(){
  float sl=floor(fc.y/(r.y*.04));float jump=step(.6,h(vec2(sl,floor(t*14.))))*g;
  fc.x+=(h(vec2(sl,floor(t*30.)))-.5)*r.x*.12*jump;
  vec2 uv=(fc-.5*r)/r.y;float T=t;
- vec2 q=vec2(fbm(uv*1.6+T*.05),fbm(uv*1.6-T*.04+5.2));
+ vec2 q=vec2(fbm(uv*1.6+T*.05+sv.yz),fbm(uv*1.6-T*.04+5.2-sv.zy));
  vec2 w=uv+.35*(q-.5)+.12*vec2(sin(T*.3+uv.y*3.),cos(T*.25+uv.x*3.));
  float sh=g*.02;
  vec3 fv=vec3(field(w+vec2(sh,0),T),field(w,T),field(w-vec2(sh,0),T));
- float k=T/16.+fbm(w*1.2)*.35;
- vec3 base=pal(k),acc=pal(k+.35);
+ float k=T/(14.+4.*sv.x)+sv.w+fbm(w*1.2+sv.yz)*.35;
+ vec3 hs=vec3(1.)+.08*vec3(sin(sv.w*6.3),sin(sv.w*6.3+2.1),sin(sv.w*6.3+4.2));vec3 base=pal(k)*hs,acc=pal(k+.35)*hs;
  vec3 body=smoothstep(.6,2.2,fv);
  vec3 core=smoothstep(2.,5.,fv);
  float vein=fbm(w*5.+T*.2);

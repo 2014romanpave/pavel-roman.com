@@ -20,7 +20,10 @@ export function Venom() {
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
     const loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const uR = gl.getUniformLocation(pr, 'r'), uT = gl.getUniformLocation(pr, 't'), uG = gl.getUniformLocation(pr, 'g');
-    gl.uniform1f(gl.getUniformLocation(pr, 'seed'), Math.random() * 6);
+    // per-visit random seed: shapes, paths, speeds, noise offsets, palette start
+    const rnd = (() => { const u = new Uint32Array(5); (window.crypto?.getRandomValues ? crypto.getRandomValues(u) : u.forEach((_, i) => (u[i] = Math.random() * 2 ** 32))); return Array.from(u, (x) => x / 2 ** 32); })();
+    gl.uniform1f(gl.getUniformLocation(pr, 'seed'), rnd[0] * 6);
+    gl.uniform4f(gl.getUniformLocation(pr, 'sv'), 0.8 + rnd[1] * 0.4, rnd[2] * 50, rnd[3] * 50, rnd[4]);
     const mobile = matchMedia('(max-width: 768px)').matches;
     const scale = Math.min(window.devicePixelRatio || 1, 1.5) * (mobile ? 0.45 : 0.7);
     const resize = () => {
