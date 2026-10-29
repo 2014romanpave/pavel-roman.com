@@ -135,3 +135,14 @@ export function Dock({ nav, cta, lang }: { nav: { cases: string; services: strin
     </nav>
   );
 }
+
+/** Run .sec-live background animations only while on screen. */
+export function LiveSections() {
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>('.sec-live');
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('is-run', e.isIntersecting)), { rootMargin: '100px' });
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+  return null;
+}
