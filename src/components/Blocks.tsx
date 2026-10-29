@@ -11,8 +11,8 @@ const SOON: Record<Lang, string> = { ua: 'Скоро в Instagram', ru: 'Ско�
 export function Expertise({ lang }: { lang: Lang }) {
   const x = EXTRA[lang];
   return (
-    <section id="expertise" className="sec-live relative px-6 md:px-16 py-24 md:py-32 scroll-mt-10 overflow-hidden"><div className="live-bg" aria-hidden><i /><i /><i /></div>
-      <div className="relative grid md:grid-cols-12 gap-10">
+    <section id="expertise" className="px-6 md:px-16 py-24 md:py-32 scroll-mt-10">
+      <div className="grid md:grid-cols-12 gap-10">
         <div className="md:col-span-4"><h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{x.expTitle}</h2></div>
         <div className="md:col-span-8">
           <dl className="grid sm:grid-cols-2 border-t border-white/[0.06]">
@@ -43,7 +43,7 @@ export function Expertise({ lang }: { lang: Lang }) {
 export function Footprint({ lang }: { lang: Lang }) {
   const x = EXTRA[lang];
   return (
-    <section id="footprint" className="relative px-6 md:px-10 py-24 md:py-32 glow-rose">
+    <section id="footprint" className="px-6 md:px-10 py-24 md:py-32">
       <div className="text-left mb-14 md:mb-20">
         <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{x.fpTitle}</h2>
         <p className="mt-3 text-sm text-stone-500">{x.fpSub}</p>

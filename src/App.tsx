@@ -5,7 +5,7 @@ import { WORKS, WORK_UI, caseText, type WorkKey } from './work';
 import { Expertise, Footprint, CoursesTeaser } from './components/Blocks';
 import { Venom } from './components/Venom';
 import { Secret, tapSecret } from './components/Secret';
-import { Glitch, RotatingQuote, CornerContacts, Dock, LiveSections } from './components/Fx';
+import { Glitch, RotatingQuote, CornerContacts, Dock } from './components/Fx';
 
 const TAGS: [string, string][] = [['WEB', 'APP'], ['ADS', 'TARGET'], ['BRAND', 'SMM'], ['VIDEO', 'BANNERS']];
 
@@ -14,8 +14,8 @@ const NAME: Record<Lang, string> = { ua: 'Роман Павел', ru: 'Рома�
 const Label = ({ children }: { children: React.ReactNode }) => (
   <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{children}</p>
 );
-const Section = ({ id, title, sub, children, cls = '' }: { id?: string; title: string; sub?: string; children: React.ReactNode; cls?: string }) => (
-  <section id={id} className={`relative px-6 md:px-16 py-28 md:py-40 scroll-mt-10 ${cls}`}>
+const Section = ({ id, title, sub, children }: { id?: string; title: string; sub?: string; children: React.ReactNode }) => (
+  <section id={id} className="px-6 md:px-16 py-28 md:py-40 scroll-mt-10">
     <div className="grid md:grid-cols-12 gap-10">
       <div className="md:col-span-4">
         <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{title}</h2>
@@ -75,7 +75,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
         </section>
 
         {/* TRUST */}
-        <section className="relative px-6 md:px-16 py-20 md:py-28 border-b border-white/[0.05]">
+        <section className="px-6 md:px-16 py-20 md:py-28">
           <dl className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-6">
             {t.trust.map((x) => (
               <div key={x.l}><dt className="text-xl md:text-2xl text-white font-normal">{x.v}</dt><dd className="text-xs text-stone-500 mt-2">{x.l}</dd></div>
@@ -84,7 +84,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
         </section>
 
         {/* WORKS */}
-        <section id="works" className="sec-panel relative px-6 md:px-16 py-28 md:py-36 scroll-mt-10">
+        <section id="works" className="px-6 md:px-16 py-28 md:py-40 scroll-mt-10">
           <span id="cases" className="block -mt-10 pt-10" aria-hidden />
           <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
             <div className="max-w-md">
@@ -120,7 +120,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
 
         <Expertise lang={lang} />
 
-        <Section id="services" title={t.servicesTitle} sub={t.servicesSub} cls="glow-amber">
+        <Section id="services" title={t.servicesTitle} sub={t.servicesSub}>
           <div className="divide-y divide-white/[0.05]">
             {t.packs.map((p, pi) => (
               <div key={p.name} className="group grid md:grid-cols-8 gap-4 py-10 first:pt-0">
@@ -135,7 +135,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
           </div>
         </Section>
 
-        <Section id="process" title={t.processTitle} cls="sec-panel sec-warm">
+        <Section id="process" title={t.processTitle}>
           <ol className="grid sm:grid-cols-2 gap-x-12 gap-y-14">
             {t.steps.map((s, i) => (
               <li key={s.t}>
@@ -147,7 +147,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
           </ol>
         </Section>
 
-        <Section title={t.aboutTitle} cls="glow-sage">
+        <Section title={t.aboutTitle}>
           <p className="text-lg md:text-xl leading-relaxed text-stone-300 max-w-2xl">{t.aboutText}</p>
           <a href={CONTACTS.behance} target="_blank" rel="noopener" className="inline-block mt-8 text-sm text-stone-300 link-line pb-1">Behance ↗</a>
         </Section>
@@ -155,7 +155,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
         <Footprint lang={lang} />
         <CoursesTeaser lang={lang} />
 
-        <Section title={t.faqTitle} cls="sec-panel">
+        <Section title={t.faqTitle}>
           <div className="max-w-2xl">
             {t.faq.map((f) => (
               <details key={f.q} className="group py-6 border-b border-white/[0.06] first:pt-0">
@@ -166,8 +166,8 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
           </div>
         </Section>
 
-        <section id="contact" className="sec-live sec-panel relative grid md:grid-cols-2 scroll-mt-10 overflow-hidden"><div className="live-bg" aria-hidden><i /><i /><i /></div>
-          <div className="relative px-6 md:px-16 py-28 md:py-40 bg-black/20">
+        <section id="contact" className="grid md:grid-cols-2 scroll-mt-10">
+          <div className="px-6 md:px-16 py-28 md:py-40 bg-[#181614]">
             <h2 className="text-2xl md:text-3xl font-normal tracking-tight text-stone-100">{t.contactTitle}</h2>
             <p className="mt-4 text-sm text-stone-500 max-w-xs leading-relaxed">{t.contactSub}</p>
             <ul className="mt-12 space-y-3 text-sm">
@@ -177,7 +177,7 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
               <li><a href={`mailto:${CONTACTS.email}`} className="link-line pb-1 text-stone-400 hover:text-white">{CONTACTS.email}</a></li>
             </ul>
           </div>
-          <div className="relative px-6 md:px-16 py-20 md:py-40"><ContactForm t={t} lang={lang} /></div>
+          <div className="px-6 md:px-16 py-20 md:py-40"><ContactForm t={t} lang={lang} /></div>
         </section>
       </main>
       )}
@@ -188,7 +188,6 @@ export default function App({ lang, work }: { lang: Lang; work?: WorkKey }) {
       </footer>
       <RotatingQuote lang={lang} />
       <Secret lang={lang} />
-      <LiveSections />
       <CornerContacts />
       <Dock nav={t.nav} cta={t.nav.contact} lang={lang} />
     </div>

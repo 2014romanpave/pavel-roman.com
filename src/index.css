@@ -147,19 +147,3 @@ body { background: var(--bg) !important; }
 @keyframes secret-in { 0%{opacity:0;transform:translateX(-6px);filter:hue-rotate(90deg)} 40%{opacity:1;transform:translateX(4px)} 70%{transform:translateX(-2px)} 100%{transform:none;filter:none} }
 .secret-title { position: relative; text-shadow: 1.5px 0 rgba(255,80,60,.6), -1.5px 0 rgba(80,140,255,.6); animation: g-jit 1.2s linear 2 both; }
 @media (min-width: 1024px) { .fp-grid .fp-item { grid-column: var(--c); grid-row: var(--r); } }
-
-/* ---- section surfaces ---- */
-.sec-panel { margin-inline: 10px; border-radius: 28px; background: linear-gradient(180deg, #1a1815 0%, #151311 100%); border: 1px solid rgba(255,255,255,.045); }
-@media (min-width: 768px) { .sec-panel { margin-inline: 20px; border-radius: 40px; } }
-.sec-panel + .sec-panel, .sec-panel { margin-block: 12px; }
-.sec-warm { background: linear-gradient(160deg, #201a15 0%, #161311 60%, #18141a 100%); }
-.glow-amber { background: radial-gradient(55% 45% at 8% 10%, rgba(201,138,75,.11), transparent 70%); }
-.glow-sage { background: radial-gradient(50% 60% at 92% 50%, rgba(143,154,126,.10), transparent 70%), radial-gradient(40% 50% at 10% 90%, rgba(140,127,166,.08), transparent 70%); }
-.glow-rose { background: radial-gradient(60% 40% at 50% 0%, rgba(185,133,138,.09), transparent 70%); }
-.live-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
-.live-bg i { position: absolute; width: 60%; aspect-ratio: 1; border-radius: 50%; filter: blur(70px); opacity: .22; will-change: transform; animation-play-state: paused !important; }
-.live-bg i:nth-child(1) { left: -10%; top: -20%; background: #c98a4b; animation: lamp-c1 26s ease-in-out infinite, lamp-m1 20s ease-in-out infinite alternate; }
-.live-bg i:nth-child(2) { right: -15%; top: 10%; background: #8c7fa6; animation: lamp-c2 30s ease-in-out infinite, lamp-m2 24s ease-in-out infinite alternate; }
-.live-bg i:nth-child(3) { left: 25%; bottom: -35%; background: #b5654a; animation: lamp-c3 28s ease-in-out infinite, lamp-m3 22s ease-in-out infinite alternate; }
-.sec-live.is-run .live-bg i { animation-play-state: running !important; }
-@media (max-width: 767px) { .live-bg i { filter: blur(50px); width: 90%; } }
