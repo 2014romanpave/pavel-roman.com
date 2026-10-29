@@ -77,6 +77,7 @@
 .link-line { background: linear-gradient(currentColor,currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s ease; }
 .link-line:hover { background-size: 100% 1px; }
 html { scroll-behavior: smooth; }
+html, body { overflow-anchor: none; }
 
 /* ---- v3 palette: warm graphite + grain + vignette ---- */
 :root { --bg: #12110f; --bg-2: #181614; --panel: #1d1b18; --ink: #ece6dc; }
