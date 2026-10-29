@@ -101,6 +101,11 @@ export function Dock({ nav, cta, lang }: { nav: { cases: string; services: strin
     return () => { document.removeEventListener('pointerdown', onDown); document.removeEventListener('keydown', onKey); };
   }, [open]);
   const toggle = () => setOpen((v) => !v);
+  // desktop (fine pointer + hover): open on hover, close ~250ms after leaving the pill
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const canHover = () => typeof window !== 'undefined' && matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const onEnter = (e: React.PointerEvent) => { if (e.pointerType !== 'mouse' || !canHover()) return; clearTimeout(timer.current); setOpen(true); };
+  const onLeave = (e: React.PointerEvent) => { if (e.pointerType !== 'mouse' || !canHover()) return; clearTimeout(timer.current); timer.current = setTimeout(() => setOpen(false), 250); };
   const home = (e: React.MouseEvent) => {
     setOpen(false);
     const path = location.pathname.replace(/\/+$/, '/') ;
@@ -112,6 +117,8 @@ export function Dock({ nav, cta, lang }: { nav: { cases: string; services: strin
     <nav
       aria-label="menu"
       ref={ref}
+      onPointerEnter={onEnter}
+      onPointerLeave={onLeave}
       className={`dock fixed bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 z-50 h-14 flex items-center p-1.5 rounded-full border border-white/15 bg-stone-900/60 backdrop-blur-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,.8)] overflow-hidden ${open ? 'is-open' : ''}`}
     >
       <a href={`/${lang}/`} onClick={home} aria-label={name} className="w-11 h-11 shrink-0 rounded-full bg-[#ece6dc] text-[#14120f] p-0.5 dock-logo block">
