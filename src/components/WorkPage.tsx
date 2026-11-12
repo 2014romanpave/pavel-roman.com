@@ -1,5 +1,6 @@
 import { DICT, type Lang } from '../i18n';
 import { WORKS, WORK_UI, caseText, type WorkKey } from '../work';
+import { MintCase } from './MintCase';
 
 const Label = ({ children }: { children: React.ReactNode }) => <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{children}</p>;
 
@@ -25,6 +26,20 @@ export function WorkPage({ lang, work }: { lang: Lang; work: WorkKey }) {
   const i = WORKS.findIndex((w) => w.key === work); const w = WORKS[i]; const d = caseText(lang, work);
   const next = WORKS[(i + 1) % WORKS.length]; const nd = caseText(lang, next.key);
   const [cat, place] = d.tag.split(' · ');
+  if (d.premium) {
+    return (
+      <MintCase
+        lang={lang}
+        index={i + 1}
+        total={WORKS.length}
+        text={d}
+        work={w}
+        nextHref={`/${lang}/work/${next.slug}/`}
+        nextTitle={nd.title}
+        nextThumb={next.thumb}
+      />
+    );
+  }
   return (
     <main className="px-6 md:px-16 pt-8 md:pt-12">
       <header className="flex items-center justify-between text-sm">
