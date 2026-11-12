@@ -1,6 +1,15 @@
 import { DICT, type Lang } from './i18n';
-export type WorkKey = 'awto' | 'tesla' | 'glow' | 'reserba' | 'garcinia';
-export type CaseText = { title: string; tag: string; task: string; did: string[]; result: string[] };
+export type WorkKey = 'mintblister' | 'awto' | 'tesla' | 'glow' | 'reserba' | 'garcinia';
+export type CaseBlock = { t: string; d: string };
+export type PremiumCase = {
+  hook: string; lead: string; role: string;
+  problemL: string; problem: string; solutionL: string; solution: string;
+  featuresL: string; features: CaseBlock[];
+  designL: string; decisions: string[];
+  resultL: string; stack: string; close: string;
+  ctaT: string; ctaC: string;
+};
+export type CaseText = { title: string; tag: string; task: string; did: string[]; result: string[]; premium?: PremiumCase };
 type Gallery = { label: Record<Lang, string>; imgs: string[] };
 export type Work = {
   key: WorkKey; slug: string; url?: string; host?: string; behance?: string; proto?: string;
@@ -10,6 +19,7 @@ const C = '/img/cases/';
 const range = (p: string, a: number, b: number) => Array.from({ length: b - a + 1 }, (_, i) => `${C}${p}-${a + i}.webp`);
 
 export const WORKS: Work[] = [
+  { key: 'mintblister', slug: 'mintblister', url: 'https://mintblister.vercel.app', host: 'mintblister.vercel.app', thumb: C + 'mintblister-desktop.webp', mob: C + 'mintblister-m3.webp', full: C + 'mintblister-full.webp', shots: [], mobs: [C + 'mintblister-m2.webp', C + 'mintblister-m3.webp', C + 'mintblister-public.webp', C + 'mintblister-m4.webp', C + 'mintblister-m5.webp', C + 'mintblister-m6.webp', C + 'mintblister-m7.webp'] },
   { key: 'awto', slug: 'awtonapraw', url: 'https://awtonapraw.pl/', host: 'awtonapraw.pl', thumb: C + 'awtonapraw-desktop.webp', mob: C + 'awtonapraw-mobile.webp', full: C + 'awtonapraw-full.webp', shots: [C + 'awtonapraw-s1.webp', C + 'awtonapraw-s2.webp', C + 'awtonapraw-s3.webp'], mobs: [C + 'awtonapraw-mobile.webp', C + 'awtonapraw-m2.webp', C + 'awtonapraw-m3.webp'] },
   { key: 'tesla', slug: 'teslahub', url: 'https://www.teslahubservice.com/', host: 'teslahubservice.com', behance: 'https://www.behance.net/gallery/213695989/Tesla-HUB-service', thumb: C + 'teslahub-desktop.webp', mob: C + 'teslahub-mobile.webp', full: C + 'teslahub-full.webp', shots: [C + 'teslahub-s1.webp', C + 'teslahub-s2.webp', C + 'teslahub-s3.webp'], mobs: [C + 'teslahub-mobile.webp', C + 'teslahub-m2.webp', C + 'teslahub-m3.webp'],
     gallery: { label: { ua: 'Бренд під ключ: айдентика, соцмережі, друк', ru: 'Бренд под ключ: айдентика, соцсети, печать', pl: 'Marka pod klucz: identyfikacja, social media, druk', en: 'Turnkey brand: identity, social, print' }, imgs: range('teslahub-brand', 1, 7) } },
@@ -22,7 +32,157 @@ export const WORKS: Work[] = [
 ];
 export const workBySlug = (s: string) => WORKS.find((w) => w.slug === s);
 
-const NEW: Record<'glow' | 'reserba' | 'garcinia', Record<Lang, CaseText>> = {
+const NEW: Record<'mintblister' | 'glow' | 'reserba' | 'garcinia', Record<Lang, CaseText>> = {
+  mintblister: {
+    ua: {
+      title: 'MintBlister', tag: 'Telegram Mini App · Hot Wheels / Matchbox',
+      task: 'Скан блистера. Модель у гаражі. Telegram Mini App для колекціонерів Hot Wheels і Matchbox.',
+      did: ['Скан блистера', 'Каталог на 1 548 моделей', 'TH / STH', 'Досягнення', 'Публічна колекція'],
+      result: ['Живий продукт у Telegram і в браузері', 'Публічна колекція, яку можна надіслати', 'Від назви до запуску'],
+      premium: {
+        hook: 'Скан блистера. Модель у гаражі.',
+        lead: 'Telegram Mini App для Hot Wheels і Matchbox.',
+        role: 'Ідея, назва, інтерфейс, запуск. Збірка з допомогою ШІ.',
+        problemL: 'Безлад',
+        problem: 'Сотні машин у нотатках і таблицях. Не видно, чого бракує. Treasure Hunt і Super Treasure Hunt тонуть у списку.',
+        solutionL: 'Продукт',
+        solution: 'Фото блистера. MintBlister впізнає модель і кладе її в колекцію. Каталог показує дірку в кожній серії. Та сама колекція відкрита в Telegram і в браузері.',
+        featuresL: 'Що всередині',
+        features: [
+          { t: 'Скан', d: 'Фото блистера. Модель розпізнається і додається. Якщо зчитування не впізнало картку, її додають вручну.' },
+          { t: 'Каталог', d: '1 548 моделей. Зібрані серії, пошук, фільтри TH і STH у нижній панелі.' },
+          { t: 'TH / STH', d: 'Treasure Hunt і Super Treasure Hunt стоять на картці і в фільтрах.' },
+          { t: 'Досягнення', d: 'Намальовані значки. Значок STH — блистер із золотим полум’ям. Запрошення іншим колекціонерам.' },
+          { t: 'Синхронізація', d: 'Supabase. Вхід на сайті через Telegram: код або QR. Колекція в Mini App і в браузері.' },
+          { t: 'Публічна сторінка', d: 'Вітрина, статистика, усі машини з обкладинками, фільтри TH/STH, перемикач приватності.' },
+        ],
+        designL: 'Рішення',
+        decisions: [
+          'Спочатку телефон. Продукт живе в Telegram.',
+          'Скан у центрі таб-бару. Один дотик.',
+          'Мова колекціонера: серія, TH, STH.',
+          'Чорне і біле. Один синій.',
+          'Прогрес на екрані: серії, досягнення, запрошення.',
+        ],
+        resultL: 'Запуск',
+        stack: 'React · Telegram Mini App · Supabase · Vercel · Vercel AI Gateway',
+        close: 'Продукт уже відкритий.',
+        ctaT: 'Спробувати в Telegram',
+        ctaC: 'Потрібен такий застосунок? Напишіть мені',
+      },
+    },
+    ru: {
+      title: 'MintBlister', tag: 'Telegram Mini App · Hot Wheels / Matchbox',
+      task: 'Скан блистера. Модель в гараже. Telegram Mini App для коллекционеров Hot Wheels и Matchbox.',
+      did: ['Скан блистера', 'Каталог на 1 548 моделей', 'TH / STH', 'Достижения', 'Публичная коллекция'],
+      result: ['Живой продукт в Telegram и в браузере', 'Публичная коллекция, которую можно отправить', 'От названия до запуска'],
+      premium: {
+        hook: 'Скан блистера. Модель в гараже.',
+        lead: 'Telegram Mini App для Hot Wheels и Matchbox.',
+        role: 'Идея, название, интерфейс, запуск. Сборка с помощью ИИ.',
+        problemL: 'Бардак',
+        problem: 'Сотни машин в заметках и таблицах. Не видно, чего не хватает. Treasure Hunt и Super Treasure Hunt тонут в списке.',
+        solutionL: 'Продукт',
+        solution: 'Фото блистера. MintBlister узнаёт модель и кладёт её в коллекцию. Каталог показывает дыру в каждой серии. Та же коллекция открыта в Telegram и в браузере.',
+        featuresL: 'Что внутри',
+        features: [
+          { t: 'Скан', d: 'Фото блистера. Модель распознаётся и добавляется. Если считывание не узнало карточку, её добавляют вручную.' },
+          { t: 'Каталог', d: '1 548 моделей. Собранные серии, поиск, фильтры TH и STH в нижней панели.' },
+          { t: 'TH / STH', d: 'Treasure Hunt и Super Treasure Hunt стоят на карточке и в фильтрах.' },
+          { t: 'Достижения', d: 'Нарисованные значки. Значок STH — блистер с золотым пламенем. Приглашения другим коллекционерам.' },
+          { t: 'Синхронизация', d: 'Supabase. Вход на сайте через Telegram: код или QR. Коллекция в Mini App и в браузере.' },
+          { t: 'Публичная страница', d: 'Витрина, статистика, все машины с обложками, фильтры TH/STH, переключатель приватности.' },
+        ],
+        designL: 'Решения',
+        decisions: [
+          'Сначала телефон. Продукт живёт в Telegram.',
+          'Скан в центре таб-бара. Одно касание.',
+          'Язык коллекционера: серия, TH, STH.',
+          'Чёрное и белое. Один синий.',
+          'Прогресс на экране: серии, достижения, приглашения.',
+        ],
+        resultL: 'Запуск',
+        stack: 'React · Telegram Mini App · Supabase · Vercel · Vercel AI Gateway',
+        close: 'Продукт уже открыт.',
+        ctaT: 'Попробовать в Telegram',
+        ctaC: 'Нужно такое приложение? Напишите мне',
+      },
+    },
+    pl: {
+      title: 'MintBlister', tag: 'Telegram Mini App · Hot Wheels / Matchbox',
+      task: 'Skan blistra. Model w garażu. Telegram Mini App dla kolekcjonerów Hot Wheels i Matchbox.',
+      did: ['Skan blistra', 'Katalog 1 548 modeli', 'TH / STH', 'Osiągnięcia', 'Publiczna kolekcja'],
+      result: ['Żywy produkt w Telegramie i w przeglądarce', 'Publiczna kolekcja, którą da się wysłać', 'Od nazwy do uruchomienia'],
+      premium: {
+        hook: 'Skan blistra. Model w garażu.',
+        lead: 'Telegram Mini App dla Hot Wheels i Matchbox.',
+        role: 'Pomysł, nazwa, interfejs, start. Zbudowane z pomocą AI.',
+        problemL: 'Bałagan',
+        problem: 'Setki aut w notatkach i arkuszach. Nie widać braków. Treasure Hunt i Super Treasure Hunt giną na liście.',
+        solutionL: 'Produkt',
+        solution: 'Zdjęcie blistra. MintBlister rozpoznaje model i wkłada go do kolekcji. Katalog pokazuje lukę w każdej serii. Ta sama kolekcja jest w Telegramie i w przeglądarce.',
+        featuresL: 'Co jest w środku',
+        features: [
+          { t: 'Skan', d: 'Zdjęcie blistra. Model jest rozpoznawany i dodawany. Gdy odczyt nie trafi, auto dodaje się ręcznie.' },
+          { t: 'Katalog', d: '1 548 modeli. Zebrane serie, wyszukiwanie, filtry TH i STH w dolnym panelu.' },
+          { t: 'TH / STH', d: 'Treasure Hunt i Super Treasure Hunt na karcie i w filtrach.' },
+          { t: 'Osiągnięcia', d: 'Rysowane odznaki. Odznaka STH to blister ze złotym płomieniem. Zaproszenia dla innych kolekcjonerów.' },
+          { t: 'Synchronizacja', d: 'Supabase. Logowanie w sieci przez Telegram: kod albo QR. Kolekcja w Mini App i w przeglądarce.' },
+          { t: 'Strona publiczna', d: 'Witryna, statystyki, każde auto z okładką, filtry TH/STH, przełącznik prywatności.' },
+        ],
+        designL: 'Decyzje',
+        decisions: [
+          'Najpierw telefon. Produkt żyje w Telegramie.',
+          'Skan na środku paska. Jedno stuknięcie.',
+          'Język kolekcjonera: seria, TH, STH.',
+          'Czerń i biel. Jeden niebieski.',
+          'Postęp na ekranie: serie, osiągnięcia, zaproszenia.',
+        ],
+        resultL: 'Start',
+        stack: 'React · Telegram Mini App · Supabase · Vercel · Vercel AI Gateway',
+        close: 'Produkt już działa.',
+        ctaT: 'Wypróbuj w Telegramie',
+        ctaC: 'Potrzebujesz takiej aplikacji? Napisz do mnie',
+      },
+    },
+    en: {
+      title: 'MintBlister', tag: 'Telegram Mini App · Hot Wheels / Matchbox',
+      task: 'Scan the blister. Keep the garage. A Telegram Mini App for Hot Wheels and Matchbox collectors.',
+      did: ['Blister scan', 'Catalog of 1,548 models', 'TH / STH', 'Achievements', 'Public collection'],
+      result: ['Live in Telegram and in the browser', 'A public collection, ready to send', 'From the name to a launch'],
+      premium: {
+        hook: 'Scan the blister. Keep the garage.',
+        lead: 'A Telegram Mini App for Hot Wheels and Matchbox.',
+        role: 'Idea, name, interface, launch. AI-assisted build.',
+        problemL: 'The mess',
+        problem: 'Hundreds of cars sit in notes and spreadsheets. What is missing stays a guess. Treasure Hunts and Super Treasure Hunts disappear into the list.',
+        solutionL: 'The product',
+        solution: 'Photograph a blister. MintBlister names the model and files it. The catalog shows the hole in every series. The same collection opens in Telegram and in the browser.',
+        featuresL: 'Inside',
+        features: [
+          { t: 'Scan', d: 'Photograph the blister. The model is recognized and added. If the read misses, add the car by hand.' },
+          { t: 'Catalog', d: '1,548 models. Series collected, search, and TH / STH filters in a bottom sheet.' },
+          { t: 'TH / STH', d: 'Treasure Hunt and Super Treasure Hunt, marked on the car and in the filters.' },
+          { t: 'Achievements', d: 'Illustrated badges. The STH badge is a blister with a gold flame. Invites bring other collectors in.' },
+          { t: 'Sync', d: 'Supabase. Sign in on the web with Telegram, by code or QR. The collection is in the Mini App and in the browser.' },
+          { t: 'Public page', d: 'Showcase, stats, every car with its cover, TH/STH filters, and a privacy toggle.' },
+        ],
+        designL: 'Decisions',
+        decisions: [
+          'Mobile first. The product lives in Telegram.',
+          'Scan sits in the center of the tab bar. One tap.',
+          'Collector language: series, TH, STH.',
+          'Black and white. One blue.',
+          'Progress stays on screen: series, achievements, invites.',
+        ],
+        resultL: 'Shipped',
+        stack: 'React · Telegram Mini App · Supabase · Vercel · Vercel AI Gateway',
+        close: 'The product is open.',
+        ctaT: 'Try in Telegram',
+        ctaC: 'Need an app like this? Contact me',
+      },
+    },
+  },
   glow: {
     ua: { title: 'Glow Beauty Salon', tag: 'Сайт · Салон краси, Познань', task: 'Салону потрібен був не просто сайт-вітрина, а сайт, який приводить клієнтів з пошуку, продає курси й дає легко записатися до конкретного майстра.', did: ['Новий дизайн і багатосторінковий сайт польською та українською', 'Послуги, галерея робіт і блок «Наші майстрині»: Оля та Вікторія, запис у Booksy до кожної', 'Блог із SEO-статтями — зокрема про весільний макіяж у Познані — виходить регулярно', 'Сторінка курсів /kursy: стрижки Олі (боб і боб-каре) та макіяж Вікторії, у кожного курсу своє відео', 'Лист очікування надсилає заявку в Telegram-бот майстрині', 'SEO: sitemap на 26 сторінок у Google Search Console, сторінки в індексі; Vercel Web Analytics і Speed Insights', 'Vite, React і Tailwind із пререндером, зібрано з допомогою ШІ; хостинг на Vercel, домен glowpoznan.com'], result: ['Сильніша присутність салону онлайн', 'Органічний трафік через блог і SEO', 'Заявки на курси одразу потрапляють майстриням', 'Простіше записатися до конкретного майстра'] },
     ru: { title: 'Glow Beauty Salon', tag: 'Сайт · Салон красоты, Познань', task: 'Салону нужен был не просто сайт-витрина, а сайт, который приводит клиентов из поиска, продаёт курсы и позволяет легко записаться к конкретному мастеру.', did: ['Новый дизайн и многостраничный сайт на польском и украинском', 'Услуги, галерея работ и блок «Наши мастера»: Оля и Виктория, запись в Booksy к каждой', 'Блог с SEO-статьями — в том числе о свадебном макияже в Познани — выходит регулярно', 'Страница курсов /kursy: стрижки Оли (боб и боб-каре) и макияж Виктории, у каждого курса своё видео', 'Лист ожидания отправляет заявку в Telegram-бот мастера', 'SEO: sitemap на 26 страниц в Google Search Console, страницы в индексе; Vercel Web Analytics и Speed Insights', 'Vite, React и Tailwind с пререндером, собрано с помощью ИИ; хостинг на Vercel, домен glowpoznan.com'], result: ['Более сильное присутствие салона онлайн', 'Органический трафик через блог и SEO', 'Заявки на курсы сразу приходят мастерам', 'Проще записаться к конкретному мастеру'] },
