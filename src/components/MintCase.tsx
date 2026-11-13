@@ -23,7 +23,7 @@ export function MintCase({ lang, index, total, text, work, nextHref, nextTitle, 
         <a href={`/${lang}/`} className="text-white">{name}</a>
       </header>
 
-      <section className="mt-24 md:mt-36 max-w-3xl">
+      <section className="mt-14 md:mt-20 max-w-3xl">
         <p className="font-mono text-[11px] tracking-[0.28em] uppercase" style={{ color: BLUE }}>MintBlister · 0{index} / 0{total}</p>
         <h1 className="mt-6 text-[2.6rem] leading-[1.02] md:text-7xl md:leading-[0.96] font-normal tracking-[-0.035em] text-white">{p.hook}</h1>
         <p className="mt-8 text-lg md:text-xl text-stone-300 max-w-xl leading-snug">{p.lead}</p>
@@ -34,20 +34,20 @@ export function MintCase({ lang, index, total, text, work, nextHref, nextTitle, 
         </div>
       </section>
 
-      <div className="mt-20 md:mt-28 flex items-end justify-center gap-2 md:gap-10 lg:gap-14">
+      <div className="mt-10 md:mt-12 flex items-end justify-center gap-2 md:gap-10 lg:gap-14">
         <div className="w-[26%] max-w-[250px]"><Phone src={heroL} /></div>
         <div className="w-[40%] max-w-[360px] md:mb-8"><Phone src={heroC} /></div>
         <div className="w-[26%] max-w-[250px]"><Phone src={heroR} /></div>
       </div>
 
-      <section className="mt-32 md:mt-48 grid md:grid-cols-2 gap-16 md:gap-24 max-w-5xl">
+      <section className="mt-32 md:mt-48 grid md:grid-cols-2 gap-10 md:gap-16 max-w-5xl">
         <div>
-          <p className="text-[11px] uppercase tracking-[0.25em]" style={{ color: BLUE }}>{p.problemL}</p>
-          <p className="mt-5 text-2xl md:text-3xl font-normal tracking-tight text-white leading-snug">{p.problem}</p>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{p.problemL}</p>
+          <p className="mt-3 text-sm leading-relaxed text-stone-300">{p.problem}</p>
         </div>
         <div>
-          <p className="text-[11px] uppercase tracking-[0.25em]" style={{ color: BLUE }}>{p.solutionL}</p>
-          <p className="mt-5 text-2xl md:text-3xl font-normal tracking-tight text-white leading-snug">{p.solution}</p>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{p.solutionL}</p>
+          <p className="mt-3 text-sm leading-relaxed text-stone-300">{p.solution}</p>
         </div>
       </section>
 
@@ -67,19 +67,25 @@ export function MintCase({ lang, index, total, text, work, nextHref, nextTitle, 
 
       <section className="mt-32 md:mt-48 grid md:grid-cols-12 gap-10">
         <h2 className="md:col-span-4 text-2xl md:text-3xl font-normal tracking-tight text-white">{p.designL}</h2>
-        <ol className="md:col-span-8 divide-y divide-white/[0.07]">
-          {p.decisions.map((line, i) => (
-            <li key={line} className="py-5 flex gap-6 text-stone-200">
-              <span className="font-mono text-[11px] tracking-[0.18em] pt-1" style={{ color: BLUE }}>0{i + 1}</span>
-              <span className="text-lg md:text-xl font-normal tracking-tight">{line}</span>
-            </li>
-          ))}
-        </ol>
+        <div className="md:col-span-8">
+          <ol className="divide-y divide-white/[0.07]">
+            {p.decisions.map((item, i) => (
+              <li key={item.t} className="py-5 flex gap-6">
+                <span className="font-mono text-[11px] tracking-[0.18em] pt-1" style={{ color: BLUE }}>0{i + 1}</span>
+                <div>
+                  <h3 className="text-base font-normal tracking-tight text-white">{item.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-300">{item.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          {p.note && <p className="mt-6 text-sm leading-relaxed text-stone-500">{p.note}</p>}
+        </div>
       </section>
 
       <section className="mt-28 md:mt-40">
         <p className="text-[11px] uppercase tracking-[0.25em] text-stone-500">{ui.mobile}</p>
-        <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
           {rest.map((src) => <Phone key={src} src={src} />)}
         </div>
       </section>
